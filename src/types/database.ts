@@ -25,6 +25,7 @@ export type Database = {
           staff_count: number | null
           square_footage: number | null
           cover_image_url: string | null
+          gallery_urls: string[]
           assets: Json
           view_count: number
           status: string
@@ -47,6 +48,7 @@ export type Database = {
           staff_count?: number | null
           square_footage?: number | null
           cover_image_url?: string | null
+          gallery_urls?: string[]
           assets?: Json
           view_count?: number
           status?: string
@@ -69,6 +71,7 @@ export type Database = {
           staff_count?: number | null
           square_footage?: number | null
           cover_image_url?: string | null
+          gallery_urls?: string[]
           assets?: Json
           view_count?: number
           status?: string

@@ -55,7 +55,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
       <section className="px-4 pt-10 pb-12">
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
-          <Gallery cover={listing.cover_image_url ?? ''} gallery={[]} alt={listing.title} />
+          <Gallery cover={listing.cover_image_url ?? ''} gallery={listing.gallery_urls} alt={listing.title} />
         </div>
       </section>
 
