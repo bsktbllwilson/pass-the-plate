@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Image from 'next/image'
+import UserMenu from '@/components/layout/UserMenu'
 
 const navLinks = [
   { label: 'Buy Business', href: '/buy' },
@@ -25,16 +26,19 @@ export default function SiteHeader() {
           <Image src="/logo-passtheplate.png" alt="Pass The Plate" width={220} height={40} className="h-9 w-auto"
             style={{ filter: 'brightness(0) saturate(100%) invert(97%) sepia(6%) saturate(1350%) hue-rotate(2deg) brightness(99%) contrast(90%)' }} priority />
         </a>
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.slice(2).map((l) => (
-            <a key={l.label} href={l.href} className="text-[rgb(248,243,223)] font-medium text-lg whitespace-nowrap hover:opacity-80 transition-opacity" style={{ fontFamily: 'var(--font-body)' }}>{l.label}</a>
-          ))}
-        </nav>
-        <button className="md:hidden text-[rgb(248,243,223)] p-2" onClick={() => setOpen(!open)} aria-label="Toggle menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            {open ? (<><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></>) : (<><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></>)}
-          </svg>
-        </button>
+        <div className="flex items-center gap-4 md:gap-8">
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.slice(2).map((l) => (
+              <a key={l.label} href={l.href} className="text-[rgb(248,243,223)] font-medium text-lg whitespace-nowrap hover:opacity-80 transition-opacity" style={{ fontFamily: 'var(--font-body)' }}>{l.label}</a>
+            ))}
+          </nav>
+          <UserMenu />
+          <button className="md:hidden text-[rgb(248,243,223)] p-2" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              {open ? (<><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></>) : (<><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></>)}
+            </svg>
+          </button>
+        </div>
       </div>
       {open && (
         <div className="md:hidden fixed inset-0 top-[72px] z-40 flex flex-col gap-6 px-8 pt-12" style={{ background: 'rgb(230,80,37)' }}>
