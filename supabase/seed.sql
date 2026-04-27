@@ -413,3 +413,124 @@ insert into partners (
   false,
   null
 );
+
+-- Pass The Plate — playbook posts
+-- Long-form editorial content for the Playbook surface. All rows are
+-- published with staggered published_at timestamps so the index sorts
+-- naturally by recency.
+
+insert into playbook_posts (
+  slug,
+  title,
+  excerpt,
+  body_md,
+  category,
+  cover_image_url,
+  author_name,
+  published,
+  published_at
+) values
+(
+  'asian-fnb-market-entry-guide-us',
+  'The Asian F&B Market Entry Guide to the US',
+  'New York rewards Asian F&B operators who arrive with capital structured for the SBA process and a visa pathway tied to the deal — not the other way around.',
+  $$New York is the densest Asian F&B market in the country, with established supply chains for fresh noodles, soy products, and live seafood that you will not find at scale anywhere else in the U.S. That density is the reason most foreign operators arrive here first — and also the reason the city is unforgiving when you skip steps.
+
+The most common entry mistake is chasing a buildout. New construction in NYC means 9–14 months of permitting, hood and grease-trap approvals, and Department of Buildings sign-offs before you can serve a single bowl. Acquisitions move in 60–90 days because the kitchen, hood, gas line, and certificate of occupancy already exist. For a first deal, buying an operating restaurant is almost always the right move.
+
+Capital prep matters more than the listing you fall in love with. Plan for 10–25% down on the purchase price, plus three to six months of working capital. If part of your down payment is coming from family in Asia, document the wire trail and gift letters now — SBA underwriters and immigration officers will ask for the same paperwork from different angles, and unexplained transfers will stall both processes simultaneously.
+
+If you are buying from outside the U.S., pick the visa first and size the deal around it. An E-2 application looks at the investment relative to the cost of the business; an EB-5 has a hard floor of $800K in a Targeted Employment Area. Working backwards from a visa makes the search disciplined instead of aspirational.$$,
+  'market_entry',
+  '/images/brand/chef.JPG',
+  'Pass The Plate Editorial',
+  true,
+  now() - interval '27 days'
+),
+(
+  'eb5-e2-l1-which-visa',
+  'Which Visa Works for Me? EB-5, E-2, or L-1?',
+  'For most first-time restaurant buyers from Asia, E-2 wins on speed and cost; EB-5 buys a green card; L-1 only works if you already operate a related business overseas.',
+  $$The E-2 treaty investor visa is the workhorse for first-time restaurant buyers — when you qualify. It is fast (3–6 months), there is no fixed minimum investment (we typically see $100K–$300K for a small restaurant), and it renews indefinitely as long as the business operates. The catch: your country of citizenship has to be on the State Department's treaty list. Taiwan, South Korea, Japan, Thailand, the Philippines, and Singapore are in. Mainland China, India, and Vietnam are not. If you hold a passport from Grenada or Turkey by investment, you are eligible — that is a legitimate path some buyers take.
+
+EB-5 buys you a conditional green card and, after two years, full permanent residency for you, your spouse, and unmarried children under 21. The minimum investment is $800K in a Targeted Employment Area (most NYC outer-borough neighborhoods qualify) or $1.05M elsewhere. The job-creation requirement is 10 full-time positions within two years, which a real restaurant can usually meet but a ghost kitchen cannot. Source-of-funds documentation is the single hardest part — plan on six to nine months just for that paperwork.
+
+L-1 is narrow: you must have run a qualifying business outside the U.S. for at least one year as an executive or specialized employee, and the U.S. entity has to be related (parent, subsidiary, branch, or affiliate). For most independent restaurant buyers this does not fit. It works when an established Hong Kong or Seoul restaurant group is opening a Manhattan location.
+
+Talk to an immigration attorney before you sign an LOI. The same restaurant can be a strong E-2 deal and a weak EB-5 deal simply because of how the purchase price allocates between goodwill, equipment, and working capital.$$,
+  'visa_immigration',
+  '/images/brand/dumplings.JPG',
+  'Pass The Plate Editorial',
+  true,
+  now() - interval '2 days'
+),
+(
+  'sba-7a-loan-first-restaurant',
+  'How to Use SBA 7(a) Loans to Buy Your First Restaurant',
+  'An SBA 7(a) can finance up to 90% of a restaurant acquisition on 10-year terms, but the seller''s books need to be clean before underwriting will touch the deal.',
+  $$The SBA 7(a) program goes up to $5M, requires 10–15% down from the buyer, and amortizes over 10 years for a business-only acquisition (25 years if real estate is included). For a first-time restaurant buyer that often means putting $150K–$250K down on a $1.5M deal — the bank covers the rest. Rates float around prime + 2.25% to 2.75% depending on loan size.
+
+Underwriting kills most restaurant deals at the financials stage. The bank wants three years of seller tax returns, three years of P&Ls that reconcile to those returns, monthly bank statements, sales tax filings, and a current rent roll. Cash sales that never hit the tax return are the most common dealbreaker — if the seller's "real" revenue is 30% higher than what the IRS sees, the bank can only lend against the documented number. Same with off-the-books staff and informal rent arrangements.
+
+Get pre-qualified before you sign an LOI, not after. A serious lender can issue a pre-qual letter against your personal financials in two weeks; that letter strengthens your offer and gives you a realistic ceiling. Once you are under contract the clock is real: a 7(a) typically takes 60–90 days from complete application to funding, and any document gap restarts a 5–10 day cycle.
+
+Use a Preferred Lender (PLP) bank rather than a bank that submits to SBA centrally. PLPs underwrite in-house with delegated authority, which usually saves three to four weeks. East Coast banks with strong restaurant practices include Live Oak, Newtek, and several community banks in Queens and Manhattan. Ask the lender how many F&B 7(a) deals they closed last year — under 10 is a yellow flag.$$,
+  'finance',
+  '/images/brand/noodles.jpeg',
+  'Pass The Plate Editorial',
+  true,
+  now() - interval '5 days'
+),
+(
+  '30-point-due-diligence-checklist',
+  '30-Point Due Diligence Checklist for Restaurant Acquisitions',
+  'A serious due diligence pass on an NYC restaurant goes well beyond financials — Department of Health grades, lease assignment terms, and equipment age can each break the deal on their own.',
+  $$**Financials (10 items).** Three years of federal and state tax returns; three years of monthly P&Ls reconciled to those returns; current AR and AP aging; quarterly sales tax filings; payroll registers including any 1099 contractors; merchant processor statements (Square, Toast, Clover); third-party delivery statements (DoorDash, Uber Eats, Grubhub); 12 months of bank statements; vendor invoices for the top 10 suppliers; current inventory count with cost basis.
+
+**Legal and licensing (8 items).** The full lease and any amendments — confirm the assignment clause, percentage rent, CAM, and remaining option terms; current liquor license and any pending complaints; DOH inspection history for the last three years (publicly searchable); fire and FDNY records; sidewalk café permit if applicable; certificate of occupancy matching the restaurant use; pending lawsuits or workers' comp claims; any ABC violations.
+
+**Operational (7 items).** Equipment list with age, model, and service contracts; hood cleaning records (most leases require quarterly); walk-in cooler and freezer inspection; HVAC service history; pest control contract; current POS contract and any data export rights; key vendor relationships including any volume rebates that do not transfer.
+
+**People (5 items).** Staff roster with tenure, role, and pay rate; immigration status disclosure under a confidentiality agreement (this matters more than buyers expect); whether key staff have signed letters of intent to stay; any non-compete or non-solicitation clauses; the chef's recipes — confirm they transfer in the asset purchase agreement.
+
+Red flags that should re-open price negotiation: declining covers over the last 12 months that cannot be explained by a temporary closure, a lease with under five years remaining and no option, deferred maintenance over $50K, recipes that exist only in the owner's head, or a cash-sales gap above 15% of reported revenue.$$,
+  'buying',
+  '/images/brand/dinner_table.jpeg',
+  'Pass The Plate Editorial',
+  true,
+  now() - interval '9 days'
+),
+(
+  'valuing-restaurant-before-selling',
+  'How To Value Your Restaurant Before Selling',
+  'Most NYC restaurants sell at 2–4× SDE depending on location, lease length, and revenue stability — clean tax returns are what move the multiple, not the dining-room story.',
+  $$Seller's Discretionary Earnings (SDE) is the right number for most independent restaurants under $3M in revenue. Start with net income on the tax return, then add back: owner compensation and benefits; one-time expenses (a new walk-in, a one-off legal bill); interest and depreciation; any personal expenses run through the business that a buyer would not have. The result is what the business actually generates for an owner-operator. That is the number a multiple gets applied to.
+
+Multiples by segment, drawn from NYC closings over the last 24 months: a small takeout-driven shop with under $500K revenue trades at 1.5–2.5× SDE. A full-service neighborhood restaurant with stable repeat business sits at 2–3×. An established concept with a real brand, a long lease, and documented systems can clear 3–4×, occasionally higher. Lease length is the single biggest swing factor — under five years remaining will knock at least half a turn off your multiple, no matter how good the food is.
+
+There is also an asset value floor: equipment at depreciated replacement cost, leasehold improvements, transferable licenses (especially liquor), and any recipe IP. For most restaurants this floor sits between $150K and $500K and matters when SDE-based valuation comes in low.
+
+If you are 12 months out from selling, the work is bookkeeping. Run cash sales through the POS and the tax return — a year of clean reporting moves the bankable revenue number more than any cosmetic upgrade. Renew or extend the lease. Document SOPs and recipes so a buyer is not buying you. Service the major equipment. Asking price is what you list at; closing price is what survives the buyer's due diligence and the lender's appraisal — in this market they are typically 10–20% apart.$$,
+  'selling',
+  '/images/brand/girsl.JPG',
+  'Pass The Plate Editorial',
+  true,
+  now() - interval '14 days'
+),
+(
+  'lease-assignments-asian-restaurant-owners',
+  'What Asian Restaurant Owners Need to Know About Lease Assignments',
+  'A restaurant lease assignment is a separate transaction from the business sale, and most NYC landlords run a 30–60 day approval window — start it the day you sign the LOI.',
+  $$Almost every NYC commercial lease has an assignment clause that requires landlord consent. That consent is rarely automatic. The landlord will run a credit check on the buyer, ask for two years of personal and business financials, request a business plan, and almost always require a personal guaranty. Build 30–60 days into your closing timeline for this — and start the package the day the LOI is signed, not the day the contract is signed.
+
+There are two paths and they are not the same. A pure assignment transfers the existing lease as-is, with the buyer stepping into the seller's shoes. A new lease means the landlord rewrites terms, and that is where the leverage shifts: rent often resets to current market, the security deposit goes up, option years can shrink, and personal guaranty terms can expand. If you are the buyer, push hard for a clean assignment. If you are the seller, you cannot fully control which path the landlord chooses, but you can introduce the buyer early and warmly.
+
+Older Asian-American landlords in Flushing, Sunset Park, and parts of Manhattan often run on relationship as much as paperwork. An in-person meeting in the buyer's primary language — Mandarin, Cantonese, Korean, or Vietnamese — has closed more lease assignments in this market than any spreadsheet. If your broker does not speak the landlord's language, bring someone who does. This is not a shortcut around the financial review; it is what makes the financial review go smoothly.
+
+Two specifics worth pushing back on. Personal guaranties on commercial leases default to the full lease term, but a "good guy" guaranty (limited to surrender, with no future liability) is standard in NYC and most landlords will accept it. And any "additional rent" pass-throughs — real estate tax escalations, CAM increases — should be capped, not open-ended.$$,
+  'legal',
+  '/images/brand/dessert.JPG',
+  'Pass The Plate Editorial',
+  true,
+  now() - interval '21 days'
+);
