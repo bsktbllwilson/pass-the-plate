@@ -9,7 +9,7 @@ import BuySellSplit from '@/components/sections/BuySellSplit'
 import FindYourNextBigDeal from '@/components/sections/FindYourNextBigDeal'
 import CategoryFilter from './CategoryFilter'
 import SubscribeCard from './SubscribeCard'
-import { CATEGORY_LABEL } from './labels'
+import { categoryLabel } from './labels'
 
 export const metadata: Metadata = {
   title: 'The Playbook — Pass The Plate',
@@ -95,24 +95,28 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
                     className="group bg-white rounded-2xl overflow-hidden block hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)] transition-shadow"
                   >
                     <div className="relative aspect-[16/10] bg-black/5">
-                      <Image
-                        src={post.cover_image_url}
-                        alt={post.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
+                      {post.cover_image_url && (
+                        <Image
+                          src={post.cover_image_url}
+                          alt={post.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      )}
                       <span className="absolute left-4 bottom-4 px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: '#FCE16E', fontFamily: 'var(--font-body)' }}>
-                        {CATEGORY_LABEL[post.category]}
+                        {categoryLabel(post.category)}
                       </span>
                     </div>
                     <div className="p-8">
                       <h2 className="font-medium tracking-[-0.01em] mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', lineHeight: '1.15' }}>
                         {post.title}
                       </h2>
-                      <p className="text-black/70 mb-5" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                        {post.excerpt}
-                      </p>
+                      {post.excerpt && (
+                        <p className="text-black/70 mb-5" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                          {post.excerpt}
+                        </p>
+                      )}
                       <span className="font-semibold border-b-2 pb-0.5" style={{ borderColor: '#FCE16E', fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
                         Read Guide →
                       </span>

@@ -9,7 +9,7 @@ import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
 import FindYourNextBigDeal from '@/components/sections/FindYourNextBigDeal'
 import Markdown from './Markdown'
-import { CATEGORY_LABEL, dateFmt } from '../labels'
+import { categoryLabel, dateFmt } from '../labels'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return { title: 'Guide Not Found — Pass The Plate' }
   return {
     title: `${post.title} — Pass The Plate`,
-    description: post.excerpt,
+    description: post.excerpt ?? undefined,
   }
 }
 
@@ -27,7 +27,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
   if (!post) notFound()
 
   const related = await getRelatedPosts(slug, 3)
-  const published = dateFmt.format(new Date(post.published_at))
+  const published = post.published_at ? dateFmt.format(new Date(post.published_at)) : ''
 
   return (
     <main style={{ background: '#F5EDDC' }}>
@@ -36,19 +36,21 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
       <article className="px-4 py-12">
         <div className="mx-auto" style={{ maxWidth: '768px' }}>
           <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-black/5">
-            <Image
-              src={post.cover_image_url}
-              alt={post.title}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 768px"
-              className="object-cover"
-            />
+            {post.cover_image_url && (
+              <Image
+                src={post.cover_image_url}
+                alt={post.title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover"
+              />
+            )}
           </div>
 
           <div className="mt-8">
             <span className="inline-block px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: '#FCE16E', fontFamily: 'var(--font-body)' }}>
-              {CATEGORY_LABEL[post.category]}
+              {categoryLabel(post.category)}
             </span>
           </div>
 
@@ -57,7 +59,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
           </h1>
 
           <div className="mt-4 text-black/55" style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>
-            {post.author_name} &nbsp;·&nbsp; {published}
+            {post.author_name}{published && ` · ${published}`}
           </div>
 
           <div className="mt-10">
@@ -79,11 +81,13 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
                       className="group bg-white rounded-2xl overflow-hidden block hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)] transition-shadow"
                     >
                       <div className="relative aspect-[16/10] bg-black/5">
-                        <Image src={r.cover_image_url} alt={r.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                        {r.cover_image_url && (
+                          <Image src={r.cover_image_url} alt={r.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                        )}
                       </div>
                       <div className="p-5">
                         <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium mb-3" style={{ background: '#FCE16E', fontFamily: 'var(--font-body)' }}>
-                          {CATEGORY_LABEL[r.category]}
+                          {categoryLabel(r.category)}
                         </span>
                         <h3 className="font-medium tracking-[-0.01em]" style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', lineHeight: '1.2' }}>
                           {r.title}
