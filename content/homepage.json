@@ -7,10 +7,10 @@
     { "id": "yum-cha-matcha", "name": "Yum Cha, Matcha", "city": "Long Island City", "state": "Queens", "category": "Japanese", "image": "/listing-4.png" }
   ],
   "platesAreFull": [
-    { "title": "Bilingual Listing", "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English only competitors.", "cta": "Get Started →" },
-    { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something!", "cta": "Market Tools →" },
-    { "title": "Vetted Demand", "body": "Buyers must show proof of funds or SBA pre-qualification before seller contacts are released. Vetted by our advisors. Zero Spam!", "cta": "View Sources →" },
-    { "title": "Curated Resources", "body": "Expert guides, bilingual templates, and case studies curated by advisors who have been in your seat.", "cta": "Access Playbooks →" }
+    { "title": "Bilingual Listing", "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English only competitors.", "cta": "Get Started →", "href": "/sell" },
+    { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something!", "cta": "Market Tools →", "href": "/tools" },
+    { "title": "Vetted Demand", "body": "Buyers must show proof of funds or SBA pre-qualification before seller contacts are released. Vetted by our advisors. Zero Spam!", "cta": "View Sources →", "href": "/about#trust" },
+    { "title": "Curated Resources", "body": "Expert guides, bilingual templates, and case studies curated by advisors who have been in your seat.", "cta": "Access Playbooks →", "href": "/playbook" }
   ],
   "stats": [
     { "value": "$57B", "label": "The booming Asian F&B sector changing hands right now." },
