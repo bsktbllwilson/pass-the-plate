@@ -1,4 +1,5 @@
 import { content } from '@/lib/content'
+import { getTrendingListings } from '@/lib/listings'
 import SiteHeader from '@/components/sections/SiteHeader'
 import Hero from '@/components/sections/Hero'
 import TrendingHotspots from '@/components/sections/TrendingHotspots'
@@ -9,12 +10,13 @@ import PartnerLogos from '@/components/sections/PartnerLogos'
 import Subscribe from '@/components/sections/Subscribe'
 import SiteFooter from '@/components/sections/SiteFooter'
 
-export default function Home() {
+export default async function Home() {
+  const trending = await getTrendingListings(4)
   return (
     <main>
       <SiteHeader />
       <Hero headline={content.hero.headline} italicWord={content.hero.italicWord} subhead={content.hero.subhead} />
-      <TrendingHotspots listings={content.trendingHotspots} />
+      <TrendingHotspots listings={trending} />
       <OurPlatesAreFull plates={content.platesAreFull} />
       <BuySellSplit />
       <StatsBand stats={content.stats} />

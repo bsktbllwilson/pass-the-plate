@@ -1,11 +1,5 @@
 {
   "hero": { "headline": "Your Seat at The Table Starts Here", "italicWord": "Seat", "subhead": "First Marketplace for The $240B+ Asian F&B Transition" },
-  "trendingHotspots": [
-    { "id": "grandmas-noods", "name": "Grandma's Noods", "city": "Flushing", "state": "Queens", "category": "Chinese", "image": "/listing-2.jpg" },
-    { "id": "bao-bao-town", "name": "Bao Bao Town", "city": "Chinatown", "state": "NY", "category": "Vietnamese", "image": "/listing-1.png" },
-    { "id": "1800-dumplings", "name": "1800-Dumplings", "city": "Elmhurst", "state": "Queens", "category": "Chinese", "image": "/listing-3.jpg" },
-    { "id": "yum-cha-matcha", "name": "Yum Cha, Matcha", "city": "Long Island City", "state": "Queens", "category": "Japanese", "image": "/listing-4.png" }
-  ],
   "platesAreFull": [
     { "title": "Bilingual Listing", "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English only competitors.", "cta": "Get Started →", "href": "/sell" },
     { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something!", "cta": "Market Tools →", "href": "/tools" },
