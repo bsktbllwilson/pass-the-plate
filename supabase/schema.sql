@@ -19,6 +19,7 @@ create table if not exists listings (
   staff_count           integer,
   square_footage        integer,
   cover_image_url       text,
+  gallery_urls          text[] not null default '{}',
   assets                jsonb not null default '[]'::jsonb,
   view_count            integer not null default 0,
   status                text not null default 'draft',
