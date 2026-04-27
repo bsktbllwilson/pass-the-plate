@@ -3,8 +3,8 @@ import { useState } from 'react'
 import Image from 'next/image'
 
 const navLinks = [
-  { label: 'Buy Business', href: '#' },
-  { label: 'Sell Business', href: '#' },
+  { label: 'Buy Business', href: '/buy' },
+  { label: 'Sell Business', href: '/sell' },
   { label: 'Playbooks', href: '#' },
   { label: 'Who We Are', href: '#' },
 ]
@@ -20,7 +20,7 @@ export default function SiteHeader() {
             <a key={l.label} href={l.href} className="text-[rgb(248,243,223)] font-medium text-lg whitespace-nowrap hover:opacity-80 transition-opacity" style={{ fontFamily: 'var(--font-body)' }}>{l.label}</a>
           ))}
         </nav>
-        <a href="#" className="flex items-center mx-auto md:mx-0">
+        <a href="/" className="flex items-center mx-auto md:mx-0">
           <Image src="/logo-passtheplate.png" alt="Pass The Plate" width={220} height={40} className="h-9 w-auto"
             style={{ filter: 'brightness(0) saturate(100%) invert(97%) sepia(6%) saturate(1350%) hue-rotate(2deg) brightness(99%) contrast(90%)' }} priority />
         </a>
