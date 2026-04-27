@@ -30,9 +30,9 @@ function listingAssets(assets: Listing['assets']): string[] {
 const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
 const fmtUSD = (cents: number) => usd.format(Math.round(cents / 100))
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params
-  const listing = await getListingBySlug(id)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const listing = await getListingBySlug(slug)
   if (!listing) return { title: 'Listing Not Found — Pass The Plate' }
   return {
     title: `${listing.title} — Pass The Plate`,
@@ -40,9 +40,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   }
 }
 
-export default async function ListingDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const listing = await getListingBySlug(id)
+export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const listing = await getListingBySlug(slug)
   if (!listing) notFound()
 
   const [firstPara, ...restParas] = listing.description.split(/\n\n+/)
