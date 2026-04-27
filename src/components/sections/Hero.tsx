@@ -1,15 +1,34 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 const INDUSTRIES = ['All Industries', 'Restaurants', 'Grocery', 'Manufacturing', 'Bakery & Cafe']
 
+const INDUSTRY_PARAM: Record<string, string | null> = {
+  'All Industries': null,
+  Restaurants: 'restaurant',
+  Grocery: 'grocery',
+  Manufacturing: 'manufacturing',
+  'Bakery & Cafe': 'bakery',
+}
+
 export default function Hero({ headline, italicWord, subhead }: { headline: string; italicWord: string; subhead: string }) {
+  const router = useRouter()
   const [city, setCity] = useState('')
   const [industry, setIndustry] = useState('All Industries')
   const [open, setOpen] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const words = headline.split(' ')
   const italicIdx = words.findIndex(w => w.toLowerCase().includes(italicWord.toLowerCase()))
+
+  function search(e: React.FormEvent) {
+    e.preventDefault()
+    const params = new URLSearchParams()
+    if (city.trim()) params.set('q', city.trim())
+    const ind = INDUSTRY_PARAM[industry]
+    if (ind) params.set('industry', ind)
+    router.push(`/buy${params.toString() ? '?' + params.toString() : ''}`)
+  }
 
   useEffect(() => {
     if (!open) return
@@ -37,7 +56,7 @@ export default function Hero({ headline, italicWord, subhead }: { headline: stri
         <p className="font-medium mb-12 mx-auto" style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1.125rem, 2.5vw, 1.875rem)', maxWidth: '900px', color: '#000' }}>
           {subhead}
         </p>
-        <div className="mx-auto flex flex-col md:flex-row items-stretch md:items-center rounded-3xl bg-white border border-black overflow-visible" style={{ maxWidth: '900px' }}>
+        <form onSubmit={search} className="mx-auto flex flex-col md:flex-row items-stretch md:items-center rounded-3xl bg-white border border-black overflow-visible" style={{ maxWidth: '900px' }}>
           <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="City, State"
             className="flex-1 px-8 py-5 font-medium outline-none bg-transparent placeholder-black/40 border-b md:border-b-0 md:border-r border-black/10"
             style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }} />
@@ -61,12 +80,12 @@ export default function Hero({ headline, italicWord, subhead }: { headline: stri
               </ul>
             )}
           </div>
-          <button onClick={() => console.log({ city, industry })}
+          <button type="submit"
             className="px-10 py-5 font-medium text-white rounded-b-3xl md:rounded-b-none md:rounded-r-3xl flex items-center justify-center gap-3 min-h-[72px]"
             style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>
             Find A Seat →
           </button>
-        </div>
+        </form>
       </div>
     </section>
   )

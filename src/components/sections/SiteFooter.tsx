@@ -7,7 +7,7 @@ export default function SiteFooter({ columns }: { columns: FooterColumn[] }) {
       <div className="mx-auto" style={{ maxWidth: '1540px' }}>
         <div className="flex flex-col md:flex-row gap-12 md:gap-16">
           <div className="flex-shrink-0">
-            <a href="#">
+            <a href="/">
               <Image src="/logo-passtheplate.png" alt="Pass The Plate" width={220} height={53} className="h-12 w-auto mb-8"
                 style={{ filter: 'brightness(0) saturate(100%) invert(97%) sepia(6%) saturate(1350%) hue-rotate(2deg) brightness(99%) contrast(90%)' }} />
             </a>
