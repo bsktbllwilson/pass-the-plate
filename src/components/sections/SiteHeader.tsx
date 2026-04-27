@@ -5,7 +5,7 @@ import Image from 'next/image'
 const navLinks = [
   { label: 'Buy Business', href: '/buy' },
   { label: 'Sell Business', href: '/sell' },
-  { label: 'Playbooks', href: '#' },
+  { label: 'Playbooks', href: '/playbook' },
   { label: 'Who We Are', href: '#' },
 ]
 
