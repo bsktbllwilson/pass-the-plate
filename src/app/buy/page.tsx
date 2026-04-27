@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { content } from '@/lib/content'
-import { getListings, type Listing } from '@/data/listings'
+import { getListings } from '@/lib/listings'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
@@ -15,9 +15,13 @@ export const metadata: Metadata = {
   description: 'Browse vetted Asian F&B businesses for sale. Filter by industry, location, and financials.',
 }
 
-const CUISINE_LABEL: Record<Listing['cuisine'], string> = {
-  chinese: 'Chinese', japanese: 'Japanese', korean: 'Korean',
-  vietnamese: 'Vietnamese', thai: 'Thai', pan_asian: 'Pan-Asian',
+function formatCuisine(cuisine: string): string {
+  if (cuisine === 'pan_asian') return 'Pan-Asian'
+  return cuisine.charAt(0).toUpperCase() + cuisine.slice(1)
+}
+
+function formatLocation(location: string): string {
+  return location.replace(/,\s*NY\s*$/i, '')
 }
 
 const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
@@ -118,21 +122,23 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {rows.map(listing => (
                 <article key={listing.id} className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
-                  <Link href={`/buy/${listing.id}`} className="block relative aspect-[16/10] bg-black/5">
-                    <Image
-                      src={listing.cover_image_url}
-                      alt={listing.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover"
-                    />
+                  <Link href={`/buy/${listing.slug}`} className="block relative aspect-[16/10] bg-black/5">
+                    {listing.cover_image_url && (
+                      <Image
+                        src={listing.cover_image_url}
+                        alt={listing.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover"
+                      />
+                    )}
                   </Link>
                   <div className="p-6 flex flex-col flex-1">
                     <h2 className="font-medium tracking-[-0.01em] mb-2" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', lineHeight: '1.15' }}>
-                      <Link href={`/buy/${listing.id}`} className="hover:opacity-80 transition-opacity">{listing.title}</Link>
+                      <Link href={`/buy/${listing.slug}`} className="hover:opacity-80 transition-opacity">{listing.title}</Link>
                     </h2>
                     <div className="text-sm text-black/55 mb-4" style={{ fontFamily: 'var(--font-body)' }}>
-                      {listing.neighborhood}, {listing.state} &nbsp;|&nbsp; {CUISINE_LABEL[listing.cuisine]}
+                      {formatLocation(listing.location)} &nbsp;|&nbsp; {formatCuisine(listing.cuisine)}
                     </div>
                     <div className="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-black/10">
                       <div>
@@ -148,7 +154,7 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
                       {listing.description.replace(/\n+/g, ' ')}
                     </p>
                     <Link
-                      href={`/buy/${listing.id}`}
+                      href={`/buy/${listing.slug}`}
                       className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
                       style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
                     >
