@@ -1,0 +1,33 @@
+{
+  "hero": { "headline": "Your Seat at The Table Starts Here", "italicWord": "Seat", "subhead": "First Marketplace for The $240B+ Asian F&B Transition" },
+  "trendingHotspots": [
+    { "id": "grandmas-noods", "name": "Grandma's Noods", "city": "Flushing", "state": "Queens", "category": "Chinese", "image": "/listing-2.jpg" },
+    { "id": "bao-bao-town", "name": "Bao Bao Town", "city": "Chinatown", "state": "NY", "category": "Vietnamese", "image": "/listing-1.png" },
+    { "id": "1800-dumplings", "name": "1800-Dumplings", "city": "Elmhurst", "state": "Queens", "category": "Chinese", "image": "/listing-3.jpg" },
+    { "id": "yum-cha-matcha", "name": "Yum Cha, Matcha", "city": "Long Island City", "state": "Queens", "category": "Japanese", "image": "/listing-4.png" }
+  ],
+  "platesAreFull": [
+    { "title": "Bilingual Listing", "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English only competitors.", "cta": "Get Started →" },
+    { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something!", "cta": "Market Tools →" },
+    { "title": "Vetted Demand", "body": "Buyers must show proof of funds or SBA pre-qualification before seller contacts are released. Vetted by our advisors. Zero Spam!", "cta": "View Sources →" },
+    { "title": "Curated Resources", "body": "Expert guides, bilingual templates, and case studies curated by advisors who have been in your seat.", "cta": "Access Playbooks →" }
+  ],
+  "stats": [
+    { "value": "$57B", "label": "The booming Asian F&B sector changing hands right now." },
+    { "value": "685K", "label": "Asian-owned employer firms generating $1.2 trillion in annual receipts." },
+    { "value": "$10T", "label": "In private business assets transferring as Baby Boomers retire by 2030." },
+    { "value": "120+", "label": "Vetted-partners. SBA lenders, bilingual brokers, & immigration attorneys." }
+  ],
+  "partners": [
+    { "name": "chowbus", "logo": "/chowbus.png" },
+    { "name": "HungryPanda", "logo": "" },
+    { "name": "Minitable", "logo": "" }
+  ],
+  "footer": {
+    "columns": [
+      { "heading": "Marketplace", "links": [{ "label": "Buy A Business", "href": "#" }, { "label": "Sell A Business", "href": "#" }, { "label": "Listing Heatmap", "href": "#" }] },
+      { "heading": "Resources", "links": [{ "label": "Guides & Playbooks", "href": "#" }, { "label": "Market Data", "href": "#" }, { "label": "Address Book", "href": "#" }, { "label": "Tools & Calculator", "href": "#" }] },
+      { "heading": "Company", "links": [{ "label": "Who We Are", "href": "#" }, { "label": "Become A Member", "href": "#" }, { "label": "Become A Partner", "href": "#" }, { "label": "FAQs", "href": "#" }] }
+    ]
+  }
+}
