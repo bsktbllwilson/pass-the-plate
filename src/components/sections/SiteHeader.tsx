@@ -6,7 +6,7 @@ const navLinks = [
   { label: 'Buy Business', href: '/buy' },
   { label: 'Sell Business', href: '/sell' },
   { label: 'Playbooks', href: '/playbook' },
-  { label: 'Who We Are', href: '#' },
+  { label: 'Who We Are', href: '/about' },
 ]
 
 export default function SiteHeader() {
