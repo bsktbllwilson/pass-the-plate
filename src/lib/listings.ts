@@ -4,8 +4,10 @@ export type { Listing }
 
 type GetListingsOpts = {
   q?: string
-  industry?: string
-  cuisine?: string
+  industry?: string | string[]
+  cuisine?: string | string[]
+  location?: string | string[]
+  assets?: string | string[]
   minPrice?: number
   maxPrice?: number
   minRevenue?: number
@@ -14,8 +16,13 @@ type GetListingsOpts = {
   perPage?: number
 }
 
+function toArray(v: string | string[] | undefined): string[] {
+  if (!v) return []
+  return Array.isArray(v) ? v : [v]
+}
+
 export async function getListings(opts: GetListingsOpts = {}): Promise<{ rows: Listing[]; totalCount: number; totalPages: number }> {
-  const { q, industry, cuisine, minPrice, maxPrice, minRevenue, maxRevenue, page = 1, perPage = 12 } = opts
+  const { q, industry, cuisine, location, assets, minPrice, maxPrice, minRevenue, maxRevenue, page = 1, perPage = 12 } = opts
 
   let rows = LISTINGS.slice()
 
@@ -28,8 +35,28 @@ export async function getListings(opts: GetListingsOpts = {}): Promise<{ rows: L
       l.description.toLowerCase().includes(needle),
     )
   }
-  if (industry) rows = rows.filter(l => l.industry === industry)
-  if (cuisine) rows = rows.filter(l => l.cuisine === cuisine)
+
+  const industries = toArray(industry)
+  if (industries.length) rows = rows.filter(l => industries.includes(l.industry))
+
+  const cuisines = toArray(cuisine)
+  if (cuisines.length) rows = rows.filter(l => cuisines.includes(l.cuisine))
+
+  const locations = toArray(location).map(s => s.toLowerCase())
+  if (locations.length) {
+    rows = rows.filter(l => {
+      const hay = `${l.city} ${l.state} ${l.neighborhood}`.toLowerCase()
+      return locations.some(loc => hay.includes(loc))
+    })
+  }
+
+  const assetNeedles = toArray(assets).map(s => s.toLowerCase())
+  if (assetNeedles.length) {
+    rows = rows.filter(l =>
+      assetNeedles.every(needle => l.assets.some(a => a.toLowerCase().includes(needle))),
+    )
+  }
+
   if (typeof minPrice === 'number') rows = rows.filter(l => l.asking_price_cents >= minPrice)
   if (typeof maxPrice === 'number') rows = rows.filter(l => l.asking_price_cents <= maxPrice)
   if (typeof minRevenue === 'number') rows = rows.filter(l => l.annual_revenue_cents >= minRevenue)

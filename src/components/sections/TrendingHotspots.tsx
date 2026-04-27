@@ -16,11 +16,11 @@ export default function TrendingHotspots({ listings }: { listings: Listing[] }) 
       <div className="mx-auto" style={{ maxWidth: '1540px' }}>
         <div className="flex items-baseline justify-between mb-8">
           <h2 className="font-medium tracking-[-0.01em]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>Trending Hotspots</h2>
-          <a href="#" className="font-medium text-black/55 hover:text-black transition-colors text-lg hidden md:block" style={{ fontFamily: 'var(--font-body)' }}>More Listings →</a>
+          <a href="/buy" className="font-medium text-black/55 hover:text-black transition-colors text-lg hidden md:block" style={{ fontFamily: 'var(--font-body)' }}>More Listings →</a>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {listings.map((listing) => (
-            <a key={listing.id} href={`/listings/${listing.id}`} className="relative rounded-3xl overflow-hidden block aspect-[354/490] group" style={{ background: '#333' }}>
+            <a key={listing.id} href={`/buy/${listing.id}`} className="relative rounded-3xl overflow-hidden block aspect-[354/490] group" style={{ background: '#333' }}>
               <Image src={listing.cover_image_url} alt={listing.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 style={listing.id === 'grandmas-noods' ? { objectPosition: '30% 40%', filter: 'grayscale(100%) brightness(1.15)' } : {}} />
