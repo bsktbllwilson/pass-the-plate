@@ -177,6 +177,10 @@ export async function POST(request: Request) {
       messages: parsed.messages.map((m) => ({ role: m.role, content: m.content })),
     })
 
+    // Wait for the connection so upstream errors (auth, rate limit) surface
+    // here as a clean JSON 500 rather than a half-sent text stream.
+    await stream.emitted('connect')
+
     const encoder = new TextEncoder()
     const body = new ReadableStream<Uint8Array>({
       async start(controller) {
