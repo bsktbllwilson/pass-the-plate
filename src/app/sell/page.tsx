@@ -51,7 +51,7 @@ export default function SellPage() {
               List your Asian F&amp;B Business in 10 Minutes. We charge $0 upfront, we only win when you win.
             </p>
             <div className="flex flex-wrap gap-4">
-              <LinkButton href="/contact?intent=sell" size="lg">
+              <LinkButton href="/sell/new" size="lg">
                 List My Business →
               </LinkButton>
               <LinkButton
