@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUp, MessageCircle, X } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowUp, X } from 'lucide-react'
 
 type Role = 'user' | 'assistant'
 
@@ -26,6 +27,17 @@ const SUGGESTED_PROMPTS = [
   'I want to sell my business — where do I start?',
   "What's a fair asking price for my restaurant?",
 ]
+
+type AvatarMood = 'happy' | 'flex' | 'sleepy' | 'cheeky'
+const AVATAR_SRC: Record<AvatarMood, string> = {
+  happy: '/shushu/happy.png',
+  flex: '/shushu/flex.png',
+  sleepy: '/shushu/sleepy.png',
+  cheeky: '/shushu/cheeky.png',
+}
+const IDLE_TIMEOUT_MS = 30_000
+const FLEX_DURATION_MS = 1_500
+const CHEEKY_DURATION_MS = 2_000
 
 const WELCOME_TEXT =
   "Hey, I'm Shushu \u{1F44B} (uncle in Mandarin). I'm Pass The Plate's bilingual concierge. Whether you're looking to buy your first Asian F&B business or sell the one you've poured your life into, I'm here to help. What can I help you with today?"
@@ -128,7 +140,15 @@ function MessageBubble({ message }: { message: ChatMessage }) {
 
 function TypingIndicator() {
   return (
-    <div className="flex items-start">
+    <div className="flex items-end gap-2">
+      <Image
+        src="/shushu/running.png"
+        alt=""
+        width={36}
+        height={36}
+        className="w-9 h-9 object-contain animate-bounce"
+        priority={false}
+      />
       <div
         className="rounded-2xl border px-4 py-3 flex gap-1.5"
         style={{ background: '#fff', borderColor: BORDER }}
@@ -159,19 +179,51 @@ export default function ChatWidget() {
   const [error, setError] = useState<string | null>(null)
   const [bouncing, setBouncing] = useState(true)
   const [hydrated, setHydrated] = useState(false)
+  const [avatarMood, setAvatarMood] = useState<AvatarMood>('happy')
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const panelRef = useRef<HTMLDivElement | null>(null)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
   const abortRef = useRef<AbortController | null>(null)
+  const moodTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const avatarClickCountRef = useRef(0)
+  const avatarClickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const setMoodFor = useCallback((mood: AvatarMood, duration: number) => {
+    setAvatarMood(mood)
+    if (moodTimerRef.current) clearTimeout(moodTimerRef.current)
+    moodTimerRef.current = setTimeout(() => setAvatarMood('happy'), duration)
+  }, [])
+
+  const resetIdleTimer = useCallback(() => {
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+    setAvatarMood((m) => (m === 'sleepy' ? 'happy' : m))
+    idleTimerRef.current = setTimeout(() => {
+      setAvatarMood((m) => (m === 'happy' ? 'sleepy' : m))
+    }, IDLE_TIMEOUT_MS)
+  }, [])
 
   useEffect(() => {
     setMessages(loadFromSession())
     setHydrated(true)
     const t = setTimeout(() => setBouncing(false), 2000)
-    return () => clearTimeout(t)
+    return () => {
+      clearTimeout(t)
+      if (moodTimerRef.current) clearTimeout(moodTimerRef.current)
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+      if (avatarClickTimerRef.current) clearTimeout(avatarClickTimerRef.current)
+    }
   }, [])
+
+  useEffect(() => {
+    if (!isOpen) {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+      return
+    }
+    resetIdleTimer()
+  }, [isOpen, resetIdleTimer])
 
   useEffect(() => {
     if (!hydrated) return
@@ -283,6 +335,7 @@ export default function ChatWidget() {
               ts: Date.now(),
             },
           ])
+          setMoodFor('flex', FLEX_DURATION_MS)
         } else {
           setError(ERROR_TEXT)
         }
@@ -295,9 +348,10 @@ export default function ChatWidget() {
         setStreamingText('')
         setIsLoading(false)
         abortRef.current = null
+        resetIdleTimer()
       }
     },
-    [isLoading, messages],
+    [isLoading, messages, setMoodFor, resetIdleTimer],
   )
 
   const handleSubmit = useCallback(
@@ -318,10 +372,14 @@ export default function ChatWidget() {
     [input, sendMessage],
   )
 
-  const handleSuggested = useCallback((prompt: string) => {
-    setInput(prompt)
-    setTimeout(() => textareaRef.current?.focus(), 0)
-  }, [])
+  const handleSuggested = useCallback(
+    (prompt: string) => {
+      setInput(prompt)
+      resetIdleTimer()
+      setTimeout(() => textareaRef.current?.focus(), 0)
+    },
+    [resetIdleTimer],
+  )
 
   const handleOpen = useCallback(() => {
     setIsOpen(true)
@@ -333,6 +391,18 @@ export default function ChatWidget() {
     abortRef.current?.abort()
     setTimeout(() => buttonRef.current?.focus(), 0)
   }, [])
+
+  const handleAvatarClick = useCallback(() => {
+    avatarClickCountRef.current += 1
+    if (avatarClickTimerRef.current) clearTimeout(avatarClickTimerRef.current)
+    avatarClickTimerRef.current = setTimeout(() => {
+      avatarClickCountRef.current = 0
+    }, 800)
+    if (avatarClickCountRef.current >= 3) {
+      avatarClickCountRef.current = 0
+      setMoodFor('cheeky', CHEEKY_DURATION_MS)
+    }
+  }, [setMoodFor])
 
   const fontStyle = useMemo<React.CSSProperties>(
     () => ({ fontFamily: 'var(--font-body)' }),
@@ -346,12 +416,19 @@ export default function ChatWidget() {
           ref={buttonRef}
           onClick={handleOpen}
           aria-label="Open chat with Shushu"
-          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-shadow ${
+          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-shadow overflow-hidden ${
             bouncing ? 'animate-bounce' : ''
           }`}
           style={{ background: ORANGE }}
         >
-          <MessageCircle size={28} strokeWidth={2} />
+          <Image
+            src="/shushu/hello.png"
+            alt=""
+            width={140}
+            height={140}
+            className="absolute left-1/2 -translate-x-1/2 top-[-10%] w-[140%] max-w-none h-auto pointer-events-none select-none"
+            priority
+          />
           <span
             aria-hidden
             className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full"
@@ -375,18 +452,23 @@ export default function ChatWidget() {
             style={{ background: ORANGE, height: 64 }}
           >
             <div className="flex items-center gap-3 min-w-0">
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center font-medium shrink-0"
-                style={{
-                  background: CREAM,
-                  color: ORANGE,
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 20,
-                }}
+              <button
+                type="button"
+                onClick={handleAvatarClick}
+                tabIndex={-1}
                 aria-hidden
+                className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center shrink-0 cursor-pointer"
+                style={{ background: CREAM }}
               >
-                S
-              </div>
+                <Image
+                  src={AVATAR_SRC[avatarMood]}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="w-[120%] h-[120%] object-cover object-top transition-opacity"
+                  key={avatarMood}
+                />
+              </button>
               <div className="flex flex-col leading-tight min-w-0">
                 <span className="font-medium text-base truncate">Shushu</span>
                 <span className="flex items-center gap-1.5 text-xs opacity-90">
@@ -415,9 +497,19 @@ export default function ChatWidget() {
           >
             {showWelcome && (
               <>
+                <div className="flex justify-center pt-2 pb-1">
+                  <Image
+                    src="/shushu/happy.png"
+                    alt=""
+                    width={140}
+                    height={140}
+                    className="w-28 h-28 object-contain"
+                    priority
+                  />
+                </div>
                 <div className="flex flex-col items-start gap-1">
                   <div
-                    className="max-w-[80%] rounded-2xl border px-4 py-2 text-[15px] leading-snug"
+                    className="max-w-[85%] rounded-2xl border px-4 py-2 text-[15px] leading-snug"
                     style={{ background: '#fff', borderColor: BORDER, color: INK }}
                   >
                     {WELCOME_TEXT}
@@ -456,16 +548,24 @@ export default function ChatWidget() {
             )}
 
             {error && (
-              <div
-                role="alert"
-                className="text-[13px] rounded-2xl border px-3 py-2"
-                style={{
-                  background: '#fff5f3',
-                  borderColor: '#f5c5b8',
-                  color: '#9a3412',
-                }}
-              >
-                {renderInlineLinks(error, 'err')}
+              <div role="alert" className="flex items-end gap-2">
+                <Image
+                  src="/shushu/sad.png"
+                  alt=""
+                  width={36}
+                  height={36}
+                  className="w-9 h-9 object-contain shrink-0"
+                />
+                <div
+                  className="text-[13px] rounded-2xl border px-3 py-2"
+                  style={{
+                    background: '#fff5f3',
+                    borderColor: '#f5c5b8',
+                    color: '#9a3412',
+                  }}
+                >
+                  {renderInlineLinks(error, 'err')}
+                </div>
               </div>
             )}
 
@@ -498,7 +598,10 @@ export default function ChatWidget() {
               <textarea
                 ref={textareaRef}
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => {
+                  setInput(e.target.value)
+                  resetIdleTimer()
+                }}
                 onKeyDown={handleKeyDown}
                 rows={1}
                 placeholder="Ask Shushu anything…"
