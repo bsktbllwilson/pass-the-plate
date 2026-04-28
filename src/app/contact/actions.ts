@@ -1,14 +1,51 @@
 'use server'
 
+import { z } from 'zod'
+import { getAnonClient } from '@/lib/supabase/anon'
+import { sendContactNotification } from '@/lib/notify'
+
 export type ContactState = { ok: boolean; message?: string } | null
 
+const Schema = z.object({
+  name: z.string().trim().min(1, 'Please enter your name.').max(120),
+  email: z.string().trim().toLowerCase().email('Please enter a valid email.').max(254),
+  topic: z.string().trim().min(1).max(80).optional().nullable(),
+  message: z.string().trim().min(1, 'Please add a message.').max(4000),
+})
+
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
-  const payload = {
-    name: String(formData.get('name') ?? ''),
-    email: String(formData.get('email') ?? ''),
-    topic: String(formData.get('topic') ?? ''),
-    message: String(formData.get('message') ?? ''),
+  const result = Schema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    topic: formData.get('topic'),
+    message: formData.get('message'),
+  })
+
+  if (!result.success) {
+    const first = result.error.issues[0]?.message ?? 'Please check your inputs.'
+    return { ok: false, message: first }
   }
-  console.log('Contact form submitted:', payload)
+
+  const input = result.data
+  const supabase = getAnonClient()
+  const { error } = await supabase.from('contact_messages').insert({
+    name: input.name,
+    email: input.email,
+    topic: input.topic ?? null,
+    message: input.message,
+  })
+
+  if (error) {
+    console.error('submitContact error:', error)
+    return { ok: false, message: "Sorry, we couldn't send that just now. Please try again." }
+  }
+
+  void sendContactNotification({
+    name: input.name,
+    email: input.email,
+    topic: input.topic ?? null,
+    message: input.message,
+  })
+
   return { ok: true }
 }

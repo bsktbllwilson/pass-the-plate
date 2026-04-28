@@ -17,7 +17,7 @@ export default function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               aria-expanded={isOpen}
               className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-black/[0.02] transition-colors"
             >
-              <span className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.125rem', lineHeight: '1.35' }}>
+              <span className="font-display font-medium" style={{ fontSize: '1.125rem', lineHeight: '1.35' }}>
                 {faq.question}
               </span>
               <svg
@@ -37,7 +37,7 @@ export default function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               </svg>
             </button>
             {isOpen && (
-              <div className="px-6 pb-6" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: '1.65', color: 'rgba(0,0,0,0.72)' }}>
+              <div className="px-6 pb-6" style={{ fontSize: '1rem', lineHeight: '1.65', color: 'rgba(0,0,0,0.72)' }}>
                 {faq.answer}
               </div>
             )}

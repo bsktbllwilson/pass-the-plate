@@ -1,6 +1,7 @@
 'use client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui'
 
 export default function SearchBar() {
   const router = useRouter()
@@ -26,15 +27,11 @@ export default function SearchBar() {
         onChange={e => setValue(e.target.value)}
         placeholder="Keywords (e.g. dumplings, Williamsburg, liquor license)"
         className="flex-1 px-7 py-4 font-medium outline-none bg-transparent placeholder-black/40"
-        style={{ fontFamily: 'var(--font-body)', fontSize: '1.125rem' }}
+        style={{ fontSize: '1.125rem' }}
       />
-      <button
-        type="submit"
-        className="px-8 py-4 font-medium text-white flex items-center gap-2"
-        style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1.125rem' }}
-      >
+      <Button type="submit" size="lg" shape="rounded" className="rounded-l-none">
         Search →
-      </button>
+      </Button>
     </form>
   )
 }

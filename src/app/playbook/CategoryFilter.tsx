@@ -36,10 +36,9 @@ export default function CategoryFilter() {
             onClick={() => pick(c.value)}
             className={`flex-shrink-0 px-5 py-2.5 rounded-full font-medium border transition-colors ${isActive ? 'border-black' : 'border-black hover:bg-black/5'}`}
             style={{
-              background: isActive ? '#FCE16E' : '#fff',
+              background: isActive ? 'var(--color-yellow)' : '#fff',
               color: '#000',
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.95rem',
+                            fontSize: '0.95rem',
             }}
           >
             {c.label}

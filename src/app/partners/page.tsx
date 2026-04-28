@@ -31,31 +31,31 @@ function PartnerCard({ partner }: { partner: Partner }) {
       <div className="flex items-start justify-between gap-3 mb-4">
         <span
           className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wide"
-          style={{ fontFamily: 'var(--font-body)', background: 'rgba(230,78,33,0.08)', color: 'rgb(230,78,33)' }}
+          style={{ background: 'rgba(230,78,33,0.08)', color: 'var(--color-brand)' }}
         >
           {formatSpecialty(partner.specialty)}
         </span>
         {partner.featured && (
           <span
             className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wide"
-            style={{ fontFamily: 'var(--font-body)', background: 'rgba(0,0,0,0.06)', color: 'rgba(0,0,0,0.7)' }}
+            style={{ background: 'rgba(0,0,0,0.06)', color: 'rgba(0,0,0,0.7)' }}
           >
             Featured
           </span>
         )}
       </div>
 
-      <h2 className="font-medium tracking-[-0.01em] mb-1" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', lineHeight: '1.15' }}>
+      <h2 className="font-display font-medium tracking-[-0.01em] mb-1" style={{ fontSize: '1.5rem', lineHeight: '1.15' }}>
         {partner.full_name}
       </h2>
       {partner.job_title && partner.company && (
-        <div className="text-sm text-black/60 mb-4" style={{ fontFamily: 'var(--font-body)' }}>
+        <div className="font-body text-sm text-black/60 mb-4">
           {partner.job_title} · {partner.company}
         </div>
       )}
 
       {partner.languages.length > 0 && (
-        <div className="text-xs uppercase tracking-wide text-black/55 mb-4" style={{ fontFamily: 'var(--font-body)' }}>
+        <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-4">
           {formatLanguages(partner.languages)}
         </div>
       )}
@@ -63,13 +63,13 @@ function PartnerCard({ partner }: { partner: Partner }) {
       {partner.bio && (
         <p
           className="text-black/70 mb-5 flex-1"
-          style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+          style={{ fontSize: '0.95rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
         >
           {partner.bio}
         </p>
       )}
 
-      <div className="pt-4 border-t border-black/10 flex flex-wrap gap-x-4 gap-y-2 text-sm" style={{ fontFamily: 'var(--font-body)' }}>
+      <div className="font-body pt-4 border-t border-black/10 flex flex-wrap gap-x-4 gap-y-2 text-sm">
         <a href={`mailto:${partner.email}`} className="text-black/70 hover:text-black transition-colors">
           Email
         </a>
@@ -92,15 +92,15 @@ export default async function PartnersPage() {
   const { rows, totalCount } = await getPartners({ perPage: 100 })
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="px-4 pt-12 pb-6">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h1 className="font-medium tracking-[-0.01em] text-center mb-2" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.05' }}>
+          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.05' }}>
             Trusted <em style={{ fontStyle: 'italic' }}>Partners</em>
           </h1>
-          <p className="text-center mb-10 mx-auto" style={{ fontFamily: 'var(--font-body)', fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
+          <p className="text-center mb-10 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
             Vetted SBA lenders, immigration attorneys, bilingual brokers, accountants, and insurance specialists who work with Asian F&amp;B operators in NYC.
           </p>
         </div>
@@ -109,13 +109,13 @@ export default async function PartnersPage() {
       <section className="px-4 pb-20">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
           {rows.length === 0 ? (
-            <div className="rounded-2xl bg-white border border-black/10 p-12 text-center" style={{ fontFamily: 'var(--font-body)' }}>
+            <div className="font-body rounded-2xl bg-white border border-black/10 p-12 text-center">
               <p className="text-xl mb-2">No partners listed yet.</p>
               <p className="text-black/60">Check back soon — we&apos;re adding vetted partners every week.</p>
             </div>
           ) : (
             <>
-              <div className="text-sm text-black/55 mb-6" style={{ fontFamily: 'var(--font-body)' }}>
+              <div className="font-body text-sm text-black/55 mb-6">
                 {totalCount} {totalCount === 1 ? 'partner' : 'partners'}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -3,9 +3,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-const inputClasses = 'w-full rounded-full border border-black/15 bg-[#FAF6EB] px-5 py-3 text-base focus:outline-none focus:border-black/40 transition-colors'
-const labelClasses = 'block text-sm font-medium mb-2 text-black/70'
+import { Button, Field, Input } from '@/components/ui'
 
 function siteUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
@@ -59,8 +57,8 @@ export default function SignInForm() {
 
   if (magicSent) {
     return (
-      <div className="text-center" style={{ fontFamily: 'var(--font-body)' }}>
-        <h1 className="font-medium tracking-[-0.01em] mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', lineHeight: '1.15' }}>Check your email</h1>
+      <div className="font-body text-center">
+        <h1 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '2rem', lineHeight: '1.15' }}>Check your email</h1>
         <p className="text-black/70 mb-6">We sent a sign-in link to <span className="font-medium text-black">{email}</span>. Click it to finish signing in.</p>
         <button
           type="button"
@@ -74,49 +72,42 @@ export default function SignInForm() {
   }
 
   return (
-    <div style={{ fontFamily: 'var(--font-body)' }}>
-      <h1 className="font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: '1.1' }}>Welcome back</h1>
+    <div className="font-body">
+      <h1 className="font-display font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: '1.1' }}>Welcome back</h1>
       <p className="text-center text-black/55 mb-8 text-sm">Sign in to manage listings, save searches, and contact partners.</p>
 
       <form onSubmit={onSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="email" className={labelClasses}>Email</label>
-          <input
+        <Field label="Email" htmlFor="email" tone="auth">
+          <Input
             id="email"
             type="email"
             required
             autoComplete="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className={inputClasses}
+            tone="auth"
           />
-        </div>
+        </Field>
 
         {mode === 'password' && (
-          <div>
-            <label htmlFor="password" className={labelClasses}>Password</label>
-            <input
+          <Field label="Password" htmlFor="password" tone="auth">
+            <Input
               id="password"
               type="password"
               required
               autoComplete="current-password"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              className={inputClasses}
+              tone="auth"
             />
-          </div>
+          </Field>
         )}
 
         {error && <div className="text-sm text-red-600">{error}</div>}
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-          style={{ background: 'rgb(230,78,33)', fontSize: '1rem' }}
-        >
+        <Button type="submit" disabled={submitting} fullWidth>
           {submitting ? 'Signing in…' : mode === 'magic' ? 'Send Magic Link →' : 'Sign In →'}
-        </button>
+        </Button>
       </form>
 
       <div className="mt-4 text-center">

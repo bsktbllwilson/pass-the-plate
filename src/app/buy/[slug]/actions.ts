@@ -2,6 +2,7 @@
 
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
+import { sendInquiryNotification } from '@/lib/notify'
 
 export type InquiryState = { ok: boolean; error?: string } | null
 
@@ -26,22 +27,39 @@ export async function submitInquiry(
     return { ok: false, error: 'Please check your name, email, and message.' }
   }
 
+  const input = result.data
   const supabase = await createClient()
   const { data: userResult } = await supabase.auth.getUser()
   const buyerId = userResult.user ? userResult.user.id : null
 
-  const { error } = await supabase.from('listing_inquiries').insert({
-    listing_id: result.data.listingId,
+  const { error: insertError } = await supabase.from('listing_inquiries').insert({
+    listing_id: input.listingId,
     buyer_id: buyerId,
-    buyer_name: result.data.name,
-    buyer_email: result.data.email,
-    message: result.data.message,
+    buyer_name: input.name,
+    buyer_email: input.email,
+    message: input.message,
   })
 
-  if (error) {
-    console.error('submitInquiry error:', error)
+  if (insertError) {
+    console.error('submitInquiry error:', insertError)
     return { ok: false, error: "Sorry, we couldn't send that just now. Please try again." }
   }
+
+  const { data: listing } = await supabase
+    .from('listings')
+    .select('title, slug')
+    .eq('id', input.listingId)
+    .maybeSingle()
+
+  void sendInquiryNotification({
+    listingId: input.listingId,
+    listingTitle: listing ? listing.title : null,
+    listingSlug: listing ? listing.slug : null,
+    buyerName: input.name,
+    buyerEmail: input.email,
+    message: input.message,
+    buyerId,
+  })
 
   return { ok: true }
 }

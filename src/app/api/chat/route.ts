@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { z } from 'zod'
-import { createClient } from '@/lib/supabase/server'
+import { getAnonClient } from '@/lib/supabase/anon'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -13,6 +13,38 @@ const MessageSchema = z.object({
 const BodySchema = z.object({
   messages: z.array(MessageSchema).min(1).max(40),
 })
+
+// Per-IP in-memory rate limit. Single-process only — Vercel serverless
+// invocations may be cold; a determined attacker can still grind across
+// instances. Move to a shared store (Upstash, KV, etc.) if abuse becomes
+// real. Until then this caps casual scraping of the chat / Anthropic spend.
+const RATE_WINDOW_MS = 60_000
+const RATE_MAX = 20
+const rateBuckets = new Map<string, { count: number; resetAt: number }>()
+
+function clientIp(request: Request): string {
+  const fwd = request.headers.get('x-forwarded-for')
+  if (fwd) return fwd.split(',')[0]!.trim()
+  return request.headers.get('x-real-ip') ?? 'unknown'
+}
+
+function checkRateLimit(ip: string): { ok: true } | { ok: false; retryAfter: number } {
+  const now = Date.now()
+  const entry = rateBuckets.get(ip)
+  if (!entry || entry.resetAt <= now) {
+    rateBuckets.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    if (rateBuckets.size > 1024) {
+      // Light reaping: scrub stale entries when the map grows large.
+      for (const [k, v] of rateBuckets) if (v.resetAt <= now) rateBuckets.delete(k)
+    }
+    return { ok: true }
+  }
+  if (entry.count >= RATE_MAX) {
+    return { ok: false, retryAfter: Math.ceil((entry.resetAt - now) / 1000) }
+  }
+  entry.count += 1
+  return { ok: true }
+}
 
 type ListingForPrompt = {
   id: string
@@ -40,7 +72,7 @@ function formatMoney(cents: number): string {
 
 async function fetchListingsForPrompt(): Promise<ListingForPrompt[]> {
   try {
-    const supabase = await createClient()
+    const supabase = getAnonClient()
     const { data, error } = await supabase
       .from('listings')
       .select('id, title, location, cuisine, asking_price_cents, annual_revenue_cents, slug, description')
@@ -105,39 +137,33 @@ ABOUT PASS THE PLATE
 PRICING & FEES
 - Sellers: $0 upfront to list. We charge a 3-5% success fee only when the deal closes.
 - Buyers: Free to browse. To inquire on listings, buyers must verify proof of funds or SBA pre-qualification.
-- Memberships:
-  - First Bite ($0/mo): 25 listings, 50 contacts, 1 complimentary valuation
-  - Chef's Table ($99/mo): 100 listings, 200 contacts, 60-min advisor session
-  - Full Menu ($249/mo): unlimited listings + contacts, dedicated advisor
+- Membership tiers (First Bite / Chef's Table / Full Menu) are in development. If a user asks for pricing details, tell them tiers are launching soon and offer to take their info via /contact.
 
 KEY PAGES YOU CAN LINK TO
 - /buy — browse all listings
 - /sell — for sellers thinking about listing
-- /membership — pricing tiers
 - /partners — Yellow Pages directory of vetted partners
-- /partners/apply — partner application form
 - /playbook — guides on buying, selling, visa, legal, finance
-- /tools — free valuation calculator + benchmarks
 - /about — our mission and story
-- /contact — reach our team
+- /contact — reach our team (use this for partner applications, valuations, membership questions, and anything else not covered by an existing page)
 - /sign-up — create an account
 - /sign-in — log in
 
 WHEN TO LINK
-- If a user asks about a topic that has a dedicated page, include the path inline (e.g., "You can browse listings at /buy or get a free valuation at /tools").
+- Only link to the paths listed above. Never invent or guess a URL — if no page exists for what the user is asking about, point them to /contact.
 - If a user describes what they want and a current listing matches, recommend it by name and link to /buy/<slug>.
 
 CURRENT LISTINGS (refreshed each conversation, may be subset of what's on the marketplace)
 ${listingsBlock}
 
 DETECTING USER INTENT
-- If they mention "buy", "looking for", "interested in", "shopping" → buyer mode. Recommend listings, mention proof-of-funds verification, link to /buy and /membership.
-- If they mention "sell", "list my", "my restaurant", "ready to retire" → seller mode. Mention $0 upfront / success fee, link to /sell and /tools (free valuation).
+- If they mention "buy", "looking for", "interested in", "shopping" → buyer mode. Recommend listings, mention proof-of-funds verification, link to /buy.
+- If they mention "sell", "list my", "my restaurant", "ready to retire" → seller mode. Mention $0 upfront / success fee, link to /sell. For free valuations, take their info via /contact.
 - If unclear, ask a friendly clarifying question.
 
 WHAT NOT TO DO
 - Don't make up listings, prices, or specific business details that aren't in the listings list above.
-- Don't give legal, tax, or immigration advice. Refer to /partners/apply or /contact.
+- Don't give legal, tax, or immigration advice. Refer to /partners (to find a partner) or /contact (to reach our team).
 - Don't promise specific outcomes ("you'll definitely sell for $X").
 - Don't share competitor pricing or pretend to be human.
 - If asked "are you human?", say: "I'm Shushu, an AI assistant. For human help, reach our team at /contact."
@@ -146,6 +172,14 @@ Today is ${today}.`
 }
 
 export async function POST(request: Request) {
+  const limit = checkRateLimit(clientIp(request))
+  if (!limit.ok) {
+    return Response.json(
+      { error: 'Too many requests. Give Shushu a moment to catch up and try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } },
+    )
+  }
+
   let parsed: z.infer<typeof BodySchema>
   try {
     const json = await request.json()

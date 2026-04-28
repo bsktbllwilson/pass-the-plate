@@ -8,18 +8,20 @@ import SignOutButton from '@/components/auth/SignOutButton'
 
 export const metadata: Metadata = {
   title: 'Account — Pass The Plate',
+  description: 'Your Pass The Plate account dashboard.',
+  robots: { index: false, follow: false },
 }
 
 export default async function AccountPage() {
   const user = await requireUser('/account')
 
   return (
-    <main style={{ background: '#F5EDDC', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--color-cream)', minHeight: '100vh' }}>
       <SiteHeader />
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto w-full max-w-2xl">
-          <div className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] px-8 py-10" style={{ fontFamily: 'var(--font-body)' }}>
-            <h1 className="font-medium tracking-[-0.01em] mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: '1.1' }}>
+          <div className="font-body bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] px-8 py-10">
+            <h1 className="font-display font-medium tracking-[-0.01em] mb-4" style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: '1.1' }}>
               Account dashboard
             </h1>
             <p className="text-black/70 mb-2">Coming soon.</p>

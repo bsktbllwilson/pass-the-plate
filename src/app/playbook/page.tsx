@@ -50,7 +50,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
   })
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="relative w-full overflow-hidden" style={{ minHeight: '400px', height: '50vh' }}>
@@ -64,13 +64,13 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)' }} />
         <div className="absolute inset-0 flex items-end">
-          <h1 className="pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'rgb(248,243,222)', fontFamily: 'var(--font-display)', fontSize: 'clamp(4.5rem, 14vw, 8.75rem)', lineHeight: '1' }}>
+          <h1 className="font-display pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'var(--color-cream-soft)', fontSize: 'clamp(4.5rem, 14vw, 8.75rem)', lineHeight: '1' }}>
             The Playbook
           </h1>
         </div>
       </section>
 
-      <section className="px-4 py-8" style={{ background: '#F5EDDC' }}>
+      <section className="px-4 py-8" style={{ background: 'var(--color-cream)' }}>
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
           <CategoryFilter />
         </div>
@@ -79,7 +79,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
       <section className="px-4 py-12">
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
           {rows.length === 0 ? (
-            <div className="rounded-2xl bg-white border border-black/10 p-12 text-center" style={{ fontFamily: 'var(--font-body)' }}>
+            <div className="font-body rounded-2xl bg-white border border-black/10 p-12 text-center">
               <p className="text-xl mb-2">No guides in this category yet.</p>
               <p className="text-black/60">Try another category or read all.</p>
             </div>
@@ -104,20 +104,20 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       )}
-                      <span className="absolute left-4 bottom-4 px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: '#FCE16E', fontFamily: 'var(--font-body)' }}>
+                      <span className="absolute left-4 bottom-4 px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: 'var(--color-yellow)' }}>
                         {categoryLabel(post.category)}
                       </span>
                     </div>
                     <div className="p-8">
-                      <h2 className="font-medium tracking-[-0.01em] mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', lineHeight: '1.15' }}>
+                      <h2 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '1.75rem', lineHeight: '1.15' }}>
                         {post.title}
                       </h2>
                       {post.excerpt && (
-                        <p className="text-black/70 mb-5" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        <p className="text-black/70 mb-5" style={{ fontSize: '1rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                           {post.excerpt}
                         </p>
                       )}
-                      <span className="font-semibold border-b-2 pb-0.5" style={{ borderColor: '#FCE16E', fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
+                      <span className="font-semibold border-b-2 pb-0.5" style={{ borderColor: 'var(--color-yellow)', fontSize: '1rem' }}>
                         Read Guide →
                       </span>
                     </div>
@@ -128,7 +128,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
           )}
 
           {totalPages > 1 && (
-            <nav className="mt-12 flex items-center justify-between" style={{ fontFamily: 'var(--font-body)' }}>
+            <nav className="font-body mt-12 flex items-center justify-between">
               {page > 1 ? (
                 <Link href={pageHref(page - 1)} className="font-medium hover:opacity-70">← Previous Page</Link>
               ) : <span className="text-black/30">← Previous Page</span>}

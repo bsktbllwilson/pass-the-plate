@@ -14,9 +14,9 @@ type ChatMessage = {
 }
 
 const STORAGE_KEY = 'shushu.chat.v1'
-const ORANGE = '#E8542C'
-const CREAM = '#FAF6EE'
-const BORDER = '#E5DCC5'
+const ORANGE = 'var(--color-brand)'
+const CREAM = 'var(--color-cream-input)'
+const BORDER = 'var(--color-border)'
 const INK = '#1a1a1a'
 const ERROR_TEXT =
   "Sorry, I'm having trouble connecting right now. Please try again in a moment, or reach our team at /contact."

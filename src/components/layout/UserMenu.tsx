@@ -57,8 +57,7 @@ export default function UserMenu() {
     return (
       <Link
         href="/sign-in"
-        className="inline-flex items-center px-4 py-2 rounded-full border-2 border-[rgb(248,243,223)] text-[rgb(248,243,223)] font-medium hover:bg-[rgb(248,243,223)] hover:text-[rgb(230,80,37)] transition-colors text-sm"
-        style={{ fontFamily: 'var(--font-body)' }}
+        className="font-body inline-flex items-center px-4 py-2 rounded-full border-2 border-[var(--color-cream-soft)] text-[var(--color-cream-soft)] font-medium hover:bg-[var(--color-cream-soft)] hover:text-[var(--color-brand)] transition-colors text-sm"
       >
         Sign In
       </Link>
@@ -80,8 +79,7 @@ export default function UserMenu() {
         onClick={() => setOpen(o => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="w-10 h-10 rounded-full bg-[rgb(248,243,223)] text-[rgb(230,80,37)] flex items-center justify-center hover:opacity-90 transition-opacity"
-        style={{ fontFamily: 'var(--font-display)', fontSize: '1.125rem', fontWeight: 600 }}
+        className="font-display w-10 h-10 rounded-full bg-[var(--color-cream-soft)] text-[var(--color-brand)] flex items-center justify-center hover:opacity-90 transition-opacity" style={{ fontSize: '1.125rem', fontWeight: 600 }}
         aria-label="Account menu"
       >
         {initialOf(user)}
@@ -89,8 +87,7 @@ export default function UserMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-full mt-2 z-30 bg-white border border-black/10 rounded-2xl shadow-lg min-w-[220px] py-2"
-          style={{ fontFamily: 'var(--font-body)' }}
+          className="font-body absolute right-0 top-full mt-2 z-30 bg-white border border-black/10 rounded-2xl shadow-lg min-w-[220px] py-2"
         >
           <div className="px-4 pb-2 mb-1 border-b border-black/10 text-xs text-black/50 truncate">{user.email}</div>
           <Link

@@ -33,10 +33,32 @@ const fmtUSD = (cents: number) => usd.format(Math.round(cents / 100))
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const listing = await getListingBySlug(slug)
-  if (!listing) return { title: 'Listing Not Found — Pass The Plate' }
+  if (!listing) {
+    return {
+      title: 'Listing Not Found — Pass The Plate',
+      robots: { index: false, follow: false },
+    }
+  }
+  const description = listing.description.split('\n')[0]
+  const url = `/buy/${listing.slug}`
+  const images = listing.cover_image_url ? [{ url: listing.cover_image_url, alt: listing.title }] : undefined
   return {
     title: `${listing.title} — Pass The Plate`,
-    description: listing.description.split('\n')[0],
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title: listing.title,
+      description,
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: listing.title,
+      description,
+      images: listing.cover_image_url ? [listing.cover_image_url] : undefined,
+    },
   }
 }
 
@@ -50,7 +72,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
   const assets = listingAssets(listing.assets)
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="px-4 pt-10 pb-12">
@@ -62,23 +84,23 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
       <section className="px-4 pb-20">
         <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-12" style={{ maxWidth: '1280px' }}>
           <div className="lg:col-span-8">
-            <h1 className="font-medium tracking-[-0.01em] mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.25rem, 5vw, 3rem)', lineHeight: '1.05' }}>
+            <h1 className="font-display font-medium tracking-[-0.01em] mb-4" style={{ fontSize: 'clamp(2.25rem, 5vw, 3rem)', lineHeight: '1.05' }}>
               {listing.title}
             </h1>
-            <div className="inline-block px-4 py-2 rounded-full bg-white border border-black/10 text-sm mb-8" style={{ fontFamily: 'var(--font-body)' }}>
+            <div className="font-body inline-block px-4 py-2 rounded-full bg-white border border-black/10 text-sm mb-8">
               {formatLocation(listing.location)} &nbsp;|&nbsp; {formatCuisine(listing.cuisine)}
             </div>
 
-            <p className="mb-10 whitespace-pre-line" style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }}>
+            <p className="mb-10 whitespace-pre-line" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }}>
               {firstPara}
             </p>
 
             {aboutBody && (
               <section className="mb-12">
-                <h2 className="font-medium mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: '1.875rem', lineHeight: '1.2' }}>
+                <h2 className="font-display font-medium mb-4" style={{ fontSize: '1.875rem', lineHeight: '1.2' }}>
                   About this business
                 </h2>
-                <p className="whitespace-pre-line" style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }}>
+                <p className="whitespace-pre-line" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }}>
                   {aboutBody}
                 </p>
               </section>
@@ -86,13 +108,13 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
             {assets.length > 0 && (
               <section className="mb-12">
-                <h2 className="font-medium mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: '1.875rem', lineHeight: '1.2' }}>
+                <h2 className="font-display font-medium mb-4" style={{ fontSize: '1.875rem', lineHeight: '1.2' }}>
                   What&apos;s included
                 </h2>
                 <ul className="space-y-2">
                   {assets.map(a => (
-                    <li key={a} className="flex items-start gap-3" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
-                      <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'rgb(230,78,33)' }} />
+                    <li key={a} className="flex items-start gap-3" style={{ fontSize: '1rem' }}>
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-brand)' }} />
                       <span>{a}</span>
                     </li>
                   ))}
@@ -101,21 +123,21 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             )}
 
             <section>
-              <h2 className="font-medium mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: '1.875rem', lineHeight: '1.2' }}>
+              <h2 className="font-display font-medium mb-4" style={{ fontSize: '1.875rem', lineHeight: '1.2' }}>
                 Quick stats
               </h2>
               <div className="grid grid-cols-3 gap-4">
                 <div className="rounded-2xl bg-white border border-black/10 p-5">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Year Established</div>
-                  <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{listing.year_established ?? '—'}</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Year Established</div>
+                  <div className="font-display font-medium" style={{ fontSize: '1.5rem' }}>{listing.year_established ?? '—'}</div>
                 </div>
                 <div className="rounded-2xl bg-white border border-black/10 p-5">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Staff</div>
-                  <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{listing.staff_count ?? '—'}</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Staff</div>
+                  <div className="font-display font-medium" style={{ fontSize: '1.5rem' }}>{listing.staff_count ?? '—'}</div>
                 </div>
                 <div className="rounded-2xl bg-white border border-black/10 p-5">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Square Footage</div>
-                  <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{listing.square_footage != null ? listing.square_footage.toLocaleString('en-US') : '—'}</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Square Footage</div>
+                  <div className="font-display font-medium" style={{ fontSize: '1.5rem' }}>{listing.square_footage != null ? listing.square_footage.toLocaleString('en-US') : '—'}</div>
                 </div>
               </div>
             </section>
@@ -125,22 +147,22 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             <div className="lg:sticky lg:top-24 space-y-4">
               <div className="rounded-2xl bg-white border border-black/10 p-6">
                 <div className="mb-4">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Asking Price</div>
-                  <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '2.25rem', lineHeight: '1.1' }}>{fmtUSD(listing.asking_price_cents)}</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Asking Price</div>
+                  <div className="font-display font-medium" style={{ fontSize: '2.25rem', lineHeight: '1.1' }}>{fmtUSD(listing.asking_price_cents)}</div>
                 </div>
                 <div className="mb-4 pb-4 border-b border-black/10">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Annual Revenue</div>
-                  <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{fmtUSD(listing.annual_revenue_cents)}</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Annual Revenue</div>
+                  <div className="font-display font-medium" style={{ fontSize: '1.5rem' }}>{fmtUSD(listing.annual_revenue_cents)}</div>
                 </div>
                 {listing.annual_profit_cents != null && (
                   <div className="mb-5">
-                    <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Annual Profit</div>
-                    <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{fmtUSD(listing.annual_profit_cents)}</div>
+                    <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Annual Profit</div>
+                    <div className="font-display font-medium" style={{ fontSize: '1.5rem' }}>{fmtUSD(listing.annual_profit_cents)}</div>
                   </div>
                 )}
                 <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="px-3 py-1 rounded-full text-sm" style={{ background: 'rgb(255,239,124)', fontFamily: 'var(--font-body)' }}>{formatCuisine(listing.cuisine)}</span>
-                  <span className="px-3 py-1 rounded-full text-sm border border-black/10" style={{ fontFamily: 'var(--font-body)' }}>{formatIndustry(listing.industry)}</span>
+                  <span className="px-3 py-1 rounded-full text-sm" style={{ background: 'var(--color-yellow)' }}>{formatCuisine(listing.cuisine)}</span>
+                  <span className="font-body px-3 py-1 rounded-full text-sm border border-black/10">{formatIndustry(listing.industry)}</span>
                 </div>
               </div>
 

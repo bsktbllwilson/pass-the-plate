@@ -5,6 +5,8 @@ import SignInForm from '@/components/auth/SignInForm'
 
 export const metadata: Metadata = {
   title: 'Sign In — Pass The Plate',
+  description: 'Sign in to your Pass The Plate account.',
+  robots: { index: false, follow: false },
 }
 
 export default function SignInPage() {
