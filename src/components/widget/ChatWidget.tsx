@@ -416,17 +416,17 @@ export default function ChatWidget() {
           ref={buttonRef}
           onClick={handleOpen}
           aria-label="Open chat with Shushu"
-          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-shadow overflow-hidden ${
+          className={`fixed bottom-6 right-6 z-50 w-20 h-20 flex items-end justify-center transition-transform hover:scale-105 ${
             bouncing ? 'animate-bounce' : ''
           }`}
-          style={{ background: ORANGE }}
         >
           <Image
             src="/shushu/hello.png"
             alt=""
-            width={147}
-            height={147}
-            className="absolute left-1/2 -translate-x-1/2 top-[-10%] w-[147%] max-w-none h-auto pointer-events-none select-none"
+            width={120}
+            height={120}
+            className="w-full h-full object-contain pointer-events-none select-none"
+            style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18))' }}
             priority
           />
         </button>
