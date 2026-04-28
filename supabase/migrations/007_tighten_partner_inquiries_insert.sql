@@ -11,6 +11,9 @@
 -- SELECT policy from migration 002 is left untouched).
 
 drop policy if exists partner_inquiries_insert_anyone on public.partner_inquiries;
+drop policy if exists partner_inquiries_insert_anon on public.partner_inquiries;
+drop policy if exists partner_inquiries_insert_authenticated on public.partner_inquiries;
+drop policy if exists partner_inquiries_select_sender on public.partner_inquiries;
 
 create policy partner_inquiries_insert_anon
   on public.partner_inquiries for insert to anon
@@ -36,7 +39,6 @@ create policy partner_inquiries_insert_authenticated
     )
   );
 
-drop policy if exists partner_inquiries_select_sender on public.partner_inquiries;
 create policy partner_inquiries_select_sender
   on public.partner_inquiries for select to authenticated
   using (auth.uid() = sender_id);
