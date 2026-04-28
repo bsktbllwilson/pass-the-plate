@@ -233,6 +233,45 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_applications: {
+        Row: {
+          company: string
+          created_at: string
+          email: string
+          id: string
+          name: string
+          phone: string | null
+          pitch: string
+          specialty: string
+          status: string
+          website: string | null
+        }
+        Insert: {
+          company: string
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          phone?: string | null
+          pitch: string
+          specialty: string
+          status?: string
+          website?: string | null
+        }
+        Update: {
+          company?: string
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          pitch?: string
+          specialty?: string
+          status?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string | null

@@ -3,6 +3,7 @@ import { content } from '@/lib/content'
 import { getPartners, type Partner } from '@/lib/partners'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
+import { LinkButton } from '@/components/ui'
 
 export const metadata: Metadata = {
   title: 'Trusted Partners — Pass The Plate',
@@ -100,9 +101,14 @@ export default async function PartnersPage() {
           <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.05' }}>
             Trusted <em style={{ fontStyle: 'italic' }}>Partners</em>
           </h1>
-          <p className="text-center mb-10 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
+          <p className="text-center mb-8 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
             Vetted SBA lenders, immigration attorneys, bilingual brokers, accountants, and insurance specialists who work with Asian F&amp;B operators in NYC.
           </p>
+          <div className="text-center">
+            <LinkButton href="/partners/apply" size="md">
+              Become a Partner →
+            </LinkButton>
+          </div>
         </div>
       </section>
 
