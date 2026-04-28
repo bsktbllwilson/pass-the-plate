@@ -78,16 +78,14 @@ placeholder="e.g. Korean, boba, sushi" />
 
         <div className="mt-4">
           <label
-            className="block text-sm mb-2 font-medium"
-            style={{ fontFamily: 'var(--font-body)' }}
+            className="font-body block text-sm mb-2 font-medium"
           >
             Annual revenue
           </label>
           <select
             name="revenue"
-            className="w-full rounded-xl border border-black/10 bg-white 
+            className="font-body w-full rounded-xl border border-black/10 bg-white 
 px-4 py-3 text-base outline-none focus:border-black/40"
-            style={{ fontFamily: 'var(--font-body)' }}
             defaultValue=""
           >
             <option value="" disabled>Select a range</option>
@@ -101,17 +99,15 @@ px-4 py-3 text-base outline-none focus:border-black/40"
 
         <div className="mt-4">
           <label
-            className="block text-sm mb-2 font-medium"
-            style={{ fontFamily: 'var(--font-body)' }}
+            className="font-body block text-sm mb-2 font-medium"
           >
             Anything else we should know?
           </label>
           <textarea
             name="notes"
             rows={4}
-            className="w-full rounded-xl border border-black/10 bg-white 
+            className="font-body w-full rounded-xl border border-black/10 bg-white 
 px-4 py-3 text-base outline-none focus:border-black/40 resize-none"
-            style={{ fontFamily: 'var(--font-body)' }}
             placeholder="Reason for selling, timeline, asking price..."
           />
         </div>
@@ -154,8 +150,7 @@ function Field({
   return (
     <div>
       <label
-        className="block text-sm mb-2 font-medium"
-        style={{ fontFamily: 'var(--font-body)' }}
+        className="font-body block text-sm mb-2 font-medium"
       >
         {label}
         {required && <span style={{ color: 'var(--color-brand)' }}> *</span>}
@@ -165,9 +160,8 @@ function Field({
         type={type}
         required={required}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-black/10 bg-white px-4 
+        className="font-body w-full rounded-xl border border-black/10 bg-white px-4 
 py-3 text-base outline-none focus:border-black/40"
-        style={{ fontFamily: 'var(--font-body)' }}
       />
     </div>
   )

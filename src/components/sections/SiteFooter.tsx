@@ -19,17 +19,17 @@ export default function SiteFooter({ columns }: { columns: FooterColumn[] }) {
           <div className="flex flex-col sm:flex-row gap-10 flex-1">
             {columns.map((col) => (
               <div key={col.heading} className="flex-1">
-                <h3 className="text-sm uppercase tracking-widest opacity-50 mb-4 font-semibold" style={{ fontFamily: 'var(--font-body)' }}>{col.heading}</h3>
+                <h3 className="font-body text-sm uppercase tracking-widest opacity-50 mb-4 font-semibold">{col.heading}</h3>
                 <ul className="space-y-2">
                   {col.links.map((link) => (
-                    <li key={link.label}><a href={link.href} className="text-lg font-medium opacity-90 hover:opacity-60 transition-opacity leading-10" style={{ fontFamily: 'var(--font-body)' }}>{link.label}</a></li>
+                    <li key={link.label}><a href={link.href} className="font-body text-lg font-medium opacity-90 hover:opacity-60 transition-opacity leading-10">{link.label}</a></li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
         </div>
-        <div className="mt-12 pt-6 border-t border-white/10 text-sm opacity-40" style={{ fontFamily: 'var(--font-body)' }}>© {new Date().getFullYear()} Pass The Plate. All rights reserved.</div>
+        <div className="font-body mt-12 pt-6 border-t border-white/10 text-sm opacity-40">© {new Date().getFullYear()} Pass The Plate. All rights reserved.</div>
       </div>
     </footer>
   )

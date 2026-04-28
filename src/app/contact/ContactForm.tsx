@@ -46,7 +46,7 @@ export default function ContactForm() {
         <Textarea id="message" name="message" rows={6} required />
       </Field>
       {state && !state.ok && state.message && (
-        <p className="text-sm text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
+        <p className="font-body text-sm text-red-600">
           {state.message}
         </p>
       )}

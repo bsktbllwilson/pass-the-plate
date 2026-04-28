@@ -57,8 +57,7 @@ export default function UserMenu() {
     return (
       <Link
         href="/sign-in"
-        className="inline-flex items-center px-4 py-2 rounded-full border-2 border-[var(--color-cream-soft)] text-[var(--color-cream-soft)] font-medium hover:bg-[var(--color-cream-soft)] hover:text-[var(--color-brand)] transition-colors text-sm"
-        style={{ fontFamily: 'var(--font-body)' }}
+        className="font-body inline-flex items-center px-4 py-2 rounded-full border-2 border-[var(--color-cream-soft)] text-[var(--color-cream-soft)] font-medium hover:bg-[var(--color-cream-soft)] hover:text-[var(--color-brand)] transition-colors text-sm"
       >
         Sign In
       </Link>
@@ -89,8 +88,7 @@ export default function UserMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-full mt-2 z-30 bg-white border border-black/10 rounded-2xl shadow-lg min-w-[220px] py-2"
-          style={{ fontFamily: 'var(--font-body)' }}
+          className="font-body absolute right-0 top-full mt-2 z-30 bg-white border border-black/10 rounded-2xl shadow-lg min-w-[220px] py-2"
         >
           <div className="px-4 pb-2 mb-1 border-b border-black/10 text-xs text-black/50 truncate">{user.email}</div>
           <Link

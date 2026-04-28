@@ -38,7 +38,7 @@ export default function ResetPasswordForm() {
   }
 
   return (
-    <div style={{ fontFamily: 'var(--font-body)' }}>
+    <div className="font-body">
       <h1 className="font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: '1.1' }}>Set a new password</h1>
       <p className="text-center text-black/55 mb-8 text-sm">Choose a new password for your account.</p>
 

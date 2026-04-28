@@ -49,13 +49,13 @@ function PartnerCard({ partner }: { partner: Partner }) {
         {partner.full_name}
       </h2>
       {partner.job_title && partner.company && (
-        <div className="text-sm text-black/60 mb-4" style={{ fontFamily: 'var(--font-body)' }}>
+        <div className="font-body text-sm text-black/60 mb-4">
           {partner.job_title} · {partner.company}
         </div>
       )}
 
       {partner.languages.length > 0 && (
-        <div className="text-xs uppercase tracking-wide text-black/55 mb-4" style={{ fontFamily: 'var(--font-body)' }}>
+        <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-4">
           {formatLanguages(partner.languages)}
         </div>
       )}
@@ -69,7 +69,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
         </p>
       )}
 
-      <div className="pt-4 border-t border-black/10 flex flex-wrap gap-x-4 gap-y-2 text-sm" style={{ fontFamily: 'var(--font-body)' }}>
+      <div className="font-body pt-4 border-t border-black/10 flex flex-wrap gap-x-4 gap-y-2 text-sm">
         <a href={`mailto:${partner.email}`} className="text-black/70 hover:text-black transition-colors">
           Email
         </a>
@@ -109,13 +109,13 @@ export default async function PartnersPage() {
       <section className="px-4 pb-20">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
           {rows.length === 0 ? (
-            <div className="rounded-2xl bg-white border border-black/10 p-12 text-center" style={{ fontFamily: 'var(--font-body)' }}>
+            <div className="font-body rounded-2xl bg-white border border-black/10 p-12 text-center">
               <p className="text-xl mb-2">No partners listed yet.</p>
               <p className="text-black/60">Check back soon — we&apos;re adding vetted partners every week.</p>
             </div>
           ) : (
             <>
-              <div className="text-sm text-black/55 mb-6" style={{ fontFamily: 'var(--font-body)' }}>
+              <div className="font-body text-sm text-black/55 mb-6">
                 {totalCount} {totalCount === 1 ? 'partner' : 'partners'}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

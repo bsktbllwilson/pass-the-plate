@@ -14,18 +14,18 @@ type FieldProps = {
 export function Field({ label, htmlFor, required, helper, error, children, tone = 'default' }: FieldProps) {
   const labelClass =
     tone === 'auth'
-      ? 'block text-sm font-medium mb-2 text-black/70'
-      : 'block text-sm font-medium mb-2'
+      ? 'font-body block text-sm font-medium mb-2 text-black/70'
+      : 'font-body block text-sm font-medium mb-2'
   return (
     <div>
-      <label htmlFor={htmlFor} className={labelClass} style={{ fontFamily: 'var(--font-body)' }}>
+      <label htmlFor={htmlFor} className={labelClass}>
         {label}
         {required && <span style={{ color: 'var(--color-brand)' }}> *</span>}
         {helper && <span className="text-black/40 font-normal"> {helper}</span>}
       </label>
       {children}
       {error && (
-        <p className="mt-2 text-sm text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
+        <p className="font-body mt-2 text-sm text-red-600">
           {error}
         </p>
       )}

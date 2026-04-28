@@ -37,7 +37,7 @@ export default function SubscribeCard() {
               {pending ? 'Subscribing…' : 'Subscribe →'}
             </Button>
             {state?.error && (
-              <p className="text-sm" style={{ fontFamily: 'var(--font-body)' }}>{state.error}</p>
+              <p className="font-body text-sm">{state.error}</p>
             )}
           </form>
         </>

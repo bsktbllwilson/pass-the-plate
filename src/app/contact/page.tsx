@@ -46,7 +46,7 @@ export default function ContactPage() {
               <h2 className="font-medium mb-6" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>
                 Other ways to reach us
               </h2>
-              <dl className="space-y-5 mb-8" style={{ fontFamily: 'var(--font-body)' }}>
+              <dl className="font-body space-y-5 mb-8">
                 <div>
                   <dt className="text-xs uppercase tracking-wide text-black/55 mb-1">Email</dt>
                   <dd>

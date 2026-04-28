@@ -87,7 +87,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             <h1 className="font-medium tracking-[-0.01em] mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.25rem, 5vw, 3rem)', lineHeight: '1.05' }}>
               {listing.title}
             </h1>
-            <div className="inline-block px-4 py-2 rounded-full bg-white border border-black/10 text-sm mb-8" style={{ fontFamily: 'var(--font-body)' }}>
+            <div className="font-body inline-block px-4 py-2 rounded-full bg-white border border-black/10 text-sm mb-8">
               {formatLocation(listing.location)} &nbsp;|&nbsp; {formatCuisine(listing.cuisine)}
             </div>
 
@@ -128,15 +128,15 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
               </h2>
               <div className="grid grid-cols-3 gap-4">
                 <div className="rounded-2xl bg-white border border-black/10 p-5">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Year Established</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Year Established</div>
                   <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{listing.year_established ?? '—'}</div>
                 </div>
                 <div className="rounded-2xl bg-white border border-black/10 p-5">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Staff</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Staff</div>
                   <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{listing.staff_count ?? '—'}</div>
                 </div>
                 <div className="rounded-2xl bg-white border border-black/10 p-5">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Square Footage</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Square Footage</div>
                   <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{listing.square_footage != null ? listing.square_footage.toLocaleString('en-US') : '—'}</div>
                 </div>
               </div>
@@ -147,22 +147,22 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             <div className="lg:sticky lg:top-24 space-y-4">
               <div className="rounded-2xl bg-white border border-black/10 p-6">
                 <div className="mb-4">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Asking Price</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Asking Price</div>
                   <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '2.25rem', lineHeight: '1.1' }}>{fmtUSD(listing.asking_price_cents)}</div>
                 </div>
                 <div className="mb-4 pb-4 border-b border-black/10">
-                  <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Annual Revenue</div>
+                  <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Annual Revenue</div>
                   <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{fmtUSD(listing.annual_revenue_cents)}</div>
                 </div>
                 {listing.annual_profit_cents != null && (
                   <div className="mb-5">
-                    <div className="text-xs uppercase tracking-wide text-black/55 mb-1" style={{ fontFamily: 'var(--font-body)' }}>Annual Profit</div>
+                    <div className="font-body text-xs uppercase tracking-wide text-black/55 mb-1">Annual Profit</div>
                     <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>{fmtUSD(listing.annual_profit_cents)}</div>
                   </div>
                 )}
                 <div className="flex flex-wrap gap-2 pt-2">
                   <span className="px-3 py-1 rounded-full text-sm" style={{ background: 'var(--color-yellow)', fontFamily: 'var(--font-body)' }}>{formatCuisine(listing.cuisine)}</span>
-                  <span className="px-3 py-1 rounded-full text-sm border border-black/10" style={{ fontFamily: 'var(--font-body)' }}>{formatIndustry(listing.industry)}</span>
+                  <span className="font-body px-3 py-1 rounded-full text-sm border border-black/10">{formatIndustry(listing.industry)}</span>
                 </div>
               </div>
 

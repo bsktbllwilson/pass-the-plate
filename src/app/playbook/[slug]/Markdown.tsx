@@ -3,7 +3,7 @@ import remarkGfm from 'remark-gfm'
 
 export default function Markdown({ children }: { children: string }) {
   return (
-    <div style={{ fontFamily: 'var(--font-body)' }}>
+    <div className="font-body">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{

@@ -79,7 +79,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
       <section className="px-4 py-12">
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
           {rows.length === 0 ? (
-            <div className="rounded-2xl bg-white border border-black/10 p-12 text-center" style={{ fontFamily: 'var(--font-body)' }}>
+            <div className="font-body rounded-2xl bg-white border border-black/10 p-12 text-center">
               <p className="text-xl mb-2">No guides in this category yet.</p>
               <p className="text-black/60">Try another category or read all.</p>
             </div>
@@ -128,7 +128,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
           )}
 
           {totalPages > 1 && (
-            <nav className="mt-12 flex items-center justify-between" style={{ fontFamily: 'var(--font-body)' }}>
+            <nav className="font-body mt-12 flex items-center justify-between">
               {page > 1 ? (
                 <Link href={pageHref(page - 1)} className="font-medium hover:opacity-70">← Previous Page</Link>
               ) : <span className="text-black/30">← Previous Page</span>}

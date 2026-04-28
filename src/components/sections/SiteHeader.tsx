@@ -19,7 +19,7 @@ export default function SiteHeader() {
         style={{ background: 'var(--color-brand)', maxWidth: '1589px' }}>
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.slice(0, 2).map((l) => (
-            <a key={l.label} href={l.href} className="text-[var(--color-cream-soft)] font-medium text-lg whitespace-nowrap hover:opacity-80 transition-opacity" style={{ fontFamily: 'var(--font-body)' }}>{l.label}</a>
+            <a key={l.label} href={l.href} className="font-body text-[var(--color-cream-soft)] font-medium text-lg whitespace-nowrap hover:opacity-80 transition-opacity">{l.label}</a>
           ))}
         </nav>
         <a href="/" className="flex items-center mx-auto md:mx-0">
@@ -29,7 +29,7 @@ export default function SiteHeader() {
         <div className="flex items-center gap-4 md:gap-8">
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.slice(2).map((l) => (
-              <a key={l.label} href={l.href} className="text-[var(--color-cream-soft)] font-medium text-lg whitespace-nowrap hover:opacity-80 transition-opacity" style={{ fontFamily: 'var(--font-body)' }}>{l.label}</a>
+              <a key={l.label} href={l.href} className="font-body text-[var(--color-cream-soft)] font-medium text-lg whitespace-nowrap hover:opacity-80 transition-opacity">{l.label}</a>
             ))}
           </nav>
           <UserMenu />
@@ -43,7 +43,7 @@ export default function SiteHeader() {
       {open && (
         <div className="md:hidden fixed inset-0 top-[72px] z-40 flex flex-col gap-6 px-8 pt-12" style={{ background: 'var(--color-brand)' }}>
           {navLinks.map((l) => (
-            <a key={l.label} href={l.href} onClick={() => setOpen(false)} className="text-[var(--color-cream-soft)] text-3xl font-medium" style={{ fontFamily: 'var(--font-body)' }}>{l.label}</a>
+            <a key={l.label} href={l.href} onClick={() => setOpen(false)} className="font-body text-[var(--color-cream-soft)] text-3xl font-medium">{l.label}</a>
           ))}
         </div>
       )}

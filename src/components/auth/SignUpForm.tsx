@@ -50,7 +50,7 @@ export default function SignUpForm() {
 
   if (submitted) {
     return (
-      <div className="text-center" style={{ fontFamily: 'var(--font-body)' }}>
+      <div className="font-body text-center">
         <h1 className="font-medium tracking-[-0.01em] mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', lineHeight: '1.15' }}>Check your email</h1>
         <p className="text-black/70 mb-6">We sent a confirmation link to <span className="font-medium text-black">{email}</span>. Click it to finish creating your account.</p>
         <button
@@ -65,7 +65,7 @@ export default function SignUpForm() {
   }
 
   return (
-    <div style={{ fontFamily: 'var(--font-body)' }}>
+    <div className="font-body">
       <h1 className="font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: '1.1' }}>Get a seat at the table</h1>
       <p className="text-center text-black/55 mb-8 text-sm">Create your account to save searches, contact partners, and list your business.</p>
 
@@ -96,7 +96,7 @@ export default function SignUpForm() {
         </Field>
 
         <fieldset className="pt-2">
-          <legend className="block text-sm font-medium mb-2 text-black/70" style={{ fontFamily: 'var(--font-body)' }}>I&apos;m here to…</legend>
+          <legend className="font-body block text-sm font-medium mb-2 text-black/70">I&apos;m here to…</legend>
           <div className="space-y-2">
             <label className={`flex items-center gap-3 px-4 py-3 rounded-full border cursor-pointer transition-colors ${role === 'buyer' ? 'border-black bg-[var(--color-cream-input)]' : 'border-black/15 hover:border-black/40'}`}>
               <input
