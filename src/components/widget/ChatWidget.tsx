@@ -424,15 +424,10 @@ export default function ChatWidget() {
           <Image
             src="/shushu/hello.png"
             alt=""
-            width={140}
-            height={140}
-            className="absolute left-1/2 -translate-x-1/2 top-[-10%] w-[140%] max-w-none h-auto pointer-events-none select-none"
+            width={147}
+            height={147}
+            className="absolute left-1/2 -translate-x-1/2 top-[-10%] w-[147%] max-w-none h-auto pointer-events-none select-none"
             priority
-          />
-          <span
-            aria-hidden
-            className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full"
-            style={{ background: '#22c55e', boxShadow: '0 0 0 2px #fff' }}
           />
         </button>
       )}
