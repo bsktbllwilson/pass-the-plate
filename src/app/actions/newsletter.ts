@@ -2,6 +2,7 @@
 
 import { z } from 'zod'
 import { getAnonClient } from '@/lib/supabase/anon'
+import { sendNewsletterNotification } from '@/lib/notify'
 
 export type SubscribeState = { ok: boolean; error?: string } | null
 
@@ -26,17 +27,28 @@ export async function subscribeNewsletter(
   // Idempotent insert: ignore the unique-violation on email so we never tell
   // the caller "this email was already subscribed" — that would be a
   // membership oracle for anyone curious whether a given address is on file.
-  const { error } = await supabase
+  // .select() returns the inserted rows (empty array for duplicates), which
+  // we use server-side only to avoid notifying on already-subscribed emails.
+  const { data, error } = await supabase
     .from('newsletter_subscribers')
     .upsert(
       { email: result.data.email, source: result.data.source ?? null },
       { onConflict: 'email', ignoreDuplicates: true },
     )
+    .select()
 
   if (error) {
     console.error('subscribeNewsletter error:', error)
     // Same generic ack — don't leak DB-level failures to the form either.
     return { ok: true }
+  }
+
+  const isNewSignup = (data?.length ?? 0) > 0
+  if (isNewSignup) {
+    void sendNewsletterNotification({
+      email: result.data.email,
+      source: result.data.source ?? null,
+    })
   }
 
   return { ok: true }

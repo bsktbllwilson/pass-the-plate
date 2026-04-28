@@ -2,6 +2,7 @@
 
 import { z } from 'zod'
 import { getAnonClient } from '@/lib/supabase/anon'
+import { sendContactNotification } from '@/lib/notify'
 
 export type ContactState = { ok: boolean; message?: string } | null
 
@@ -25,18 +26,26 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
     return { ok: false, message: first }
   }
 
+  const input = result.data
   const supabase = getAnonClient()
   const { error } = await supabase.from('contact_messages').insert({
-    name: result.data.name,
-    email: result.data.email,
-    topic: result.data.topic ?? null,
-    message: result.data.message,
+    name: input.name,
+    email: input.email,
+    topic: input.topic ?? null,
+    message: input.message,
   })
 
   if (error) {
     console.error('submitContact error:', error)
     return { ok: false, message: "Sorry, we couldn't send that just now. Please try again." }
   }
+
+  void sendContactNotification({
+    name: input.name,
+    email: input.email,
+    topic: input.topic ?? null,
+    message: input.message,
+  })
 
   return { ok: true }
 }

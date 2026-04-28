@@ -38,6 +38,9 @@ Production values live in Vercel; local development uses `.env.local`
 | `SUPABASE_SERVICE_ROLE_KEY` | Service-role key for privileged server writes (Stripe webhook, admin tools) | **server-only** |
 | `NEXT_PUBLIC_SITE_URL` | Auth redirect target for email links | yes |
 | `ANTHROPIC_API_KEY` | Powers `/api/chat` (Shushu widget) | **server-only** |
+| `RESEND_API_KEY` | Transactional email sender for inquiry / contact / newsletter notifications | **server-only** |
+| `NOTIFY_FROM_EMAIL` | `from:` address (must be on a verified Resend domain) | **server-only** |
+| `NOTIFY_TO_EMAIL` | Team inbox that receives every notification | **server-only** |
 
 The service-role key bypasses RLS — keep it out of any `'use client'`
 file. `src/lib/supabase/admin.ts` uses `import 'server-only'` as a
