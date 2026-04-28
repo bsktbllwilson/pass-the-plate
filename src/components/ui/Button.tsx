@@ -37,7 +37,7 @@ function classes({ size = 'md', shape = 'pill', fullWidth }: StyleArgs, extra?: 
 }
 
 function styleFor({ variant = 'primary' }: StyleArgs, extra?: CSSProperties): CSSProperties {
-  return { fontFamily: 'var(--font-body)', ...VARIANT_STYLE[variant], ...extra }
+  return { ...VARIANT_STYLE[variant], ...extra }
 }
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & StyleArgs & { children: ReactNode }

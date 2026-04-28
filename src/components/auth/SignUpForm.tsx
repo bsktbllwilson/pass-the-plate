@@ -51,7 +51,7 @@ export default function SignUpForm() {
   if (submitted) {
     return (
       <div className="font-body text-center">
-        <h1 className="font-medium tracking-[-0.01em] mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', lineHeight: '1.15' }}>Check your email</h1>
+        <h1 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '2rem', lineHeight: '1.15' }}>Check your email</h1>
         <p className="text-black/70 mb-6">We sent a confirmation link to <span className="font-medium text-black">{email}</span>. Click it to finish creating your account.</p>
         <button
           type="button"
@@ -66,7 +66,7 @@ export default function SignUpForm() {
 
   return (
     <div className="font-body">
-      <h1 className="font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: '1.1' }}>Get a seat at the table</h1>
+      <h1 className="font-display font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', lineHeight: '1.1' }}>Get a seat at the table</h1>
       <p className="text-center text-black/55 mb-8 text-sm">Create your account to save searches, contact partners, and list your business.</p>
 
       <form onSubmit={onSubmit} className="space-y-4">

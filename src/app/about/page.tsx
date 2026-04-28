@@ -70,10 +70,10 @@ export default function AboutPage() {
 
       <section className="px-4 py-24 text-center">
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h1 className="font-medium tracking-[-0.02em] mb-6" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: '1' }}>
+          <h1 className="font-display font-medium tracking-[-0.02em] mb-6" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: '1' }}>
             Who We Are
           </h1>
-          <p className="mx-auto" style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: '1.55', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
+          <p className="mx-auto" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: '1.55', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
             We&apos;re building the marketplace the Asian F&amp;B community deserves — bilingual, transparent, and built around how deals actually get done in our communities.
           </p>
         </div>
@@ -82,10 +82,10 @@ export default function AboutPage() {
       <section className="px-4 py-24">
         <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-16 items-center" style={{ maxWidth: '1280px' }}>
           <div className="lg:col-span-7">
-            <h2 className="font-medium tracking-[-0.01em] mb-8" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 2.875rem)', lineHeight: '1.1' }}>
+            <h2 className="font-display font-medium tracking-[-0.01em] mb-8" style={{ fontSize: 'clamp(2rem, 4vw, 2.875rem)', lineHeight: '1.1' }}>
               Our Mission
             </h2>
-            <div className="space-y-6" style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }}>
+            <div className="space-y-6" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }}>
               <p>
                 There is roughly $240 billion of Asian F&amp;B value changing hands as a generation of operators retires — and the existing tools are built for a different industry. BizBuySell and the generic marketplace listings don&apos;t speak the languages our owners do, don&apos;t read the books they keep, and don&apos;t connect them to the buyers who already trust their networks.
               </p>
@@ -117,22 +117,22 @@ export default function AboutPage() {
 
       <section className="px-4 py-24">
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h2 className="font-medium tracking-[-0.01em] mb-12 text-center" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
+          <h2 className="font-display font-medium tracking-[-0.01em] mb-12 text-center" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
             Our Story
           </h2>
           <div className="space-y-12">
             {TIMELINE.map((m, i) => (
               <div key={`${m.year}-${m.title}`} className={`flex flex-col md:flex-row items-start gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse md:text-right' : ''}`}>
                 <div className="md:w-1/3 flex-shrink-0">
-                  <div className="font-medium leading-none tracking-[-0.02em]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--color-brand)' }}>
+                  <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--color-brand)' }}>
                     {m.year}
                   </div>
                 </div>
                 <div className="md:w-2/3">
-                  <h3 className="font-medium tracking-[-0.01em] mb-2" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>
+                  <h3 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '1.5rem' }}>
                     {m.title}
                   </h3>
-                  <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem', lineHeight: '1.6', color: 'rgba(0,0,0,0.72)' }}>
+                  <p style={{ fontSize: '1.0625rem', lineHeight: '1.6', color: 'rgba(0,0,0,0.72)' }}>
                     {m.body}
                   </p>
                 </div>
@@ -144,18 +144,18 @@ export default function AboutPage() {
 
       <section id="trust" className="px-4 py-24">
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
-          <h2 className="font-medium tracking-[-0.01em] mb-12 text-center" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
+          <h2 className="font-display font-medium tracking-[-0.01em] mb-12 text-center" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
             The Team
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {TEAM.map(member => (
               <article key={member.name} className="flex flex-col">
                 <div className="aspect-square rounded-2xl mb-5" style={{ background: 'rgb(229,231,235)' }} aria-hidden />
-                <h3 className="font-medium tracking-[-0.01em]" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>
+                <h3 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '1.5rem' }}>
                   {member.name}
                 </h3>
-                <div className="text-black/55 mb-3" style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>{member.role}</div>
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: '1.6', color: 'rgba(0,0,0,0.72)' }}>
+                <div className="text-black/55 mb-3" style={{ fontSize: '0.95rem' }}>{member.role}</div>
+                <p style={{ fontSize: '1rem', lineHeight: '1.6', color: 'rgba(0,0,0,0.72)' }}>
                   {member.bio}
                 </p>
               </article>
@@ -166,15 +166,14 @@ export default function AboutPage() {
 
       <section className="px-4 py-16">
         <div className="mx-auto text-center" style={{ maxWidth: '1100px' }}>
-          <div className="text-xs uppercase tracking-widest mb-8" style={{ fontFamily: 'var(--font-body)', color: 'rgba(0,0,0,0.45)' }}>
+          <div className="text-xs uppercase tracking-widest mb-8" style={{ color: 'rgba(0,0,0,0.45)' }}>
             As featured in
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
             {PRESS.map(name => (
               <span
                 key={name}
-                className="uppercase tracking-wide"
-                style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: '#6B6B6B' }}
+                className="font-display uppercase tracking-wide" style={{ fontSize: '1.25rem', color: '#6B6B6B' }}
               >
                 {name}
               </span>

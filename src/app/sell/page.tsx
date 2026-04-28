@@ -44,10 +44,10 @@ export default function SellPage() {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0) 50%)' }} />
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-2xl pl-12 lg:pl-24 pr-6">
-            <h1 className="text-white font-medium tracking-[-0.01em] mb-6" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 7vw, 5rem)', lineHeight: '0.95' }}>
+            <h1 className="font-display text-white font-medium tracking-[-0.01em] mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', lineHeight: '0.95' }}>
               Pass the Plate to<br />The Right Hands
             </h1>
-            <p className="text-white/90 mb-10" style={{ fontFamily: 'var(--font-body)', fontSize: '1.125rem', lineHeight: '1.55', maxWidth: '500px' }}>
+            <p className="text-white/90 mb-10" style={{ fontSize: '1.125rem', lineHeight: '1.55', maxWidth: '500px' }}>
               List your Asian F&amp;B Business in 10 Minutes. We charge $0 upfront, we only win when you win.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -73,12 +73,12 @@ export default function SellPage() {
 
       <section className="px-4 py-24" style={{ background: 'var(--color-yellow)' }}>
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h2 className="font-medium tracking-[-0.01em] mb-10" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
+          <h2 className="font-display font-medium tracking-[-0.01em] mb-10" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
             Listing Hotspots
           </h2>
           <HeroSearch />
           <div className="mt-10 rounded-2xl flex items-center justify-center" style={{ height: '600px', background: 'rgba(0,0,0,0.08)', border: '1px dashed rgba(0,0,0,0.2)' }}>
-            <span className="font-medium text-black/55" style={{ fontFamily: 'var(--font-body)', fontSize: '1.125rem' }}>
+            <span className="font-medium text-black/55" style={{ fontSize: '1.125rem' }}>
               Interactive map coming soon
             </span>
           </div>
@@ -89,8 +89,8 @@ export default function SellPage() {
         <div className="mx-auto grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4" style={{ maxWidth: '1400px' }}>
           {SELL_STATS.map((s) => (
             <div key={s.value} className="text-center px-4">
-              <div className="font-medium leading-none tracking-[-0.02em]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>{s.value}</div>
-              <div className="mt-4" style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.95rem, 1.4vw, 1.125rem)', lineHeight: '1.5' }}>{s.label}</div>
+              <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>{s.value}</div>
+              <div className="mt-4" style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.125rem)', lineHeight: '1.5' }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -98,18 +98,18 @@ export default function SellPage() {
 
       <section className="px-4 py-24">
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
-          <h2 className="font-medium tracking-[-0.01em] text-center mb-12" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
+          <h2 className="font-display font-medium tracking-[-0.01em] text-center mb-12" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
             Trusted by 100+ Sellers
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featured.map((t) => (
               <article key={t.id} className="rounded-2xl bg-white border border-black/10 p-8 flex flex-col">
-                <p className="font-medium mb-6 flex-1" style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '1.5rem', lineHeight: '1.35' }}>
+                <p className="font-display font-medium mb-6 flex-1" style={{ fontStyle: 'italic', fontSize: '1.5rem', lineHeight: '1.35' }}>
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <div>
-                  <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>{t.name}</div>
-                  <div className="text-black/55 mt-1" style={{ fontFamily: 'var(--font-body)', fontSize: '0.875rem' }}>{t.role} · {t.city}</div>
+                  <div className="font-display font-medium" style={{ fontSize: '1.25rem' }}>{t.name}</div>
+                  <div className="text-black/55 mt-1" style={{ fontSize: '0.875rem' }}>{t.role} · {t.city}</div>
                 </div>
               </article>
             ))}

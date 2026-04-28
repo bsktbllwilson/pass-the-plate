@@ -28,13 +28,12 @@ export default function SellForm() {
           style={{ maxWidth: '720px', background: 'var(--color-yellow)' }}
         >
           <h2
-            className="font-medium mb-3"
-            style={{ fontFamily: 'var(--font-display)', fontSize: 
-'clamp(1.75rem, 3vw, 2.5rem)', lineHeight: '1.1' }}
+            className="font-display font-medium mb-3"
+            style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', lineHeight: '1.1' }}
           >
             Thanks — we&rsquo;ll be in touch.
           </h2>
-          <p style={{ fontFamily: 'var(--font-body)', color: 
+          <p style={{ color: 
 'rgba(0,0,0,0.7)' }}>
             A bilingual advisor will reach out within 1 business day.
           </p>
@@ -51,15 +50,14 @@ export default function SellForm() {
         style={{ maxWidth: '720px', background: 'rgba(0,0,0,0.03)' }}
       >
         <h2
-          className="font-medium mb-2"
-          style={{ fontFamily: 'var(--font-display)', fontSize: 
-'clamp(1.75rem, 3vw, 2.5rem)', lineHeight: '1.1' }}
+          className="font-display font-medium mb-2"
+          style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', lineHeight: '1.1' }}
         >
           Tell us about your business
         </h2>
         <p
           className="mb-8"
-          style={{ fontFamily: 'var(--font-body)', color: 
+          style={{ color: 
 'rgba(0,0,0,0.65)' }}
         >
           The more we know, the better we can match you with serious 
@@ -117,15 +115,13 @@ px-4 py-3 text-base outline-none focus:border-black/40 resize-none"
           disabled={status === 'submitting'}
           className="mt-8 w-full sm:w-auto px-8 py-4 rounded-full 
 text-white font-medium transition-opacity disabled:opacity-60"
-          style={{ background: 'var(--color-brand)', fontFamily: 
-'var(--font-body)' }}
+          style={{ background: 'var(--color-brand)' }}
         >
           {status === 'submitting' ? 'Submitting…' : 'Submit listing'}
         </button>
 
         {status === 'error' && (
-          <p className="mt-4 text-sm" style={{ color: 'var(--color-brand)', 
-fontFamily: 'var(--font-body)' }}>
+          <p className="mt-4 text-sm" style={{ color: 'var(--color-brand)' }}>
             Something went wrong. Please try again.
           </p>
         )}

@@ -98,10 +98,10 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
 
       <section className="px-4 pt-12 pb-6">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h1 className="font-medium tracking-[-0.01em] text-center mb-2" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.05' }}>
+          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.05' }}>
             Find Your <em style={{ fontStyle: 'italic' }}>Next</em> Business
           </h1>
-          <p className="text-center mb-10 mx-auto" style={{ fontFamily: 'var(--font-body)', fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '600px' }}>
+          <p className="text-center mb-10 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '600px' }}>
             {totalCount} {totalCount === 1 ? 'listing' : 'listings'} matching your search
           </p>
           <SearchBar />
@@ -134,7 +134,7 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
                     )}
                   </Link>
                   <div className="p-6 flex flex-col flex-1">
-                    <h2 className="font-medium tracking-[-0.01em] mb-2" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', lineHeight: '1.15' }}>
+                    <h2 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '1.5rem', lineHeight: '1.15' }}>
                       <Link href={`/buy/${listing.slug}`} className="hover:opacity-80 transition-opacity">{listing.title}</Link>
                     </h2>
                     <div className="font-body text-sm text-black/55 mb-4">
@@ -143,20 +143,20 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
                     <div className="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-black/10">
                       <div>
                         <div className="font-body text-xs uppercase tracking-wide text-black/50 mb-1">Asking Price</div>
-                        <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>{fmtUSD(listing.asking_price_cents)}</div>
+                        <div className="font-display font-medium" style={{ fontSize: '1.25rem' }}>{fmtUSD(listing.asking_price_cents)}</div>
                       </div>
                       <div>
                         <div className="font-body text-xs uppercase tracking-wide text-black/50 mb-1">Annual Revenue</div>
-                        <div className="font-medium" style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>{fmtUSD(listing.annual_revenue_cents)}</div>
+                        <div className="font-display font-medium" style={{ fontSize: '1.25rem' }}>{fmtUSD(listing.annual_revenue_cents)}</div>
                       </div>
                     </div>
-                    <p className="text-black/70 mb-6 flex-1" style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    <p className="text-black/70 mb-6 flex-1" style={{ fontSize: '0.95rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                       {listing.description.replace(/\n+/g, ' ')}
                     </p>
                     <Link
                       href={`/buy/${listing.slug}`}
                       className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
-                      style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+                      style={{ background: 'var(--color-brand)', fontSize: '1rem' }}
                     >
                       View Listing →
                     </Link>

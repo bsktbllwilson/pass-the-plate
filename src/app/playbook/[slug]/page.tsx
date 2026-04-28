@@ -73,16 +73,16 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
           </div>
 
           <div className="mt-8">
-            <span className="inline-block px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: 'var(--color-yellow)', fontFamily: 'var(--font-body)' }}>
+            <span className="inline-block px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: 'var(--color-yellow)' }}>
               {categoryLabel(post.category)}
             </span>
           </div>
 
-          <h1 className="font-medium tracking-[-0.02em] mt-6" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', lineHeight: '1.05' }}>
+          <h1 className="font-display font-medium tracking-[-0.02em] mt-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', lineHeight: '1.05' }}>
             {post.title}
           </h1>
 
-          <div className="mt-4 text-black/55" style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>
+          <div className="mt-4 text-black/55" style={{ fontSize: '0.95rem' }}>
             {post.author_name}{published && ` · ${published}`}
           </div>
 
@@ -94,7 +94,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
             <>
               <hr className="my-16 border-black/10" />
               <section>
-                <h2 className="font-medium tracking-[-0.01em] mb-8" style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', lineHeight: '1.15' }}>
+                <h2 className="font-display font-medium tracking-[-0.01em] mb-8" style={{ fontSize: '2rem', lineHeight: '1.15' }}>
                   Related Reads
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -110,10 +110,10 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
                         )}
                       </div>
                       <div className="p-5">
-                        <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium mb-3" style={{ background: 'var(--color-yellow)', fontFamily: 'var(--font-body)' }}>
+                        <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium mb-3" style={{ background: 'var(--color-yellow)' }}>
                           {categoryLabel(r.category)}
                         </span>
-                        <h3 className="font-medium tracking-[-0.01em]" style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', lineHeight: '1.2' }}>
+                        <h3 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '1.25rem', lineHeight: '1.2' }}>
                           {r.title}
                         </h3>
                       </div>

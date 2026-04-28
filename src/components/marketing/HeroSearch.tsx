@@ -46,11 +46,11 @@ export default function HeroSearch({ submitLabel = 'Search →' }: { submitLabel
     <form onSubmit={search} className="mx-auto flex flex-col md:flex-row items-stretch md:items-center rounded-3xl bg-white border border-black overflow-visible" style={{ maxWidth: '900px' }}>
       <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="City, State"
         className="flex-1 px-8 py-5 font-medium outline-none bg-transparent placeholder-black/40 border-b md:border-b-0 md:border-r border-black/10"
-        style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }} />
+        style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)' }} />
       <div ref={wrapperRef} className="relative flex-shrink-0 md:w-56 border-b md:border-b-0 border-black/10">
         <button type="button" onClick={() => setOpen(o => !o)} aria-haspopup="listbox" aria-expanded={open}
           className="w-full text-left px-8 py-5 font-medium outline-none bg-transparent text-black/50 cursor-pointer pr-12 flex items-center justify-between"
-          style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>
+          style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>
           <span className="truncate">{industry}</span>
           <svg className="absolute right-5 top-1/2 -translate-y-1/2" width="20" height="11" viewBox="0 0 20 11" fill="none" stroke="rgba(41,41,41,0.6)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="1,1 10,9 19,1"/></svg>
         </button>
@@ -60,7 +60,7 @@ export default function HeroSearch({ submitLabel = 'Search →' }: { submitLabel
               <li key={opt} role="option" aria-selected={industry === opt}
                 onClick={() => { setIndustry(opt); setOpen(false) }}
                 className={`px-6 py-3 cursor-pointer hover:bg-black/5 ${industry === opt ? 'text-black' : 'text-black/70'}`}
-                style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem' }}>
+                style={{ fontSize: '1.0625rem' }}>
                 {opt}
               </li>
             ))}
@@ -69,7 +69,7 @@ export default function HeroSearch({ submitLabel = 'Search →' }: { submitLabel
       </div>
       <button type="submit"
         className="px-10 py-5 font-medium text-white rounded-b-3xl md:rounded-b-none md:rounded-r-3xl flex items-center justify-center gap-3 min-h-[72px]"
-        style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>
+        style={{ background: 'var(--color-brand)', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>
         {submitLabel}
       </button>
     </form>

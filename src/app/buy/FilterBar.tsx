@@ -127,7 +127,7 @@ function Popover({ label, count, children }: { label: string; count: number; chi
         aria-haspopup="listbox"
         aria-expanded={open}
         className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-black/15 bg-white font-medium hover:border-black/40 transition-colors"
-        style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}
+        style={{ fontSize: '0.95rem' }}
       >
         <span>{label}</span>
         {count > 0 && (
@@ -156,7 +156,7 @@ function CheckboxList({ options, selected, onToggle }: { options: Option[]; sele
               onChange={() => onToggle(opt.value)}
               className="w-4 h-4 accent-[var(--color-brand)]"
             />
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>{opt.label}</span>
+            <span style={{ fontSize: '0.95rem' }}>{opt.label}</span>
           </label>
         </li>
       ))}
@@ -176,7 +176,7 @@ function RadioList({ options, selected, onSelect }: { options: Option[]; selecte
               onChange={() => onSelect(opt.value)}
               className="w-4 h-4 accent-[var(--color-brand)]"
             />
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>{opt.label}</span>
+            <span style={{ fontSize: '0.95rem' }}>{opt.label}</span>
           </label>
         </li>
       ))}

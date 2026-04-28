@@ -15,7 +15,7 @@ export default function TrendingHotspots({ listings }: { listings: Listing[] }) 
     <section className="px-4 pb-20">
       <div className="mx-auto" style={{ maxWidth: '1540px' }}>
         <div className="flex items-baseline justify-between mb-8">
-          <h2 className="font-medium tracking-[-0.01em]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>Trending Hotspots</h2>
+          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>Trending Hotspots</h2>
           <a href="/buy" className="font-body font-medium text-black/55 hover:text-black transition-colors text-lg hidden md:block">More Listings →</a>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -27,7 +27,7 @@ export default function TrendingHotspots({ listings }: { listings: Listing[] }) 
                   style={listing.slug === 'grandmas-noods' ? { objectPosition: '30% 40%', filter: 'grayscale(100%) brightness(1.15)' } : {}} />
               )}
               <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.8) 100%)' }} />
-              <div className="absolute left-0 right-0 bottom-14 text-center text-white font-medium leading-none tracking-[-0.01em] px-4" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 3vw, 2.375rem)' }}>{listing.title}</div>
+              <div className="font-display absolute left-0 right-0 bottom-14 text-center text-white font-medium leading-none tracking-[-0.01em] px-4" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.375rem)' }}>{listing.title}</div>
               <div className="font-body absolute left-0 right-0 bottom-5 text-center text-white text-sm tracking-[0.02em]">{formatLocation(listing.location)} &nbsp;|&nbsp; {formatCuisine(listing.cuisine)}</div>
             </div>
           ))}

@@ -27,10 +27,10 @@ export default function ContactPage() {
 
       <section className="px-4 py-24 text-center">
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h1 className="font-medium tracking-[-0.02em] mb-6" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: '1' }}>
+          <h1 className="font-display font-medium tracking-[-0.02em] mb-6" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: '1' }}>
             Questions We Get A Lot
           </h1>
-          <p className="mx-auto" style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: '1.55', color: 'rgba(0,0,0,0.65)', maxWidth: '560px' }}>
+          <p className="mx-auto" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: '1.55', color: 'rgba(0,0,0,0.65)', maxWidth: '560px' }}>
             Reach out and we&apos;ll get back within one business day.
           </p>
         </div>
@@ -43,7 +43,7 @@ export default function ContactPage() {
           </div>
           <aside className="lg:col-span-5 mt-8 lg:mt-0">
             <div className="rounded-2xl bg-white border border-black/10 p-8">
-              <h2 className="font-medium mb-6" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>
+              <h2 className="font-display font-medium mb-6" style={{ fontSize: '1.5rem' }}>
                 Other ways to reach us
               </h2>
               <dl className="font-body space-y-5 mb-8">
@@ -70,7 +70,7 @@ export default function ContactPage() {
                     key={l.label}
                     href={l.href}
                     className="flex items-center justify-between py-3 px-3 -mx-3 rounded-lg hover:bg-black/5 transition-colors"
-                    style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+                    style={{ fontSize: '1rem' }}
                   >
                     <span className="font-medium">{l.label}</span>
                     <span aria-hidden style={{ color: 'var(--color-brand)' }}>→</span>
@@ -84,7 +84,7 @@ export default function ContactPage() {
 
       <section className="px-4 py-24">
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h2 className="font-medium tracking-[-0.01em] mb-10 text-center" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
+          <h2 className="font-display font-medium tracking-[-0.01em] mb-10 text-center" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
             Common Questions
           </h2>
           <FaqAccordion faqs={FAQS} />

@@ -79,8 +79,7 @@ export default function UserMenu() {
         onClick={() => setOpen(o => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="w-10 h-10 rounded-full bg-[var(--color-cream-soft)] text-[var(--color-brand)] flex items-center justify-center hover:opacity-90 transition-opacity"
-        style={{ fontFamily: 'var(--font-display)', fontSize: '1.125rem', fontWeight: 600 }}
+        className="font-display w-10 h-10 rounded-full bg-[var(--color-cream-soft)] text-[var(--color-brand)] flex items-center justify-center hover:opacity-90 transition-opacity" style={{ fontSize: '1.125rem', fontWeight: 600 }}
         aria-label="Account menu"
       >
         {initialOf(user)}

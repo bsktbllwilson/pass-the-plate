@@ -10,8 +10,8 @@ export default function InquiryForm({ listingId, listingTitle }: { listingId: st
   if (state?.ok) {
     return (
       <div className="rounded-2xl border border-black/10 bg-white p-6">
-        <h3 className="font-medium mb-2" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>Inquiry sent</h3>
-        <p style={{ fontFamily: 'var(--font-body)', color: 'rgba(0,0,0,0.7)' }}>
+        <h3 className="font-display font-medium mb-2" style={{ fontSize: '1.5rem' }}>Inquiry sent</h3>
+        <p style={{ color: 'rgba(0,0,0,0.7)' }}>
           Thanks — we&apos;ll forward your message about <strong>{listingTitle}</strong> to the seller.
         </p>
       </div>
@@ -20,7 +20,7 @@ export default function InquiryForm({ listingId, listingTitle }: { listingId: st
 
   return (
     <form action={formAction} className="rounded-2xl border border-black/10 bg-white p-6">
-      <h3 className="font-medium mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>Inquire about this business</h3>
+      <h3 className="font-display font-medium mb-4" style={{ fontSize: '1.5rem' }}>Inquire about this business</h3>
       <input type="hidden" name="listingId" value={listingId} />
       <div className="space-y-3">
         <Input
@@ -45,7 +45,7 @@ export default function InquiryForm({ listingId, listingTitle }: { listingId: st
           rows={4}
         />
         {state?.error && (
-          <p className="text-sm" style={{ color: 'var(--color-brand)', fontFamily: 'var(--font-body)' }}>
+          <p className="text-sm" style={{ color: 'var(--color-brand)' }}>
             {state.error}
           </p>
         )}

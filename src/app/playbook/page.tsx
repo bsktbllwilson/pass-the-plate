@@ -64,7 +64,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)' }} />
         <div className="absolute inset-0 flex items-end">
-          <h1 className="pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'var(--color-cream-soft)', fontFamily: 'var(--font-display)', fontSize: 'clamp(4.5rem, 14vw, 8.75rem)', lineHeight: '1' }}>
+          <h1 className="font-display pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'var(--color-cream-soft)', fontSize: 'clamp(4.5rem, 14vw, 8.75rem)', lineHeight: '1' }}>
             The Playbook
           </h1>
         </div>
@@ -104,20 +104,20 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       )}
-                      <span className="absolute left-4 bottom-4 px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: 'var(--color-yellow)', fontFamily: 'var(--font-body)' }}>
+                      <span className="absolute left-4 bottom-4 px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: 'var(--color-yellow)' }}>
                         {categoryLabel(post.category)}
                       </span>
                     </div>
                     <div className="p-8">
-                      <h2 className="font-medium tracking-[-0.01em] mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', lineHeight: '1.15' }}>
+                      <h2 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '1.75rem', lineHeight: '1.15' }}>
                         {post.title}
                       </h2>
                       {post.excerpt && (
-                        <p className="text-black/70 mb-5" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        <p className="text-black/70 mb-5" style={{ fontSize: '1rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                           {post.excerpt}
                         </p>
                       )}
-                      <span className="font-semibold border-b-2 pb-0.5" style={{ borderColor: 'var(--color-yellow)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
+                      <span className="font-semibold border-b-2 pb-0.5" style={{ borderColor: 'var(--color-yellow)', fontSize: '1rem' }}>
                         Read Guide →
                       </span>
                     </div>

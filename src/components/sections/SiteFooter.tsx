@@ -11,7 +11,7 @@ export default function SiteFooter({ columns }: { columns: FooterColumn[] }) {
               <Image src="/logo-passtheplate.png" alt="Pass The Plate" width={220} height={53} className="h-12 w-auto mb-8"
                 style={{ filter: 'brightness(0) saturate(100%) invert(97%) sepia(6%) saturate(1350%) hue-rotate(2deg) brightness(99%) contrast(90%)' }} />
             </a>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium" style={{ background: 'var(--color-brand)', borderColor: 'var(--color-cream-soft)', color: '#fff', fontFamily: 'var(--font-body)' }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium" style={{ background: 'var(--color-brand)', borderColor: 'var(--color-cream-soft)', color: '#fff' }}>
               English
               <svg width="12" height="7" viewBox="0 0 14 8" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1,1 7,7 13,1"/></svg>
             </div>

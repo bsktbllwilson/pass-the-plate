@@ -38,8 +38,7 @@ export default function CategoryFilter() {
             style={{
               background: isActive ? 'var(--color-yellow)' : '#fff',
               color: '#000',
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.95rem',
+                            fontSize: '0.95rem',
             }}
           >
             {c.label}
