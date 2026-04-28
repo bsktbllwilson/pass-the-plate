@@ -416,7 +416,7 @@ export default function ChatWidget() {
           ref={buttonRef}
           onClick={handleOpen}
           aria-label="Open chat with Shushu"
-          className={`fixed bottom-6 right-6 z-50 w-[144px] h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
+          className={`fixed bottom-8 right-8 z-50 w-[144px] h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
             bouncing ? 'animate-bounce' : ''
           }`}
         >
