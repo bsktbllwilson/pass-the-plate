@@ -33,10 +33,32 @@ const fmtUSD = (cents: number) => usd.format(Math.round(cents / 100))
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const listing = await getListingBySlug(slug)
-  if (!listing) return { title: 'Listing Not Found — Pass The Plate' }
+  if (!listing) {
+    return {
+      title: 'Listing Not Found — Pass The Plate',
+      robots: { index: false, follow: false },
+    }
+  }
+  const description = listing.description.split('\n')[0]
+  const url = `/buy/${listing.slug}`
+  const images = listing.cover_image_url ? [{ url: listing.cover_image_url, alt: listing.title }] : undefined
   return {
     title: `${listing.title} — Pass The Plate`,
-    description: listing.description.split('\n')[0],
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title: listing.title,
+      description,
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: listing.title,
+      description,
+      images: listing.cover_image_url ? [listing.cover_image_url] : undefined,
+    },
   }
 }
 

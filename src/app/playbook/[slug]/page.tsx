@@ -14,10 +14,34 @@ import { categoryLabel, dateFmt } from '../labels'
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const post = await getPostBySlug(slug)
-  if (!post) return { title: 'Guide Not Found — Pass The Plate' }
+  if (!post) {
+    return {
+      title: 'Guide Not Found — Pass The Plate',
+      robots: { index: false, follow: false },
+    }
+  }
+  const description = post.excerpt ?? undefined
+  const url = `/playbook/${post.slug}`
+  const images = post.cover_image_url ? [{ url: post.cover_image_url, alt: post.title }] : undefined
   return {
     title: `${post.title} — Pass The Plate`,
-    description: post.excerpt ?? undefined,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title: post.title,
+      description,
+      images,
+      publishedTime: post.published_at ?? undefined,
+      authors: post.author_name ? [post.author_name] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description,
+      images: post.cover_image_url ? [post.cover_image_url] : undefined,
+    },
   }
 }
 

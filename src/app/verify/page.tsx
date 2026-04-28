@@ -7,6 +7,8 @@ import SiteFooter from '@/components/sections/SiteFooter'
 
 export const metadata: Metadata = {
   title: 'Verification — Pass The Plate',
+  description: 'Buyer proof-of-funds verification for Pass The Plate.',
+  robots: { index: false, follow: false },
 }
 
 export default async function VerifyPage() {

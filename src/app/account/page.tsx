@@ -8,6 +8,8 @@ import SignOutButton from '@/components/auth/SignOutButton'
 
 export const metadata: Metadata = {
   title: 'Account — Pass The Plate',
+  description: 'Your Pass The Plate account dashboard.',
+  robots: { index: false, follow: false },
 }
 
 export default async function AccountPage() {
