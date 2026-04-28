@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { bumpListingViewCount } from '@/lib/supabase/admin-actions'
 import type { Database } from '@/types/database'
 
 export type Listing = Database['public']['Tables']['listings']['Row']
@@ -29,6 +30,9 @@ export async function getListingBySlug(slug: string): Promise<Listing | null> {
   if (error) {
     console.error('getListingBySlug error:', error)
     return null
+  }
+  if (data) {
+    void bumpListingViewCount(data.id).catch(() => {})
   }
   return data
 }
