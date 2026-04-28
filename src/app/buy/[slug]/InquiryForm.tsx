@@ -1,67 +1,66 @@
 'use client'
-import { useState } from 'react'
+
+import { useActionState } from 'react'
+import { submitInquiry, type InquiryState } from './actions'
 
 export default function InquiryForm({ listingId, listingTitle }: { listingId: string; listingTitle: string }) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [submitted, setSubmitted] = useState(false)
+  const [state, formAction, isPending] = useActionState<InquiryState, FormData>(submitInquiry, null)
 
-  function submit(e: React.FormEvent) {
-    e.preventDefault()
-    const payload = { listingId, listingTitle, name, email, message }
-    console.log('Inquiry submitted:', payload)
-    setSubmitted(true)
-  }
-
-  if (submitted) {
+  if (state?.ok) {
     return (
       <div className="rounded-2xl border border-black/10 bg-white p-6">
         <h3 className="font-medium mb-2" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>Inquiry sent</h3>
         <p style={{ fontFamily: 'var(--font-body)', color: 'rgba(0,0,0,0.7)' }}>
-          Thanks — we&apos;ll forward your message to the seller.
+          Thanks — we&apos;ll forward your message about <strong>{listingTitle}</strong> to the seller.
         </p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={submit} className="rounded-2xl border border-black/10 bg-white p-6">
+    <form action={formAction} className="rounded-2xl border border-black/10 bg-white p-6">
       <h3 className="font-medium mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>Inquire about this business</h3>
+      <input type="hidden" name="listingId" value={listingId} />
       <div className="space-y-3">
         <input
           type="text"
+          name="name"
           required
-          value={name}
-          onChange={e => setName(e.target.value)}
+          maxLength={120}
           placeholder="Your name"
           className="w-full px-4 py-3 rounded-lg border border-black/15 bg-white outline-none focus:border-black/40"
           style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         />
         <input
           type="email"
+          name="email"
           required
-          value={email}
-          onChange={e => setEmail(e.target.value)}
+          maxLength={254}
           placeholder="Email"
           className="w-full px-4 py-3 rounded-lg border border-black/15 bg-white outline-none focus:border-black/40"
           style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         />
         <textarea
+          name="message"
           required
-          value={message}
-          onChange={e => setMessage(e.target.value)}
+          maxLength={4000}
           placeholder="What would you like to know about this business?"
           rows={4}
           className="w-full px-4 py-3 rounded-lg border border-black/15 bg-white outline-none focus:border-black/40 resize-y"
           style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         />
+        {state?.error && (
+          <p className="text-sm" style={{ color: 'rgb(230,78,33)', fontFamily: 'var(--font-body)' }}>
+            {state.error}
+          </p>
+        )}
         <button
           type="submit"
-          className="w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
+          disabled={isPending}
+          className="w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
           style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         >
-          Send Inquiry →
+          {isPending ? 'Sending…' : 'Send Inquiry →'}
         </button>
       </div>
     </form>
