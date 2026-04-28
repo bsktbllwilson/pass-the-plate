@@ -2,7 +2,7 @@
   "hero": { "headline": "Your Seat at The Table Starts Here", "italicWord": "Seat", "subhead": "First Marketplace for The $240B+ Asian F&B Transition" },
   "platesAreFull": [
     { "title": "Bilingual Listing", "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English only competitors.", "cta": "Get Started →", "href": "/sell" },
-    { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something!", "cta": "Market Tools →", "href": "/tools" },
+    { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something!", "cta": "Read Our Guides →", "href": "/playbook" },
     { "title": "Vetted Demand", "body": "Buyers must show proof of funds or SBA pre-qualification before seller contacts are released. Vetted by our advisors. Zero Spam!", "cta": "View Sources →", "href": "/about#trust" },
     { "title": "Curated Resources", "body": "Expert guides, bilingual templates, and case studies curated by advisors who have been in your seat.", "cta": "Access Playbooks →", "href": "/playbook" }
   ],
@@ -19,9 +19,9 @@
   ],
   "footer": {
     "columns": [
-      { "heading": "Marketplace", "links": [{ "label": "Buy A Business", "href": "/buy" }, { "label": "Sell A Business", "href": "/sell" }, { "label": "Listing Heatmap", "href": "#" }] },
-      { "heading": "Resources", "links": [{ "label": "Guides & Playbooks", "href": "#" }, { "label": "Market Data", "href": "#" }, { "label": "Address Book", "href": "#" }, { "label": "Tools & Calculator", "href": "#" }] },
-      { "heading": "Company", "links": [{ "label": "Who We Are", "href": "/about" }, { "label": "Become A Member", "href": "#" }, { "label": "Become A Partner", "href": "#" }, { "label": "FAQs", "href": "#" }, { "label": "Contact", "href": "/contact" }] }
+      { "heading": "Marketplace", "links": [{ "label": "Buy A Business", "href": "/buy" }, { "label": "Sell A Business", "href": "/sell" }] },
+      { "heading": "Resources", "links": [{ "label": "Guides & Playbooks", "href": "/playbook" }, { "label": "Address Book", "href": "/partners" }] },
+      { "heading": "Company", "links": [{ "label": "Who We Are", "href": "/about" }, { "label": "Become A Partner", "href": "/contact" }, { "label": "Contact", "href": "/contact" }] }
     ]
   }
 }

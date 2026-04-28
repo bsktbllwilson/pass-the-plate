@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 }
 
 const ALT_LINKS = [
-  { label: 'FAQs', href: '/membership#faqs' },
   { label: 'Playbook', href: '/playbook' },
-  { label: 'Become a Partner', href: '/partners/apply' },
+  { label: 'Find a Partner', href: '/partners' },
+  { label: 'Browse Listings', href: '/buy' },
 ]
 
 export default function ContactPage() {

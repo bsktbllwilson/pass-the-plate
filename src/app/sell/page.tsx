@@ -58,14 +58,14 @@ export default function SellPage() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/sell/new"
+                href="/contact?intent=sell"
                 className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
                 style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1.0625rem' }}
               >
                 List My Business →
               </Link>
               <Link
-                href="/tools#valuation"
+                href="/contact?intent=valuation"
                 className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-white font-medium border-2 border-white hover:bg-white hover:text-black transition-colors"
                 style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem' }}
               >
