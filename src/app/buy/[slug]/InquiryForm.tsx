@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react'
 import { submitInquiry, type InquiryState } from './actions'
+import { Button, Input, Textarea } from '@/components/ui'
 
 export default function InquiryForm({ listingId, listingTitle }: { listingId: string; listingTitle: string }) {
   const [state, formAction, isPending] = useActionState<InquiryState, FormData>(submitInquiry, null)
@@ -22,46 +23,35 @@ export default function InquiryForm({ listingId, listingTitle }: { listingId: st
       <h3 className="font-medium mb-4" style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem' }}>Inquire about this business</h3>
       <input type="hidden" name="listingId" value={listingId} />
       <div className="space-y-3">
-        <input
+        <Input
           type="text"
           name="name"
           required
           maxLength={120}
           placeholder="Your name"
-          className="w-full px-4 py-3 rounded-lg border border-black/15 bg-white outline-none focus:border-black/40"
-          style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         />
-        <input
+        <Input
           type="email"
           name="email"
           required
           maxLength={254}
           placeholder="Email"
-          className="w-full px-4 py-3 rounded-lg border border-black/15 bg-white outline-none focus:border-black/40"
-          style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         />
-        <textarea
+        <Textarea
           name="message"
           required
           maxLength={4000}
           placeholder="What would you like to know about this business?"
           rows={4}
-          className="w-full px-4 py-3 rounded-lg border border-black/15 bg-white outline-none focus:border-black/40 resize-y"
-          style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         />
         {state?.error && (
           <p className="text-sm" style={{ color: 'var(--color-brand)', fontFamily: 'var(--font-body)' }}>
             {state.error}
           </p>
         )}
-        <button
-          type="submit"
-          disabled={isPending}
-          className="w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-          style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
-        >
+        <Button type="submit" disabled={isPending} fullWidth>
           {isPending ? 'Sending…' : 'Send Inquiry →'}
-        </button>
+        </Button>
       </div>
     </form>
   )

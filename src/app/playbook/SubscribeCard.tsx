@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { Button, Input } from '@/components/ui'
 
 export default function SubscribeCard() {
   const [email, setEmail] = useState('')
@@ -31,22 +32,16 @@ export default function SubscribeCard() {
             Bilingual playbooks for buyers, sellers, and operators delivered every Thursday.
           </p>
           <form onSubmit={submit} className="mt-auto flex flex-col gap-3">
-            <input
+            <Input
               type="email"
               required
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="you@email.com"
-              className="px-4 py-3 rounded-lg bg-white border border-black/15 outline-none focus:border-black/40"
-              style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
             />
-            <button
-              type="submit"
-              className="px-5 py-3 rounded-full font-medium text-white hover:opacity-90 transition-opacity"
-              style={{ background: '#000', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
-            >
+            <Button type="submit" variant="dark">
               Subscribe →
-            </button>
+            </Button>
           </form>
         </>
       )}

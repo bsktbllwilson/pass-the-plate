@@ -1,8 +1,9 @@
 'use client'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { Button } from '@/components/ui'
 
-export default function SignOutButton({ className, label = 'Sign out' }: { className?: string; label?: string }) {
+export default function SignOutButton({ label = 'Sign out' }: { label?: string }) {
   const [submitting, setSubmitting] = useState(false)
 
   async function onClick() {
@@ -14,14 +15,8 @@ export default function SignOutButton({ className, label = 'Sign out' }: { class
   }
 
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={submitting}
-      className={className ?? 'inline-block px-6 py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50'}
-      style={!className ? { background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1rem' } : undefined}
-    >
+    <Button type="button" onClick={onClick} disabled={submitting}>
       {submitting ? 'Signing out…' : label}
-    </button>
+    </Button>
   )
 }

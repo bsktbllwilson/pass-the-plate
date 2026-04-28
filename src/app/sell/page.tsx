@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import type { Metadata } from 'next'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
@@ -7,6 +6,7 @@ import BuySellSplit from '@/components/sections/BuySellSplit'
 import FindYourNextBigDeal from '@/components/sections/FindYourNextBigDeal'
 import ValueProps from '@/components/marketing/ValueProps'
 import HeroSearch from '@/components/marketing/HeroSearch'
+import { LinkButton } from '@/components/ui'
 import { content } from '@/lib/content'
 import { TESTIMONIALS, type Testimonial } from '@/data/testimonials'
 
@@ -57,20 +57,17 @@ export default function SellPage() {
               List your Asian F&amp;B Business in 10 Minutes. We charge $0 upfront, we only win when you win.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
-                href="/contact?intent=sell"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
-                style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1.0625rem' }}
-              >
+              <LinkButton href="/contact?intent=sell" size="lg">
                 List My Business →
-              </Link>
-              <Link
+              </LinkButton>
+              <LinkButton
                 href="/contact?intent=valuation"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-white font-medium border-2 border-white hover:bg-white hover:text-black transition-colors"
-                style={{ fontFamily: 'var(--font-body)', fontSize: '1.0625rem' }}
+                size="lg"
+                className="border-2 border-white hover:bg-white hover:text-black transition-colors hover:opacity-100"
+                style={{ background: 'transparent', color: '#fff' }}
               >
                 Get Free Valuation →
-              </Link>
+              </LinkButton>
             </div>
           </div>
         </div>

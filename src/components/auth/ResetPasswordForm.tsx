@@ -2,9 +2,7 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-const inputClasses = 'w-full rounded-full border border-black/15 bg-[var(--color-cream-input)] px-5 py-3 text-base focus:outline-none focus:border-black/40 transition-colors'
-const labelClasses = 'block text-sm font-medium mb-2 text-black/70'
+import { Button, Field, Input } from '@/components/ui'
 
 export default function ResetPasswordForm() {
   const router = useRouter()
@@ -45,9 +43,8 @@ export default function ResetPasswordForm() {
       <p className="text-center text-black/55 mb-8 text-sm">Choose a new password for your account.</p>
 
       <form onSubmit={onSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="password" className={labelClasses}>New password <span className="text-black/40 font-normal">(min 8 characters)</span></label>
-          <input
+        <Field label="New password" htmlFor="password" tone="auth" helper="(min 8 characters)">
+          <Input
             id="password"
             type="password"
             required
@@ -55,12 +52,11 @@ export default function ResetPasswordForm() {
             autoComplete="new-password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            className={inputClasses}
+            tone="auth"
           />
-        </div>
-        <div>
-          <label htmlFor="confirm" className={labelClasses}>Confirm new password</label>
-          <input
+        </Field>
+        <Field label="Confirm new password" htmlFor="confirm" tone="auth">
+          <Input
             id="confirm"
             type="password"
             required
@@ -68,20 +64,15 @@ export default function ResetPasswordForm() {
             autoComplete="new-password"
             value={confirm}
             onChange={e => setConfirm(e.target.value)}
-            className={inputClasses}
+            tone="auth"
           />
-        </div>
+        </Field>
 
         {error && <div className="text-sm text-red-600">{error}</div>}
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-          style={{ background: 'var(--color-brand)', fontSize: '1rem' }}
-        >
+        <Button type="submit" disabled={submitting} fullWidth>
           {submitting ? 'Updating…' : 'Update Password →'}
-        </button>
+        </Button>
       </form>
     </div>
   )

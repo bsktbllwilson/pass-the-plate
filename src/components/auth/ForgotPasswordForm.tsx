@@ -2,9 +2,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-const inputClasses = 'w-full rounded-full border border-black/15 bg-[var(--color-cream-input)] px-5 py-3 text-base focus:outline-none focus:border-black/40 transition-colors'
-const labelClasses = 'block text-sm font-medium mb-2 text-black/70'
+import { Button, Field, Input } from '@/components/ui'
 
 function siteUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
@@ -51,29 +49,23 @@ export default function ForgotPasswordForm() {
       <p className="text-center text-black/55 mb-8 text-sm">Enter the email tied to your account and we&apos;ll send a reset link.</p>
 
       <form onSubmit={onSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="email" className={labelClasses}>Email</label>
-          <input
+        <Field label="Email" htmlFor="email" tone="auth">
+          <Input
             id="email"
             type="email"
             required
             autoComplete="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className={inputClasses}
+            tone="auth"
           />
-        </div>
+        </Field>
 
         {error && <div className="text-sm text-red-600">{error}</div>}
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-          style={{ background: 'var(--color-brand)', fontSize: '1rem' }}
-        >
+        <Button type="submit" disabled={submitting} fullWidth>
           {submitting ? 'Sending…' : 'Send Reset Link →'}
-        </button>
+        </Button>
       </form>
 
       <div className="mt-8 pt-6 border-t border-black/10 text-center text-sm">

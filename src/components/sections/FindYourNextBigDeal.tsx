@@ -1,3 +1,5 @@
+import { LinkButton } from '@/components/ui'
+
 export default function FindYourNextBigDeal() {
   return (
     <section className="px-4 py-20">
@@ -8,9 +10,9 @@ export default function FindYourNextBigDeal() {
         <p className="text-[var(--color-cream-soft)]/85 mx-auto mb-10" style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(1.1rem, 2vw, 1.375rem)', maxWidth: '700px', lineHeight: '1.6' }}>
           Browse vetted Asian F&amp;B businesses for sale across the country. Bilingual support, transparent financials, and an advisor network ready when you are.
         </p>
-        <a href="/buy" className="inline-flex items-center gap-3 px-10 py-5 rounded-3xl font-medium text-xl" style={{ background: 'var(--color-cream-soft)', color: 'var(--color-brand)', fontFamily: 'var(--font-body)' }}>
+        <LinkButton href="/buy" variant="inverse" size="lg" shape="rounded" className="text-xl px-10 py-5">
           Browse All Listings →
-        </a>
+        </LinkButton>
       </div>
     </section>
   )

@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { Button } from '@/components/ui'
 
 export default function Subscribe() {
   const [email, setEmail] = useState('')
@@ -22,8 +23,16 @@ export default function Subscribe() {
             <div className="px-8 py-4 rounded-full text-center font-medium text-white" style={{ background: '#000', fontFamily: 'var(--font-body)' }}>Thanks — we&apos;ll be in touch!</div>
           ) : (
             <form onSubmit={handleSubmit} className="flex gap-3 flex-col sm:flex-row">
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email Address" required className="flex-1 rounded-full px-7 py-4 text-lg font-medium outline-none border border-gray-200" style={{ fontFamily: 'var(--font-body)', color: '#000' }} />
-              <button type="submit" className="flex-shrink-0 px-7 py-4 rounded-3xl text-white font-medium text-lg" style={{ background: '#000', fontFamily: 'var(--font-body)' }}>Get In Touch →</button>
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Email Address"
+                required
+                className="flex-1 rounded-full px-7 py-4 text-lg font-medium outline-none border border-gray-200"
+                style={{ fontFamily: 'var(--font-body)', color: '#000' }}
+              />
+              <Button type="submit" variant="dark" size="lg" shape="rounded">Get In Touch →</Button>
             </form>
           )}
         </div>

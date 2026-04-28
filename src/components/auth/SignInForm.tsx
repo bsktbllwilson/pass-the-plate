@@ -3,9 +3,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-
-const inputClasses = 'w-full rounded-full border border-black/15 bg-[var(--color-cream-input)] px-5 py-3 text-base focus:outline-none focus:border-black/40 transition-colors'
-const labelClasses = 'block text-sm font-medium mb-2 text-black/70'
+import { Button, Field, Input } from '@/components/ui'
 
 function siteUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL
@@ -79,44 +77,37 @@ export default function SignInForm() {
       <p className="text-center text-black/55 mb-8 text-sm">Sign in to manage listings, save searches, and contact partners.</p>
 
       <form onSubmit={onSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="email" className={labelClasses}>Email</label>
-          <input
+        <Field label="Email" htmlFor="email" tone="auth">
+          <Input
             id="email"
             type="email"
             required
             autoComplete="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className={inputClasses}
+            tone="auth"
           />
-        </div>
+        </Field>
 
         {mode === 'password' && (
-          <div>
-            <label htmlFor="password" className={labelClasses}>Password</label>
-            <input
+          <Field label="Password" htmlFor="password" tone="auth">
+            <Input
               id="password"
               type="password"
               required
               autoComplete="current-password"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              className={inputClasses}
+              tone="auth"
             />
-          </div>
+          </Field>
         )}
 
         {error && <div className="text-sm text-red-600">{error}</div>}
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-          style={{ background: 'var(--color-brand)', fontSize: '1rem' }}
-        >
+        <Button type="submit" disabled={submitting} fullWidth>
           {submitting ? 'Signing in…' : mode === 'magic' ? 'Send Magic Link →' : 'Sign In →'}
-        </button>
+        </Button>
       </form>
 
       <div className="mt-4 text-center">
