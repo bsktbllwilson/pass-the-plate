@@ -168,7 +168,12 @@ export async function createListing(
     }
   }
 
-  void sendDraftListingNotification({
+  // Await the notifier instead of void-firing it. On Vercel, server actions
+  // that return immediately can have the function instance terminated before
+  // a backgrounded Promise reaches the network. The other notifiers (inquiry,
+  // contact, partner application) tend to win that race, but the draft path
+  // returns fast enough to lose it. Costs ~200-500ms on the form submit.
+  await sendDraftListingNotification({
     title: parsed.data.title,
     slug,
     sellerId,
