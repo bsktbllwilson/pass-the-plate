@@ -17,6 +17,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${origin}/sign-in?error=auth_callback_failed`)
   }
 
-  const safeNext = next.startsWith('/') ? next : '/account'
+  let safeNext = '/account'
+  try {
+    const candidate = new URL(next, origin)
+    if (candidate.origin === origin) {
+      safeNext = candidate.pathname + candidate.search + candidate.hash
+    }
+  } catch {
+    // malformed next param → fall through to /account
+  }
   return NextResponse.redirect(`${origin}${safeNext}`)
 }
