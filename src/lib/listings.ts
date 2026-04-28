@@ -3,6 +3,28 @@ import type { Database } from '@/types/database'
 
 export type Listing = Database['public']['Tables']['listings']['Row']
 
+/**
+ * Returns the listings the current authenticated user owns (any status:
+ * draft / active / archived / sold). RLS scopes the read to the caller
+ * via the SSR client; callers MUST be inside a route gated by
+ * requireUser().
+ */
+export async function getMyListings(): Promise<Listing[]> {
+  const supabase = await createClient()
+  const { data: userResult } = await supabase.auth.getUser()
+  if (!userResult.user) return []
+  const { data, error } = await supabase
+    .from('listings')
+    .select('*')
+    .eq('seller_id', userResult.user.id)
+    .order('updated_at', { ascending: false })
+  if (error) {
+    console.error('getMyListings error:', error)
+    return []
+  }
+  return data ?? []
+}
+
 export async function getTrendingListings(limit = 4): Promise<Listing[]> {
   const supabase = await createClient()
   const { data, error } = await supabase

@@ -3,8 +3,22 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Gallery({ cover, gallery, alt }: { cover: string; gallery: string[]; alt: string }) {
-  const images = Array.from(new Set([cover, ...gallery]))
-  const [active, setActive] = useState(images[0] ?? cover)
+  // Drop any empty strings (drafts may not have a cover yet, and gallery
+  // entries are always non-empty by validation but defend against the
+  // legacy seed data shape).
+  const images = Array.from(new Set([cover, ...gallery])).filter((s): s is string => Boolean(s))
+  const [active, setActive] = useState(images[0] ?? '')
+
+  if (images.length === 0) {
+    return (
+      <div
+        className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden flex items-center justify-center font-body"
+        style={{ background: 'var(--color-cream-input)', color: 'rgba(0,0,0,0.45)' }}
+      >
+        <span className="text-sm uppercase tracking-wider">No photos yet</span>
+      </div>
+    )
+  }
 
   return (
     <div>

@@ -133,6 +133,43 @@ export async function sendNewsletterNotification(p: NewsletterNotificationPayloa
   })
 }
 
+// ── Seller listing drafts ────────────────────────────────────────────
+
+export type DraftListingNotificationPayload = {
+  title: string
+  slug: string
+  sellerId: string
+  sellerEmail: string | null
+  industry: string
+  cuisine: string
+  location: string
+  askingPriceCents: number
+}
+
+export async function sendDraftListingNotification(
+  p: DraftListingNotificationPayload,
+): Promise<void> {
+  const askingDollars = `$${Math.round(p.askingPriceCents / 100).toLocaleString('en-US')}`
+  await sendBrandEmail({
+    subject: `New listing draft: ${p.title}`,
+    replyTo: p.sellerEmail ?? undefined,
+    text: [
+      'A seller submitted a new listing draft on Pass The Plate.',
+      'Review the draft in the admin queue (service-role read) before promoting to active.',
+      '',
+      `Title: ${p.title}`,
+      `Slug: ${p.slug}`,
+      `Asking: ${askingDollars}`,
+      `Industry: ${p.industry}`,
+      `Cuisine: ${p.cuisine}`,
+      `Location: ${p.location}`,
+      '',
+      `Seller ID: ${p.sellerId}`,
+      `Seller email: ${p.sellerEmail ?? '(unavailable)'}`,
+    ].join('\n'),
+  })
+}
+
 // ── Partner applications ─────────────────────────────────────────────
 
 export type PartnerApplicationNotificationPayload = {
