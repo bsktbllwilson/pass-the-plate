@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   try {
     const candidate = new URL(next, origin)
     if (candidate.origin === origin) {
-      safeNext = candidate.pathname + candidate.search + candidate.hash
+      safeNext = candidate.toString().slice(origin.length) || '/account'
     }
   } catch {
     // malformed next param → fall through to /account
