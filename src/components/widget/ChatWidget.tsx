@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowUp, MessageCircle, X } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowUp, X } from 'lucide-react'
 
 type Role = 'user' | 'assistant'
 
@@ -128,7 +129,15 @@ function MessageBubble({ message }: { message: ChatMessage }) {
 
 function TypingIndicator() {
   return (
-    <div className="flex items-start">
+    <div className="flex items-end gap-2">
+      <Image
+        src="/shushu/running.png"
+        alt=""
+        width={36}
+        height={36}
+        className="w-9 h-9 object-contain animate-bounce"
+        priority={false}
+      />
       <div
         className="rounded-2xl border px-4 py-3 flex gap-1.5"
         style={{ background: '#fff', borderColor: BORDER }}
@@ -346,12 +355,19 @@ export default function ChatWidget() {
           ref={buttonRef}
           onClick={handleOpen}
           aria-label="Open chat with Shushu"
-          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-shadow ${
+          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow overflow-hidden ${
             bouncing ? 'animate-bounce' : ''
           }`}
           style={{ background: ORANGE }}
         >
-          <MessageCircle size={28} strokeWidth={2} />
+          <Image
+            src="/shushu/hello.png"
+            alt=""
+            width={96}
+            height={96}
+            className="w-[110%] h-[110%] object-cover object-top scale-110"
+            priority
+          />
           <span
             aria-hidden
             className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full"
@@ -376,16 +392,17 @@ export default function ChatWidget() {
           >
             <div className="flex items-center gap-3 min-w-0">
               <div
-                className="w-9 h-9 rounded-full flex items-center justify-center font-medium shrink-0"
-                style={{
-                  background: CREAM,
-                  color: ORANGE,
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 20,
-                }}
+                className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center shrink-0"
+                style={{ background: CREAM }}
                 aria-hidden
               >
-                S
+                <Image
+                  src="/shushu/happy.png"
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="w-[120%] h-[120%] object-cover object-top"
+                />
               </div>
               <div className="flex flex-col leading-tight min-w-0">
                 <span className="font-medium text-base truncate">Shushu</span>
@@ -415,9 +432,19 @@ export default function ChatWidget() {
           >
             {showWelcome && (
               <>
+                <div className="flex justify-center pt-2 pb-1">
+                  <Image
+                    src="/shushu/shrug.png"
+                    alt=""
+                    width={140}
+                    height={140}
+                    className="w-28 h-28 object-contain"
+                    priority
+                  />
+                </div>
                 <div className="flex flex-col items-start gap-1">
                   <div
-                    className="max-w-[80%] rounded-2xl border px-4 py-2 text-[15px] leading-snug"
+                    className="max-w-[85%] rounded-2xl border px-4 py-2 text-[15px] leading-snug"
                     style={{ background: '#fff', borderColor: BORDER, color: INK }}
                   >
                     {WELCOME_TEXT}
@@ -456,16 +483,24 @@ export default function ChatWidget() {
             )}
 
             {error && (
-              <div
-                role="alert"
-                className="text-[13px] rounded-2xl border px-3 py-2"
-                style={{
-                  background: '#fff5f3',
-                  borderColor: '#f5c5b8',
-                  color: '#9a3412',
-                }}
-              >
-                {renderInlineLinks(error, 'err')}
+              <div role="alert" className="flex items-end gap-2">
+                <Image
+                  src="/shushu/sad.png"
+                  alt=""
+                  width={36}
+                  height={36}
+                  className="w-9 h-9 object-contain shrink-0"
+                />
+                <div
+                  className="text-[13px] rounded-2xl border px-3 py-2"
+                  style={{
+                    background: '#fff5f3',
+                    borderColor: '#f5c5b8',
+                    color: '#9a3412',
+                  }}
+                >
+                  {renderInlineLinks(error, 'err')}
+                </div>
               </div>
             )}
 
