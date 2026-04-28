@@ -28,6 +28,17 @@ const SUGGESTED_PROMPTS = [
   "What's a fair asking price for my restaurant?",
 ]
 
+type AvatarMood = 'happy' | 'flex' | 'sleepy' | 'cheeky'
+const AVATAR_SRC: Record<AvatarMood, string> = {
+  happy: '/shushu/happy.png',
+  flex: '/shushu/flex.png',
+  sleepy: '/shushu/sleepy.png',
+  cheeky: '/shushu/cheeky.png',
+}
+const IDLE_TIMEOUT_MS = 30_000
+const FLEX_DURATION_MS = 1_500
+const CHEEKY_DURATION_MS = 2_000
+
 const WELCOME_TEXT =
   "Hey, I'm Shushu \u{1F44B} (uncle in Mandarin). I'm Pass The Plate's bilingual concierge. Whether you're looking to buy your first Asian F&B business or sell the one you've poured your life into, I'm here to help. What can I help you with today?"
 
@@ -168,19 +179,51 @@ export default function ChatWidget() {
   const [error, setError] = useState<string | null>(null)
   const [bouncing, setBouncing] = useState(true)
   const [hydrated, setHydrated] = useState(false)
+  const [avatarMood, setAvatarMood] = useState<AvatarMood>('happy')
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const panelRef = useRef<HTMLDivElement | null>(null)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
   const abortRef = useRef<AbortController | null>(null)
+  const moodTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const avatarClickCountRef = useRef(0)
+  const avatarClickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const setMoodFor = useCallback((mood: AvatarMood, duration: number) => {
+    setAvatarMood(mood)
+    if (moodTimerRef.current) clearTimeout(moodTimerRef.current)
+    moodTimerRef.current = setTimeout(() => setAvatarMood('happy'), duration)
+  }, [])
+
+  const resetIdleTimer = useCallback(() => {
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+    setAvatarMood((m) => (m === 'sleepy' ? 'happy' : m))
+    idleTimerRef.current = setTimeout(() => {
+      setAvatarMood((m) => (m === 'happy' ? 'sleepy' : m))
+    }, IDLE_TIMEOUT_MS)
+  }, [])
 
   useEffect(() => {
     setMessages(loadFromSession())
     setHydrated(true)
     const t = setTimeout(() => setBouncing(false), 2000)
-    return () => clearTimeout(t)
+    return () => {
+      clearTimeout(t)
+      if (moodTimerRef.current) clearTimeout(moodTimerRef.current)
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+      if (avatarClickTimerRef.current) clearTimeout(avatarClickTimerRef.current)
+    }
   }, [])
+
+  useEffect(() => {
+    if (!isOpen) {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
+      return
+    }
+    resetIdleTimer()
+  }, [isOpen, resetIdleTimer])
 
   useEffect(() => {
     if (!hydrated) return
@@ -292,6 +335,7 @@ export default function ChatWidget() {
               ts: Date.now(),
             },
           ])
+          setMoodFor('flex', FLEX_DURATION_MS)
         } else {
           setError(ERROR_TEXT)
         }
@@ -304,9 +348,10 @@ export default function ChatWidget() {
         setStreamingText('')
         setIsLoading(false)
         abortRef.current = null
+        resetIdleTimer()
       }
     },
-    [isLoading, messages],
+    [isLoading, messages, setMoodFor, resetIdleTimer],
   )
 
   const handleSubmit = useCallback(
@@ -327,10 +372,14 @@ export default function ChatWidget() {
     [input, sendMessage],
   )
 
-  const handleSuggested = useCallback((prompt: string) => {
-    setInput(prompt)
-    setTimeout(() => textareaRef.current?.focus(), 0)
-  }, [])
+  const handleSuggested = useCallback(
+    (prompt: string) => {
+      setInput(prompt)
+      resetIdleTimer()
+      setTimeout(() => textareaRef.current?.focus(), 0)
+    },
+    [resetIdleTimer],
+  )
 
   const handleOpen = useCallback(() => {
     setIsOpen(true)
@@ -342,6 +391,18 @@ export default function ChatWidget() {
     abortRef.current?.abort()
     setTimeout(() => buttonRef.current?.focus(), 0)
   }, [])
+
+  const handleAvatarClick = useCallback(() => {
+    avatarClickCountRef.current += 1
+    if (avatarClickTimerRef.current) clearTimeout(avatarClickTimerRef.current)
+    avatarClickTimerRef.current = setTimeout(() => {
+      avatarClickCountRef.current = 0
+    }, 800)
+    if (avatarClickCountRef.current >= 3) {
+      avatarClickCountRef.current = 0
+      setMoodFor('cheeky', CHEEKY_DURATION_MS)
+    }
+  }, [setMoodFor])
 
   const fontStyle = useMemo<React.CSSProperties>(
     () => ({ fontFamily: 'var(--font-body)' }),
@@ -355,7 +416,7 @@ export default function ChatWidget() {
           ref={buttonRef}
           onClick={handleOpen}
           aria-label="Open chat with Shushu"
-          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow overflow-hidden ${
+          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-lg hover:shadow-xl transition-shadow overflow-hidden ${
             bouncing ? 'animate-bounce' : ''
           }`}
           style={{ background: ORANGE }}
@@ -363,9 +424,9 @@ export default function ChatWidget() {
           <Image
             src="/shushu/hello.png"
             alt=""
-            width={96}
-            height={96}
-            className="w-[110%] h-[110%] object-cover object-top scale-110"
+            width={140}
+            height={140}
+            className="absolute left-1/2 -translate-x-1/2 top-[-10%] w-[140%] max-w-none h-auto pointer-events-none select-none"
             priority
           />
           <span
@@ -391,19 +452,23 @@ export default function ChatWidget() {
             style={{ background: ORANGE, height: 64 }}
           >
             <div className="flex items-center gap-3 min-w-0">
-              <div
-                className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center shrink-0"
-                style={{ background: CREAM }}
+              <button
+                type="button"
+                onClick={handleAvatarClick}
+                tabIndex={-1}
                 aria-hidden
+                className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center shrink-0 cursor-pointer"
+                style={{ background: CREAM }}
               >
                 <Image
-                  src="/shushu/happy.png"
+                  src={AVATAR_SRC[avatarMood]}
                   alt=""
                   width={48}
                   height={48}
-                  className="w-[120%] h-[120%] object-cover object-top"
+                  className="w-[120%] h-[120%] object-cover object-top transition-opacity"
+                  key={avatarMood}
                 />
-              </div>
+              </button>
               <div className="flex flex-col leading-tight min-w-0">
                 <span className="font-medium text-base truncate">Shushu</span>
                 <span className="flex items-center gap-1.5 text-xs opacity-90">
@@ -434,7 +499,7 @@ export default function ChatWidget() {
               <>
                 <div className="flex justify-center pt-2 pb-1">
                   <Image
-                    src="/shushu/shrug.png"
+                    src="/shushu/happy.png"
                     alt=""
                     width={140}
                     height={140}
@@ -533,7 +598,10 @@ export default function ChatWidget() {
               <textarea
                 ref={textareaRef}
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => {
+                  setInput(e.target.value)
+                  resetIdleTimer()
+                }}
                 onKeyDown={handleKeyDown}
                 rows={1}
                 placeholder="Ask Shushu anything…"
