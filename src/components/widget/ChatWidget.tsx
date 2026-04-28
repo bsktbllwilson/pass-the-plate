@@ -426,10 +426,11 @@ export default function ChatWidget() {
           <Image
             src="/shushu/hello.png"
             alt=""
-
-           
-
-  
+            width={216}
+            height={216}
+            className="w-full h-full object-contain pointer-events-none select-none"
+            style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18))' }}
+            priority
           />
         </button>
       )}
