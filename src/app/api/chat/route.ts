@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { z } from 'zod'
-import { createClient } from '@/lib/supabase/server'
+import { getAnonClient } from '@/lib/supabase/anon'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -13,6 +13,38 @@ const MessageSchema = z.object({
 const BodySchema = z.object({
   messages: z.array(MessageSchema).min(1).max(40),
 })
+
+// Per-IP in-memory rate limit. Single-process only — Vercel serverless
+// invocations may be cold; a determined attacker can still grind across
+// instances. Move to a shared store (Upstash, KV, etc.) if abuse becomes
+// real. Until then this caps casual scraping of the chat / Anthropic spend.
+const RATE_WINDOW_MS = 60_000
+const RATE_MAX = 20
+const rateBuckets = new Map<string, { count: number; resetAt: number }>()
+
+function clientIp(request: Request): string {
+  const fwd = request.headers.get('x-forwarded-for')
+  if (fwd) return fwd.split(',')[0]!.trim()
+  return request.headers.get('x-real-ip') ?? 'unknown'
+}
+
+function checkRateLimit(ip: string): { ok: true } | { ok: false; retryAfter: number } {
+  const now = Date.now()
+  const entry = rateBuckets.get(ip)
+  if (!entry || entry.resetAt <= now) {
+    rateBuckets.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    if (rateBuckets.size > 1024) {
+      // Light reaping: scrub stale entries when the map grows large.
+      for (const [k, v] of rateBuckets) if (v.resetAt <= now) rateBuckets.delete(k)
+    }
+    return { ok: true }
+  }
+  if (entry.count >= RATE_MAX) {
+    return { ok: false, retryAfter: Math.ceil((entry.resetAt - now) / 1000) }
+  }
+  entry.count += 1
+  return { ok: true }
+}
 
 type ListingForPrompt = {
   id: string
@@ -40,7 +72,7 @@ function formatMoney(cents: number): string {
 
 async function fetchListingsForPrompt(): Promise<ListingForPrompt[]> {
   try {
-    const supabase = await createClient()
+    const supabase = getAnonClient()
     const { data, error } = await supabase
       .from('listings')
       .select('id, title, location, cuisine, asking_price_cents, annual_revenue_cents, slug, description')
@@ -140,6 +172,14 @@ Today is ${today}.`
 }
 
 export async function POST(request: Request) {
+  const limit = checkRateLimit(clientIp(request))
+  if (!limit.ok) {
+    return Response.json(
+      { error: 'Too many requests. Give Shushu a moment to catch up and try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } },
+    )
+  }
+
   let parsed: z.infer<typeof BodySchema>
   try {
     const json = await request.json()

@@ -8,7 +8,7 @@ import ValueProps from '@/components/marketing/ValueProps'
 import HeroSearch from '@/components/marketing/HeroSearch'
 import { LinkButton } from '@/components/ui'
 import { content } from '@/lib/content'
-import { TESTIMONIALS, type Testimonial } from '@/data/testimonials'
+import { TESTIMONIALS } from '@/data/testimonials'
 
 export const metadata: Metadata = {
   title: 'Sell A Business — Pass The Plate',
@@ -22,17 +22,11 @@ const SELL_STATS: { value: string; label: string }[] = [
   { value: 'Verified Buyers', label: 'Every buyer must show proof of funds before seeing your contact.' },
 ]
 
-function shuffle<T>(arr: T[]): T[] {
-  const a = arr.slice()
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
-
 export default function SellPage() {
-  const featured: Testimonial[] = shuffle(TESTIMONIALS).slice(0, 2)
+  // Deterministic pick — Math.random() in a server component bakes a single
+  // pair into the static cache, so the "rotation" never actually rotated.
+  // Reorder TESTIMONIALS to change which two surface on this page.
+  const featured = TESTIMONIALS.slice(0, 2)
 
   return (
     <main style={{ background: 'var(--color-cream)' }}>
