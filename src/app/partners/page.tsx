@@ -31,7 +31,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
       <div className="flex items-start justify-between gap-3 mb-4">
         <span
           className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wide"
-          style={{ fontFamily: 'var(--font-body)', background: 'rgba(230,78,33,0.08)', color: 'rgb(230,78,33)' }}
+          style={{ fontFamily: 'var(--font-body)', background: 'rgba(230,78,33,0.08)', color: 'var(--color-brand)' }}
         >
           {formatSpecialty(partner.specialty)}
         </span>
@@ -92,7 +92,7 @@ export default async function PartnersPage() {
   const { rows, totalCount } = await getPartners({ perPage: 100 })
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="px-4 pt-12 pb-6">

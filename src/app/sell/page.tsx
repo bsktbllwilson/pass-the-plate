@@ -35,7 +35,7 @@ export default function SellPage() {
   const featured: Testimonial[] = shuffle(TESTIMONIALS).slice(0, 2)
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="relative w-full overflow-hidden" style={{ minHeight: '600px', height: '70vh' }}>
@@ -60,7 +60,7 @@ export default function SellPage() {
               <Link
                 href="/contact?intent=sell"
                 className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
-                style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1.0625rem' }}
+                style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1.0625rem' }}
               >
                 List My Business →
               </Link>
@@ -80,7 +80,7 @@ export default function SellPage() {
         <ValueProps heading="How It Works" plates={content.platesAreFull} />
       </section>
 
-      <section className="px-4 py-24" style={{ background: '#FCE16E' }}>
+      <section className="px-4 py-24" style={{ background: 'var(--color-yellow)' }}>
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
           <h2 className="font-medium tracking-[-0.01em] mb-10" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
             Listing Hotspots
@@ -94,7 +94,7 @@ export default function SellPage() {
         </div>
       </section>
 
-      <section className="py-16 px-4" style={{ background: '#FCE16E' }}>
+      <section className="py-16 px-4" style={{ background: 'var(--color-yellow)' }}>
         <div className="mx-auto grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4" style={{ maxWidth: '1400px' }}>
           {SELL_STATS.map((s) => (
             <div key={s.value} className="text-center px-4">

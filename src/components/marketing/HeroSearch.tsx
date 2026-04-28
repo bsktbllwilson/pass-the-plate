@@ -69,7 +69,7 @@ export default function HeroSearch({ submitLabel = 'Search →' }: { submitLabel
       </div>
       <button type="submit"
         className="px-10 py-5 font-medium text-white rounded-b-3xl md:rounded-b-none md:rounded-r-3xl flex items-center justify-center gap-3 min-h-[72px]"
-        style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>
+        style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: 'clamp(1rem, 2vw, 1.5rem)' }}>
         {submitLabel}
       </button>
     </form>

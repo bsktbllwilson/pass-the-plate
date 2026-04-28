@@ -31,7 +31,7 @@ export default function SearchBar() {
       <button
         type="submit"
         className="px-8 py-4 font-medium text-white flex items-center gap-2"
-        style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1.125rem' }}
+        style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1.125rem' }}
       >
         Search →
       </button>

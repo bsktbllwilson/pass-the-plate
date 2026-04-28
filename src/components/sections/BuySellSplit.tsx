@@ -11,11 +11,11 @@ export default function BuySellSplit() {
       <div className="relative z-10 h-full flex flex-col md:flex-row items-end px-4 pb-12 pt-40 gap-8" style={{ minHeight: 'inherit' }}>
         <div className="flex-1 md:pl-12">
           <h2 className="text-white font-medium tracking-[-0.01em] mb-6" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)', lineHeight: '1.1' }}>Find A Business<br />You&apos;re Hungry For</h2>
-          <a href="/buy" className="inline-flex items-center gap-3 px-8 py-5 rounded-3xl text-white font-medium text-xl" style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)' }}>Buy A Business →</a>
+          <a href="/buy" className="inline-flex items-center gap-3 px-8 py-5 rounded-3xl text-white font-medium text-xl" style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)' }}>Buy A Business →</a>
         </div>
         <div className="flex-1 md:text-right md:pr-12">
           <h2 className="text-white font-medium tracking-[-0.01em] mb-6" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.375rem)', lineHeight: '1.1' }}>Pass The Plate<br />To The Right Hands</h2>
-          <a href="/sell" className="inline-flex items-center gap-3 px-8 py-5 rounded-3xl text-white font-medium text-xl" style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)' }}>Sell A Business →</a>
+          <a href="/sell" className="inline-flex items-center gap-3 px-8 py-5 rounded-3xl text-white font-medium text-xl" style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)' }}>Sell A Business →</a>
         </div>
       </div>
     </section>

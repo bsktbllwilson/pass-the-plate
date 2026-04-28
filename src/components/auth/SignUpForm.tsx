@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
-const inputClasses = 'w-full rounded-full border border-black/15 bg-[#FAF6EB] px-5 py-3 text-base focus:outline-none focus:border-black/40 transition-colors'
+const inputClasses = 'w-full rounded-full border border-black/15 bg-[var(--color-cream-input)] px-5 py-3 text-base focus:outline-none focus:border-black/40 transition-colors'
 const labelClasses = 'block text-sm font-medium mb-2 text-black/70'
 
 function siteUrl(): string {
@@ -102,25 +102,25 @@ export default function SignUpForm() {
         <fieldset className="pt-2">
           <legend className={labelClasses}>I&apos;m here to…</legend>
           <div className="space-y-2">
-            <label className={`flex items-center gap-3 px-4 py-3 rounded-full border cursor-pointer transition-colors ${role === 'buyer' ? 'border-black bg-[#FAF6EB]' : 'border-black/15 hover:border-black/40'}`}>
+            <label className={`flex items-center gap-3 px-4 py-3 rounded-full border cursor-pointer transition-colors ${role === 'buyer' ? 'border-black bg-[var(--color-cream-input)]' : 'border-black/15 hover:border-black/40'}`}>
               <input
                 type="radio"
                 name="role"
                 value="buyer"
                 checked={role === 'buyer'}
                 onChange={() => setRole('buyer')}
-                className="w-4 h-4 accent-[rgb(230,78,33)]"
+                className="w-4 h-4 accent-[var(--color-brand)]"
               />
               <span className="text-sm">Buy a business</span>
             </label>
-            <label className={`flex items-center gap-3 px-4 py-3 rounded-full border cursor-pointer transition-colors ${role === 'seller' ? 'border-black bg-[#FAF6EB]' : 'border-black/15 hover:border-black/40'}`}>
+            <label className={`flex items-center gap-3 px-4 py-3 rounded-full border cursor-pointer transition-colors ${role === 'seller' ? 'border-black bg-[var(--color-cream-input)]' : 'border-black/15 hover:border-black/40'}`}>
               <input
                 type="radio"
                 name="role"
                 value="seller"
                 checked={role === 'seller'}
                 onChange={() => setRole('seller')}
-                className="w-4 h-4 accent-[rgb(230,78,33)]"
+                className="w-4 h-4 accent-[var(--color-brand)]"
               />
               <span className="text-sm">Sell my business</span>
             </label>
@@ -133,7 +133,7 @@ export default function SignUpForm() {
           type="submit"
           disabled={submitting}
           className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-          style={{ background: 'rgb(230,78,33)', fontSize: '1rem' }}
+          style={{ background: 'var(--color-brand)', fontSize: '1rem' }}
         >
           {submitting ? 'Creating account…' : 'Create Account →'}
         </button>

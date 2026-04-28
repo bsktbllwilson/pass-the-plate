@@ -54,7 +54,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
   const published = post.published_at ? dateFmt.format(new Date(post.published_at)) : ''
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <article className="px-4 py-12">
@@ -73,7 +73,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
           </div>
 
           <div className="mt-8">
-            <span className="inline-block px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: '#FCE16E', fontFamily: 'var(--font-body)' }}>
+            <span className="inline-block px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: 'var(--color-yellow)', fontFamily: 'var(--font-body)' }}>
               {categoryLabel(post.category)}
             </span>
           </div>
@@ -110,7 +110,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
                         )}
                       </div>
                       <div className="p-5">
-                        <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium mb-3" style={{ background: '#FCE16E', fontFamily: 'var(--font-body)' }}>
+                        <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium mb-3" style={{ background: 'var(--color-yellow)', fontFamily: 'var(--font-body)' }}>
                           {categoryLabel(r.category)}
                         </span>
                         <h3 className="font-medium tracking-[-0.01em]" style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', lineHeight: '1.2' }}>

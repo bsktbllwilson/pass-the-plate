@@ -19,7 +19,7 @@ export default function SignOutButton({ className, label = 'Sign out' }: { class
       onClick={onClick}
       disabled={submitting}
       className={className ?? 'inline-block px-6 py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50'}
-      style={!className ? { background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1rem' } : undefined}
+      style={!className ? { background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1rem' } : undefined}
     >
       {submitting ? 'Signing out…' : label}
     </button>

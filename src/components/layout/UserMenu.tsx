@@ -57,7 +57,7 @@ export default function UserMenu() {
     return (
       <Link
         href="/sign-in"
-        className="inline-flex items-center px-4 py-2 rounded-full border-2 border-[rgb(248,243,223)] text-[rgb(248,243,223)] font-medium hover:bg-[rgb(248,243,223)] hover:text-[rgb(230,80,37)] transition-colors text-sm"
+        className="inline-flex items-center px-4 py-2 rounded-full border-2 border-[var(--color-cream-soft)] text-[var(--color-cream-soft)] font-medium hover:bg-[var(--color-cream-soft)] hover:text-[var(--color-brand)] transition-colors text-sm"
         style={{ fontFamily: 'var(--font-body)' }}
       >
         Sign In
@@ -80,7 +80,7 @@ export default function UserMenu() {
         onClick={() => setOpen(o => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="w-10 h-10 rounded-full bg-[rgb(248,243,223)] text-[rgb(230,80,37)] flex items-center justify-center hover:opacity-90 transition-opacity"
+        className="w-10 h-10 rounded-full bg-[var(--color-cream-soft)] text-[var(--color-brand)] flex items-center justify-center hover:opacity-90 transition-opacity"
         style={{ fontFamily: 'var(--font-display)', fontSize: '1.125rem', fontWeight: 600 }}
         aria-label="Account menu"
       >

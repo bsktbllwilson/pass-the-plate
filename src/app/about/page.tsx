@@ -65,7 +65,7 @@ const PRESS = ['World Journal', 'Korea Times', 'The Real Deal', 'Eater NY', 'Tec
 
 export default function AboutPage() {
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="px-4 py-24 text-center">
@@ -124,7 +124,7 @@ export default function AboutPage() {
             {TIMELINE.map((m, i) => (
               <div key={`${m.year}-${m.title}`} className={`flex flex-col md:flex-row items-start gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse md:text-right' : ''}`}>
                 <div className="md:w-1/3 flex-shrink-0">
-                  <div className="font-medium leading-none tracking-[-0.02em]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'rgb(230,78,33)' }}>
+                  <div className="font-medium leading-none tracking-[-0.02em]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--color-brand)' }}>
                     {m.year}
                   </div>
                 </div>

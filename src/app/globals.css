@@ -3,12 +3,22 @@
 @theme {
   --font-display: 'please-display-vf', 'Please Display VF', Georgia, serif;
   --font-body: 'proxima-nova', 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Brand colors — canonical paint values. Use these everywhere instead of
+     inline rgb()/hex literals; multiple drifted shades existed pre-token. */
+  --color-brand: rgb(230, 78, 33);          /* primary orange (was also rgb(230,80,37) and #E8542C) */
+  --color-cream: #F5EDDC;                    /* primary page background */
+  --color-cream-soft: rgb(248, 243, 222);    /* inverse cream — text/borders on dark surfaces (was also rgb(248,243,223)) */
+  --color-cream-input: #FAF6EB;              /* form input tone (was also #FAF6EE in chat widget) */
+  --color-yellow: #FCE16E;                   /* category pills, hero accents (was also rgb(255,239,124)) */
+  --color-muted: #6B6B6B;
+  --color-border: #E5DCC5;
 }
 
 * { box-sizing: border-box; }
 
 html, body {
-  background: rgb(248, 243, 222);
+  background: var(--color-cream);
   font-family: var(--font-body);
   font-weight: 500;
   -webkit-font-smoothing: antialiased;

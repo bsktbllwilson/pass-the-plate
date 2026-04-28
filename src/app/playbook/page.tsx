@@ -50,7 +50,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
   })
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="relative w-full overflow-hidden" style={{ minHeight: '400px', height: '50vh' }}>
@@ -64,13 +64,13 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)' }} />
         <div className="absolute inset-0 flex items-end">
-          <h1 className="pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'rgb(248,243,222)', fontFamily: 'var(--font-display)', fontSize: 'clamp(4.5rem, 14vw, 8.75rem)', lineHeight: '1' }}>
+          <h1 className="pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'var(--color-cream-soft)', fontFamily: 'var(--font-display)', fontSize: 'clamp(4.5rem, 14vw, 8.75rem)', lineHeight: '1' }}>
             The Playbook
           </h1>
         </div>
       </section>
 
-      <section className="px-4 py-8" style={{ background: '#F5EDDC' }}>
+      <section className="px-4 py-8" style={{ background: 'var(--color-cream)' }}>
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
           <CategoryFilter />
         </div>
@@ -104,7 +104,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       )}
-                      <span className="absolute left-4 bottom-4 px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: '#FCE16E', fontFamily: 'var(--font-body)' }}>
+                      <span className="absolute left-4 bottom-4 px-3 py-1.5 rounded-full text-sm font-medium" style={{ background: 'var(--color-yellow)', fontFamily: 'var(--font-body)' }}>
                         {categoryLabel(post.category)}
                       </span>
                     </div>
@@ -117,7 +117,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
                           {post.excerpt}
                         </p>
                       )}
-                      <span className="font-semibold border-b-2 pb-0.5" style={{ borderColor: '#FCE16E', fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
+                      <span className="font-semibold border-b-2 pb-0.5" style={{ borderColor: 'var(--color-yellow)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
                         Read Guide →
                       </span>
                     </div>

@@ -14,11 +14,11 @@ export default function Markdown({ children }: { children: string }) {
           ul: (props) => <ul className="mb-5 ml-6 list-disc space-y-2" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }} {...props} />,
           ol: (props) => <ol className="mb-5 ml-6 list-decimal space-y-2" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }} {...props} />,
           li: (props) => <li className="pl-1" {...props} />,
-          a: (props) => <a className="underline hover:opacity-70 transition-opacity" style={{ color: 'rgb(230,78,33)' }} {...props} />,
+          a: (props) => <a className="underline hover:opacity-70 transition-opacity" style={{ color: 'var(--color-brand)' }} {...props} />,
           blockquote: (props) => (
             <blockquote
               className="my-6 pl-5 italic"
-              style={{ borderLeft: '3px solid rgb(230,78,33)', fontFamily: 'var(--font-display)', fontSize: '1.25rem', lineHeight: '1.5', color: 'rgba(0,0,0,0.85)' }}
+              style={{ borderLeft: '3px solid var(--color-brand)', fontFamily: 'var(--font-display)', fontSize: '1.25rem', lineHeight: '1.5', color: 'rgba(0,0,0,0.85)' }}
               {...props}
             />
           ),

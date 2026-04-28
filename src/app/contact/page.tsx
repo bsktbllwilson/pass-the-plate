@@ -22,7 +22,7 @@ const ALT_LINKS = [
 
 export default function ContactPage() {
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="px-4 py-24 text-center">
@@ -50,7 +50,7 @@ export default function ContactPage() {
                 <div>
                   <dt className="text-xs uppercase tracking-wide text-black/55 mb-1">Email</dt>
                   <dd>
-                    <a href="mailto:hello@passtheplate.store" className="hover:opacity-70 transition-opacity" style={{ color: 'rgb(230,78,33)' }}>
+                    <a href="mailto:hello@passtheplate.store" className="hover:opacity-70 transition-opacity" style={{ color: 'var(--color-brand)' }}>
                       hello@passtheplate.store
                     </a>
                   </dd>
@@ -73,7 +73,7 @@ export default function ContactPage() {
                     style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
                   >
                     <span className="font-medium">{l.label}</span>
-                    <span aria-hidden style={{ color: 'rgb(230,78,33)' }}>→</span>
+                    <span aria-hidden style={{ color: 'var(--color-brand)' }}>→</span>
                   </Link>
                 ))}
               </div>

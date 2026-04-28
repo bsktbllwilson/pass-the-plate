@@ -72,7 +72,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
   const assets = listingAssets(listing.assets)
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="px-4 pt-10 pb-12">
@@ -114,7 +114,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                 <ul className="space-y-2">
                   {assets.map(a => (
                     <li key={a} className="flex items-start gap-3" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
-                      <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'rgb(230,78,33)' }} />
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-brand)' }} />
                       <span>{a}</span>
                     </li>
                   ))}
@@ -161,7 +161,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
                   </div>
                 )}
                 <div className="flex flex-wrap gap-2 pt-2">
-                  <span className="px-3 py-1 rounded-full text-sm" style={{ background: 'rgb(255,239,124)', fontFamily: 'var(--font-body)' }}>{formatCuisine(listing.cuisine)}</span>
+                  <span className="px-3 py-1 rounded-full text-sm" style={{ background: 'var(--color-yellow)', fontFamily: 'var(--font-body)' }}>{formatCuisine(listing.cuisine)}</span>
                   <span className="px-3 py-1 rounded-full text-sm border border-black/10" style={{ fontFamily: 'var(--font-body)' }}>{formatIndustry(listing.industry)}</span>
                 </div>
               </div>

@@ -12,7 +12,7 @@ export default function Subscribe() {
   }
   return (
     <section className="px-4 py-12">
-      <div className="mx-auto rounded-[80px] px-8 md:px-16 py-16 flex flex-col md:flex-row items-center md:items-start gap-10" style={{ background: 'rgb(230,80,37)', maxWidth: '1540px' }}>
+      <div className="mx-auto rounded-[80px] px-8 md:px-16 py-16 flex flex-col md:flex-row items-center md:items-start gap-10" style={{ background: 'var(--color-brand)', maxWidth: '1540px' }}>
         <div className="flex-1">
           <h2 className="font-medium tracking-[-0.01em]" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4.5vw, 3.625rem)', lineHeight: '1', color: '#000' }}>Find Your Next Big Deal</h2>
         </div>

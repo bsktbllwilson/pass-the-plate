@@ -50,7 +50,7 @@ export default function InquiryForm({ listingId, listingTitle }: { listingId: st
           style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         />
         {state?.error && (
-          <p className="text-sm" style={{ color: 'rgb(230,78,33)', fontFamily: 'var(--font-body)' }}>
+          <p className="text-sm" style={{ color: 'var(--color-brand)', fontFamily: 'var(--font-body)' }}>
             {state.error}
           </p>
         )}
@@ -58,7 +58,7 @@ export default function InquiryForm({ listingId, listingTitle }: { listingId: st
           type="submit"
           disabled={isPending}
           className="w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-          style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+          style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
         >
           {isPending ? 'Sending…' : 'Send Inquiry →'}
         </button>

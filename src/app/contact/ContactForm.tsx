@@ -58,7 +58,7 @@ export default function ContactForm() {
       </div>
       <button type="submit" disabled={pending}
         className="w-full py-3.5 rounded-full text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-        style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
+        style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
         {pending ? 'Sending…' : 'Send Message →'}
       </button>
     </form>

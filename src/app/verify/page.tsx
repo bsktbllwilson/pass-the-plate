@@ -15,7 +15,7 @@ export default async function VerifyPage() {
   await requireUser('/verify')
 
   return (
-    <main style={{ background: '#F5EDDC', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--color-cream)', minHeight: '100vh' }}>
       <SiteHeader />
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto w-full max-w-2xl">

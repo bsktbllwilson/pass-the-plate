@@ -93,7 +93,7 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
   }
 
   return (
-    <main style={{ background: '#F5EDDC' }}>
+    <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
       <section className="px-4 pt-12 pb-6">
@@ -156,7 +156,7 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
                     <Link
                       href={`/buy/${listing.slug}`}
                       className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
-                      style={{ background: 'rgb(230,78,33)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
+                      style={{ background: 'var(--color-brand)', fontFamily: 'var(--font-body)', fontSize: '1rem' }}
                     >
                       View Listing →
                     </Link>

@@ -12,7 +12,7 @@ export default function SubscribeCard() {
   }
 
   return (
-    <article className="rounded-2xl overflow-hidden flex flex-col p-8" style={{ background: '#FCE16E' }}>
+    <article className="rounded-2xl overflow-hidden flex flex-col p-8" style={{ background: 'var(--color-yellow)' }}>
       {submitted ? (
         <div className="flex flex-col flex-1 justify-center">
           <h3 className="font-medium tracking-[-0.01em] mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', lineHeight: '1.1' }}>

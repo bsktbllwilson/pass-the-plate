@@ -13,7 +13,7 @@ export default function StatsBand({ stats }: { stats: Stat[] }) {
     return () => obs.disconnect()
   }, [])
   return (
-    <section ref={ref} className="py-20 px-4" style={{ background: 'rgb(255,239,124)', opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
+    <section ref={ref} className="py-20 px-4" style={{ background: 'var(--color-yellow)', opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
       <div className="mx-auto grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4" style={{ maxWidth: '1400px' }}>
         {stats.map((s) => (
           <div key={s.value} className="text-center px-4">
