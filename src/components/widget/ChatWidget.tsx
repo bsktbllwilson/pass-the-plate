@@ -416,15 +416,15 @@ export default function ChatWidget() {
           ref={buttonRef}
           onClick={handleOpen}
           aria-label="Open chat with Shushu"
-          className={`fixed bottom-6 right-6 z-50 w-[115px] h-[115px] flex items-end justify-center transition-transform hover:scale-105 ${
+          className={`fixed bottom-6 right-6 z-50 w-[144px] h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
             bouncing ? 'animate-bounce' : ''
           }`}
         >
           <Image
             src="/shushu/hello.png"
             alt=""
-            width={173}
-            height={173}
+            width={216}
+            height={216}
             className="w-full h-full object-contain pointer-events-none select-none"
             style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18))' }}
             priority
