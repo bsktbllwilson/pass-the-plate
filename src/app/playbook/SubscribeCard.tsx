@@ -1,20 +1,14 @@
 'use client'
-import { useState } from 'react'
+import { useActionState } from 'react'
 import { Button, Input } from '@/components/ui'
+import { subscribeNewsletter, type SubscribeState } from '@/app/actions/newsletter'
 
 export default function SubscribeCard() {
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-
-  function submit(e: React.FormEvent) {
-    e.preventDefault()
-    console.log('Newsletter subscribe:', { email })
-    setSubmitted(true)
-  }
+  const [state, action, pending] = useActionState<SubscribeState, FormData>(subscribeNewsletter, null)
 
   return (
     <article className="rounded-2xl overflow-hidden flex flex-col p-8" style={{ background: 'var(--color-yellow)' }}>
-      {submitted ? (
+      {state?.ok ? (
         <div className="flex flex-col flex-1 justify-center">
           <h3 className="font-medium tracking-[-0.01em] mb-3" style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', lineHeight: '1.1' }}>
             You&apos;re on the list.
@@ -31,17 +25,20 @@ export default function SubscribeCard() {
           <p className="mb-5" style={{ fontFamily: 'var(--font-body)', fontSize: '1rem' }}>
             Bilingual playbooks for buyers, sellers, and operators delivered every Thursday.
           </p>
-          <form onSubmit={submit} className="mt-auto flex flex-col gap-3">
+          <form action={action} className="mt-auto flex flex-col gap-3">
+            <input type="hidden" name="source" value="playbook" />
             <Input
               type="email"
+              name="email"
               required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
               placeholder="you@email.com"
             />
-            <Button type="submit" variant="dark">
-              Subscribe →
+            <Button type="submit" variant="dark" disabled={pending}>
+              {pending ? 'Subscribing…' : 'Subscribe →'}
             </Button>
+            {state?.error && (
+              <p className="text-sm" style={{ fontFamily: 'var(--font-body)' }}>{state.error}</p>
+            )}
           </form>
         </>
       )}

@@ -45,6 +45,11 @@ export default function ContactForm() {
       <Field label="Message" htmlFor="message" required>
         <Textarea id="message" name="message" rows={6} required />
       </Field>
+      {state && !state.ok && state.message && (
+        <p className="text-sm text-red-600" style={{ fontFamily: 'var(--font-body)' }}>
+          {state.message}
+        </p>
+      )}
       <Button type="submit" disabled={pending} fullWidth>
         {pending ? 'Sending…' : 'Send Message →'}
       </Button>
