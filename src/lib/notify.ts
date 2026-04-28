@@ -132,3 +132,37 @@ export async function sendNewsletterNotification(p: NewsletterNotificationPayloa
     ].join('\n'),
   })
 }
+
+// ── Partner applications ─────────────────────────────────────────────
+
+export type PartnerApplicationNotificationPayload = {
+  name: string
+  email: string
+  phone: string | null
+  company: string
+  specialty: string
+  website: string | null
+  pitch: string
+}
+
+export async function sendPartnerApplicationNotification(
+  p: PartnerApplicationNotificationPayload,
+): Promise<void> {
+  await sendBrandEmail({
+    subject: `Partner application: ${p.company} (${p.specialty})`,
+    replyTo: p.email,
+    text: [
+      'New partner application on Pass The Plate.',
+      '',
+      `Name: ${p.name}`,
+      `Email: ${p.email}`,
+      `Phone: ${p.phone ?? '(not provided)'}`,
+      `Company: ${p.company}`,
+      `Specialty: ${p.specialty}`,
+      `Website: ${p.website ?? '(not provided)'}`,
+      '',
+      'Pitch:',
+      p.pitch,
+    ].join('\n'),
+  })
+}
