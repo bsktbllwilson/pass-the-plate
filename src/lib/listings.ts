@@ -41,6 +41,41 @@ export async function getTrendingListings(limit = 4): Promise<Listing[]> {
   return data ?? []
 }
 
+export type ListingForMap = {
+  id: string
+  slug: string
+  title: string
+  location: string
+  cuisine: string | null
+  cover_image_url: string | null
+  asking_price_cents: number | null
+}
+
+/**
+ * Returns the lean listing fields the /sell map needs, for active
+ * listings only. Uses the cookieless anon client so /sell stays on
+ * the static + ISR path. Degrades to [] on missing env vars (the
+ * page renders a fallback in that case).
+ */
+export async function getListingsForMap(): Promise<ListingForMap[]> {
+  let supabase: ReturnType<typeof getAnonClient>
+  try {
+    supabase = getAnonClient()
+  } catch (err) {
+    console.warn('getListingsForMap skipped: anon client unavailable', err)
+    return []
+  }
+  const { data, error } = await supabase
+    .from('listings')
+    .select('id, slug, title, location, cuisine, cover_image_url, asking_price_cents')
+    .eq('status', 'active')
+  if (error) {
+    console.error('getListingsForMap error:', error)
+    return []
+  }
+  return (data ?? []) as ListingForMap[]
+}
+
 export type MarketCount = {
   /** Display name (city portion of `location`, with `, NY` suffix stripped). */
   market: string

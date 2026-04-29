@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import type { Metadata } from 'next'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
@@ -7,9 +6,10 @@ import BuySellSplit from '@/components/sections/BuySellSplit'
 import FindYourNextBigDeal from '@/components/sections/FindYourNextBigDeal'
 import ValueProps from '@/components/marketing/ValueProps'
 import HeroSearch from '@/components/marketing/HeroSearch'
+import ListingsMap from '@/components/marketplace/ListingsMap'
 import { LinkButton } from '@/components/ui'
 import { content } from '@/lib/content'
-import { getMarketCounts } from '@/lib/listings'
+import { getListingsForMap } from '@/lib/listings'
 import { TESTIMONIALS } from '@/data/testimonials'
 
 export const metadata: Metadata = {
@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   description: 'List your Asian F&B business on Pass The Plate. Bilingual support, vetted buyers, and zero upfront fees.',
 }
 
-// ISR: re-render at most every 5 minutes. Market counts only need to be
-// fresh-ish; this keeps the page on the static path while still picking
-// up new listings from the admin queue.
+// ISR: re-render at most every 5 minutes. The map's listing pins only
+// need to be fresh-ish; this keeps /sell on the static path while still
+// picking up new listings as they get approved.
 export const revalidate = 300
 
 const SELL_STATS: { value: string; label: string }[] = [
@@ -34,7 +34,7 @@ export default async function SellPage() {
   // pair into the static cache, so the "rotation" never actually rotated.
   // Reorder TESTIMONIALS to change which two surface on this page.
   const featured = TESTIMONIALS.slice(0, 2)
-  const markets = await getMarketCounts(6)
+  const mapListings = await getListingsForMap()
 
   return (
     <main style={{ background: 'var(--color-cream)' }}>
@@ -85,45 +85,13 @@ export default async function SellPage() {
             Listing Hotspots
           </h2>
           <p className="font-body mb-10" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '720px' }}>
-            Where buyers are searching today. Click a market to see what&apos;s for sale.
+            Where buyers are searching today. Click a pin to see the listing.
           </p>
           <HeroSearch />
 
-          {markets.length > 0 ? (
-            <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-4">
-              {markets.map((m) => (
-                <Link
-                  key={m.market}
-                  href={`/buy?location=${encodeURIComponent(m.market)}`}
-                  className="group bg-white rounded-2xl px-6 py-7 border border-black/10 hover:border-black/40 transition-colors flex flex-col"
-                >
-                  <div
-                    className="font-display font-medium tracking-[-0.01em] mb-1"
-                    style={{ fontSize: 'clamp(1.5rem, 2.4vw, 1.875rem)', lineHeight: '1.1' }}
-                  >
-                    {m.market}
-                  </div>
-                  <div className="font-body text-sm text-black/60 mb-5">
-                    {m.count} {m.count === 1 ? 'listing' : 'listings'} for sale
-                  </div>
-                  <div
-                    className="font-body text-sm font-medium mt-auto group-hover:underline"
-                    style={{ color: 'var(--color-brand)' }}
-                  >
-                    Browse {m.market} →
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="font-body mt-10 rounded-2xl border border-dashed border-black/20 px-8 py-10 text-center text-black/55">
-              We&apos;re actively onboarding sellers in NYC. Check back soon, or
-              {' '}
-              <Link href="/sell/new" className="underline text-black font-medium">list yours</Link>
-              {' '}
-              to be among the first.
-            </div>
-          )}
+          <div className="mt-10">
+            <ListingsMap listings={mapListings} />
+          </div>
         </div>
       </section>
 
