@@ -21,7 +21,7 @@
     "columns": [
       { "heading": "Marketplace", "links": [{ "label": "Buy A Business", "href": "/buy" }, { "label": "Sell A Business", "href": "/sell" }] },
       { "heading": "Resources", "links": [{ "label": "Guides & Playbooks", "href": "/playbook" }, { "label": "Address Book", "href": "/partners" }] },
-      { "heading": "Company", "links": [{ "label": "Who We Are", "href": "/about" }, { "label": "Become A Partner", "href": "/contact" }, { "label": "Contact", "href": "/contact" }] }
+      { "heading": "Company", "links": [{ "label": "Who We Are", "href": "/about" }, { "label": "Become A Partner", "href": "/partners/apply" }, { "label": "Contact", "href": "/contact" }] }
     ]
   }
 }
