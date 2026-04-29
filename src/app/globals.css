@@ -65,16 +65,17 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* ── Chat widget hint chip ───────────────────────────────────────────
-   Slides the "Buying or selling? Ask me!" chip in from the right when
-   the avatar's intro bounce ends. Tiny custom keyframe instead of a
-   Tailwind plugin since it's the only place we need it. */
-@keyframes fadeInRight {
-  from { opacity: 0; transform: translateX(8px); }
-  to   { opacity: 1; transform: translateX(0); }
+   Slides the "Buying or selling? Ask me!" chip up from below the
+   floating Shushu avatar when its intro bounce ends. Tiny custom
+   keyframe instead of a Tailwind plugin since it's the only place we
+   need it. */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-\[fadeInRight_240ms_ease-out\] {
+  .animate-\[fadeInUp_240ms_ease-out\] {
     animation: none !important;
   }
 }

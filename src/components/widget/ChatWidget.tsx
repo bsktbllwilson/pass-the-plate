@@ -438,12 +438,30 @@ export default function ChatWidget() {
   return (
     <>
       {!isOpen && (
-        <div className="fixed bottom-8 right-8 z-50 flex items-end gap-2 sm:gap-3">
+        <div className="fixed bottom-4 right-8 z-50 flex flex-col items-center gap-1">
+          <button
+            ref={buttonRef}
+            onClick={handleOpen}
+            aria-label="Open chat with Shushu"
+            className={`w-[144px] h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
+              bouncing ? 'animate-bounce' : ''
+            }`}
+          >
+            <Image
+              src="/shushu/hello.png"
+              alt=""
+              width={216}
+              height={216}
+              className="w-full h-full object-contain pointer-events-none select-none"
+              style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18))' }}
+              priority
+            />
+          </button>
           {hydrated && !bouncing && !hintDismissed && (
             <div
               role="status"
               aria-live="polite"
-              className="hidden sm:flex items-center gap-2 mb-6 rounded-full border bg-white pl-4 pr-2 py-2 shadow-md text-[14px] whitespace-nowrap animate-[fadeInRight_240ms_ease-out]"
+              className="hidden sm:flex items-center gap-2 rounded-full border bg-white pl-4 pr-2 py-2 shadow-md text-[14px] whitespace-nowrap animate-[fadeInUp_240ms_ease-out]"
               style={{ borderColor: BORDER, color: INK, ...fontStyle }}
             >
               <button
@@ -465,24 +483,6 @@ export default function ChatWidget() {
               </button>
             </div>
           )}
-          <button
-            ref={buttonRef}
-            onClick={handleOpen}
-            aria-label="Open chat with Shushu"
-            className={`w-[144px] h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
-              bouncing ? 'animate-bounce' : ''
-            }`}
-          >
-            <Image
-              src="/shushu/hello.png"
-              alt=""
-              width={216}
-              height={216}
-              className="w-full h-full object-contain pointer-events-none select-none"
-              style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18))' }}
-              priority
-            />
-          </button>
         </div>
       )}
 
