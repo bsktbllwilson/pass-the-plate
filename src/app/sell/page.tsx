@@ -7,6 +7,7 @@ import FindYourNextBigDeal from '@/components/sections/FindYourNextBigDeal'
 import ValueProps from '@/components/marketing/ValueProps'
 import HeroSearch from '@/components/marketing/HeroSearch'
 import ListingsMap from '@/components/marketplace/ListingsMap'
+import AnimatedStat from '@/components/marketing/AnimatedStat'
 import { LinkButton } from '@/components/ui'
 import { content } from '@/lib/content'
 import { getListingsForMap } from '@/lib/listings'
@@ -99,7 +100,9 @@ export default async function SellPage() {
         <div className="mx-auto grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4" style={{ maxWidth: '1400px' }}>
           {SELL_STATS.map((s) => (
             <div key={s.value} className="text-center px-4">
-              <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>{s.value}</div>
+              <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
+                <AnimatedStat value={s.value} />
+              </div>
               <div className="mt-4" style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.125rem)', lineHeight: '1.5' }}>{s.label}</div>
             </div>
           ))}
