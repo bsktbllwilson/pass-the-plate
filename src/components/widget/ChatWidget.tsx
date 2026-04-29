@@ -14,6 +14,7 @@ type ChatMessage = {
 }
 
 const STORAGE_KEY = 'shushu.chat.v1'
+const HINT_KEY = 'shushu.chat.hint.v1'
 const ORANGE = 'var(--color-brand)'
 const CREAM = 'var(--color-cream-input)'
 const BORDER = 'var(--color-border)'
@@ -41,6 +42,11 @@ const CHEEKY_DURATION_MS = 2_000
 
 const WELCOME_TEXT =
   "Hey, I'm Shushu \u{1F44B} (uncle in Mandarin). I'm Pass The Plate's bilingual concierge. Whether you're looking to buy your first Asian F&B business or sell the one you've poured your life into, I'm here to help. What can I help you with today?"
+
+// Short pitch shown next to the closed avatar so users know what the
+// floating button does. Dismissed (per-session) when the user clicks the
+// chip's X or opens the chat.
+const HINT_TEXT = '\u{1F44B} Buying or selling? Ask me!'
 
 function makeId(): string {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
@@ -179,6 +185,7 @@ export default function ChatWidget() {
   const [error, setError] = useState<string | null>(null)
   const [bouncing, setBouncing] = useState(true)
   const [hydrated, setHydrated] = useState(false)
+  const [hintDismissed, setHintDismissed] = useState(true)
   const [avatarMood, setAvatarMood] = useState<AvatarMood>('happy')
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -207,6 +214,15 @@ export default function ChatWidget() {
 
   useEffect(() => {
     setMessages(loadFromSession())
+    let dismissed = false
+    try {
+      dismissed = window.sessionStorage.getItem(HINT_KEY) === '1'
+    } catch {
+      // sessionStorage may throw in private mode — default to hidden so we
+      // don't risk pestering users we can't remember.
+      dismissed = true
+    }
+    setHintDismissed(dismissed)
     setHydrated(true)
     const t = setTimeout(() => setBouncing(false), 2000)
     return () => {
@@ -214,6 +230,15 @@ export default function ChatWidget() {
       if (moodTimerRef.current) clearTimeout(moodTimerRef.current)
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
       if (avatarClickTimerRef.current) clearTimeout(avatarClickTimerRef.current)
+    }
+  }, [])
+
+  const dismissHint = useCallback(() => {
+    setHintDismissed(true)
+    try {
+      window.sessionStorage.setItem(HINT_KEY, '1')
+    } catch {
+      // ignore
     }
   }, [])
 
@@ -384,7 +409,8 @@ export default function ChatWidget() {
   const handleOpen = useCallback(() => {
     setIsOpen(true)
     setBouncing(false)
-  }, [])
+    dismissHint()
+  }, [dismissHint])
 
   const handleClose = useCallback(() => {
     setIsOpen(false)
@@ -412,27 +438,52 @@ export default function ChatWidget() {
   return (
     <>
       {!isOpen && (
-        <button
-          ref={buttonRef}
-          onClick={handleOpen}
-          aria-label="Open chat with Shushu"
-
-
-          className={`fixed bottom-8 right-8 z-50 w-[144px] h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
-
-            bouncing ? 'animate-bounce' : ''
-          }`}
-        >
-          <Image
-            src="/shushu/hello.png"
-            alt=""
-            width={216}
-            height={216}
-            className="w-full h-full object-contain pointer-events-none select-none"
-            style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18))' }}
-            priority
-          />
-        </button>
+        <div className="fixed bottom-8 right-8 z-50 flex items-end gap-2 sm:gap-3">
+          {hydrated && !bouncing && !hintDismissed && (
+            <div
+              role="status"
+              aria-live="polite"
+              className="hidden sm:flex items-center gap-2 mb-6 rounded-full border bg-white pl-4 pr-2 py-2 shadow-md text-[14px] whitespace-nowrap animate-[fadeInRight_240ms_ease-out]"
+              style={{ borderColor: BORDER, color: INK, ...fontStyle }}
+            >
+              <button
+                type="button"
+                onClick={handleOpen}
+                className="font-medium hover:opacity-80 transition-opacity"
+                style={{ color: INK }}
+              >
+                {HINT_TEXT}
+              </button>
+              <button
+                type="button"
+                onClick={dismissHint}
+                aria-label="Dismiss chat hint"
+                className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/5 transition-colors shrink-0"
+                style={{ color: '#8a8377' }}
+              >
+                <X size={14} strokeWidth={2.5} />
+              </button>
+            </div>
+          )}
+          <button
+            ref={buttonRef}
+            onClick={handleOpen}
+            aria-label="Open chat with Shushu"
+            className={`w-[144px] h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
+              bouncing ? 'animate-bounce' : ''
+            }`}
+          >
+            <Image
+              src="/shushu/hello.png"
+              alt=""
+              width={216}
+              height={216}
+              className="w-full h-full object-contain pointer-events-none select-none"
+              style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18))' }}
+              priority
+            />
+          </button>
+        </div>
       )}
 
       {isOpen && (
