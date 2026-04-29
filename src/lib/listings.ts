@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { getAnonClient } from '@/lib/supabase/anon'
 import type { Database } from '@/types/database'
 
 export type Listing = Database['public']['Tables']['listings']['Row']
@@ -38,6 +39,45 @@ export async function getTrendingListings(limit = 4): Promise<Listing[]> {
     return []
   }
   return data ?? []
+}
+
+export type MarketCount = {
+  /** Display name (city portion of `location`, with `, NY` suffix stripped). */
+  market: string
+  count: number
+}
+
+/**
+ * Active listings grouped by city for the /sell "Listing Hotspots" section.
+ * Pulls the location field, strips the `, STATE` suffix, and returns the
+ * top markets by listing count. Cheap aggregate — fine for ISR.
+ */
+export async function getMarketCounts(limit = 6): Promise<MarketCount[]> {
+  // Use the cookieless anon client so this read doesn't force the calling
+  // page into dynamic rendering. The data is publicly visible (status='active'
+  // matches the anon RLS), so cookies aren't needed.
+  const supabase = getAnonClient()
+  const { data, error } = await supabase
+    .from('listings')
+    .select('location')
+    .eq('status', 'active')
+  if (error) {
+    console.error('getMarketCounts error:', error)
+    return []
+  }
+
+  const counts = new Map<string, number>()
+  for (const row of data ?? []) {
+    if (!row.location) continue
+    const city = row.location.split(',')[0]?.trim()
+    if (!city) continue
+    counts.set(city, (counts.get(city) ?? 0) + 1)
+  }
+
+  return Array.from(counts.entries())
+    .map(([market, count]) => ({ market, count }))
+    .sort((a, b) => b.count - a.count || a.market.localeCompare(b.market))
+    .slice(0, limit)
 }
 
 export async function getListingBySlug(slug: string): Promise<Listing | null> {
