@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import type { Stat } from '@/lib/content'
+import AnimatedStat from '@/components/marketing/AnimatedStat'
 
 export default function StatsBand({ stats }: { stats: Stat[] }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -17,7 +18,9 @@ export default function StatsBand({ stats }: { stats: Stat[] }) {
       <div className="mx-auto grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4" style={{ maxWidth: '1400px' }}>
         {stats.map((s) => (
           <div key={s.value} className="text-center px-4">
-            <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(3rem, 7vw, 5.625rem)' }}>{s.value}</div>
+            <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(3rem, 7vw, 5.625rem)' }}>
+              <AnimatedStat value={s.value} />
+            </div>
             <div className="mt-4" style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.375rem)' }}>{s.label}</div>
           </div>
         ))}
