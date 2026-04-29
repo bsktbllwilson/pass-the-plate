@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { content } from '@/lib/content'
-import { getListings } from '@/lib/listings'
+import { getListings, type ListingsSort } from '@/lib/listings'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
@@ -63,6 +63,12 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
   const priceBand = first(sp.price)
   const revenueBand = first(sp.revenue)
   const page = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1)
+  const SORT_VALUES = ['newest', 'price_asc', 'revenue_desc'] as const
+  const rawSort = first(sp.sort)
+  const sort: ListingsSort =
+    rawSort && (SORT_VALUES as readonly string[]).includes(rawSort)
+      ? (rawSort as ListingsSort)
+      : 'trending'
 
   const priceRange = priceBand ? PRICE_BAND_RANGES[priceBand] ?? {} : {}
   const revenueRange = revenueBand ? REVENUE_BAND_RANGES[revenueBand] ?? {} : {}
@@ -78,6 +84,7 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
     maxRevenue: revenueRange.maxRevenue,
     page,
     perPage: 12,
+    sort,
   })
 
   const baseQS = new URLSearchParams()
