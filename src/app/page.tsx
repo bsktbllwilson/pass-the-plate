@@ -17,7 +17,7 @@ export default async function Home() {
       <SiteHeader />
       <Hero headline={content.hero.headline} italicWord={content.hero.italicWord} subhead={content.hero.subhead} />
       <TrendingHotspots listings={trending} />
-      <ValueProps heading="Our Plates Are Full" plates={content.platesAreFull} />
+      <ValueProps heading="Why Pass The Plate" plates={content.platesAreFull} />
       <BuySellSplit />
       <StatsBand stats={content.stats} />
       <PartnerLogos partners={content.partners} />
