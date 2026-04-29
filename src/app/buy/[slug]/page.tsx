@@ -167,6 +167,12 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
               </div>
 
               <InquiryForm listingId={listing.id} listingTitle={listing.title} />
+
+              {listing.updated_at && (
+                <p className="font-body text-xs text-black/45 px-2">
+                  Last updated {new Date(listing.updated_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+              )}
             </div>
           </aside>
         </div>

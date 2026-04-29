@@ -176,7 +176,13 @@ function MyListingCard({ listing, justCreated }: { listing: Listing; justCreated
             Annual revenue <span className="font-medium text-black">{fmtUSD(listing.annual_revenue_cents)}</span>
           </div>
 
-          <div className="font-body mt-4 flex flex-wrap items-center gap-3 text-sm">
+          <div className="font-body mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+            <Link
+              href={`/sell/edit/${listing.slug}`}
+              className="text-black underline font-medium"
+            >
+              Edit →
+            </Link>
             {listing.status === 'active' && (
               <Link href={`/buy/${listing.slug}`} className="text-black underline font-medium">
                 View public page →
@@ -205,6 +211,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Sear
     searchParams,
   ])
   const createdSlug = typeof params.created === 'string' ? params.created : null
+  const updatedSlug = typeof params.updated === 'string' ? params.updated : null
 
   return (
     <main style={{ background: 'var(--color-cream)', minHeight: '100vh' }}>
@@ -245,6 +252,19 @@ export default async function AccountPage({ searchParams }: { searchParams: Sear
             </div>
           )}
 
+          {updatedSlug && !createdSlug && (
+            <div
+              className="font-body rounded-2xl px-5 py-4 border"
+              style={{
+                background: 'var(--color-cream-input)',
+                borderColor: 'var(--color-brand)',
+                color: 'rgba(0,0,0,0.78)',
+              }}
+            >
+              Changes saved. Your listing is up to date.
+            </div>
+          )}
+
           {/* My listings */}
           <section>
             <div className="flex items-baseline justify-between mb-4 px-2">
@@ -273,7 +293,11 @@ export default async function AccountPage({ searchParams }: { searchParams: Sear
             ) : (
               <div className="space-y-4">
                 {listings.map((l) => (
-                  <MyListingCard key={l.id} listing={l} justCreated={createdSlug === l.slug} />
+                  <MyListingCard
+                    key={l.id}
+                    listing={l}
+                    justCreated={createdSlug === l.slug || updatedSlug === l.slug}
+                  />
                 ))}
               </div>
             )}
