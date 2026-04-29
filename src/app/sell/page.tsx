@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
-import FindYourNextBigDeal from '@/components/sections/FindYourNextBigDeal'
 import ValueProps from '@/components/marketing/ValueProps'
 import HeroSearch from '@/components/marketing/HeroSearch'
 import ListingsMap from '@/components/marketplace/ListingsMap'
@@ -132,7 +131,6 @@ export default async function SellPage() {
         </div>
       </section>
 
-      <FindYourNextBigDeal />
       <BuySellSplit />
       <SiteFooter columns={content.footer.columns} />
     </main>
