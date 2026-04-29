@@ -5,9 +5,12 @@ import { content } from '@/lib/content'
 import { requireUser } from '@/lib/auth'
 import { getMyInquiries, type InquiryWithListing } from '@/lib/inquiries'
 import { getMyListings, type Listing } from '@/lib/listings'
+import { getProfile, type Profile } from '@/lib/profiles'
+import { getPosts, type PlaybookPost } from '@/lib/playbook'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import SignOutButton from '@/components/auth/SignOutButton'
+import VerifiedBadge from '@/components/profile/VerifiedBadge'
 import { LinkButton } from '@/components/ui'
 
 export const metadata: Metadata = {
@@ -34,6 +37,59 @@ function formatCuisine(cuisine: string | null): string {
   if (!cuisine) return ''
   if (cuisine === 'pan_asian') return 'Pan-Asian'
   return cuisine.charAt(0).toUpperCase() + cuisine.slice(1)
+}
+
+function firstNameFromEmail(email: string | null | undefined): string {
+  if (!email) return 'there'
+  const local = email.split('@')[0] ?? ''
+  const cleaned = local.replace(/[._-]+/g, ' ').trim().split(' ')[0] ?? ''
+  if (!cleaned) return 'there'
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1)
+}
+
+type TierConfig = {
+  name: string
+  features: string[]
+  cta: { label: string; href: string }
+}
+
+const TIERS: Record<string, TierConfig> = {
+  first_bite: {
+    name: 'First Bite',
+    features: [
+      '5 Listings',
+      '10 Contacts',
+      'Self-serve Valuation Tools',
+      'Access to Public Resources',
+    ],
+    cta: { label: 'Upgrade →', href: '/membership' },
+  },
+  chefs_table: {
+    name: "Chef's Table",
+    features: [
+      '100 Listings',
+      '200 Contacts',
+      'Complimentary 60-min Valuation',
+      '60-Minute Dedicated Advisor Session',
+      'Unlimited Resources',
+    ],
+    cta: { label: 'Contact My Advisor →', href: '/contact?intent=advisor' },
+  },
+  full_menu: {
+    name: 'Full Menu',
+    features: [
+      'Unlimited Listings',
+      'Unlimited Contacts',
+      'Quarterly Strategic Reviews',
+      'Dedicated Advisor On Call',
+      'White-glove Deal Support',
+    ],
+    cta: { label: 'Contact My Advisor →', href: '/contact?intent=advisor' },
+  },
+}
+
+function tierConfig(tier: string | null | undefined): TierConfig {
+  return TIERS[tier ?? 'first_bite'] ?? TIERS.first_bite!
 }
 
 function InquiryStatusPill({ status }: { status: string | null }) {
@@ -202,13 +258,184 @@ function MyListingCard({ listing, justCreated }: { listing: Listing; justCreated
   )
 }
 
+function WelcomeHeader({ profile, email }: { profile: Profile | null; email: string | null }) {
+  const displayName = profile?.full_name?.trim() || firstNameFromEmail(email)
+  const tier = tierConfig(profile?.membership_tier)
+  const isVerified = profile?.is_verified_partner === true
+  const showRoleBlock = Boolean(profile?.role_title || profile?.company)
+  const showLocationBlock = Array.isArray(profile?.locations) && profile!.locations!.length > 0
+
+  return (
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+      {/* Left column: identity */}
+      <div>
+        <h1
+          className="font-display font-medium tracking-[-0.01em] mb-8 flex items-center gap-3 flex-wrap"
+          style={{ fontSize: 'clamp(1.875rem, 4vw, 2.5rem)', lineHeight: '1.1' }}
+        >
+          <span>Welcome, {displayName}</span>
+          <VerifiedBadge isVerified={isVerified} size={26} />
+        </h1>
+
+        {showRoleBlock && (
+          <div className="mb-6">
+            <div className="font-body text-xs uppercase tracking-widest text-black/55 mb-1">
+              Role &amp; Company:
+            </div>
+            <div className="font-display font-medium" style={{ fontSize: '1.5rem', lineHeight: '1.25' }}>
+              {profile?.role_title && <div>{profile.role_title}</div>}
+              {profile?.company && <div>{profile.company}</div>}
+            </div>
+          </div>
+        )}
+
+        {showLocationBlock && (
+          <div className="mb-6">
+            <div className="font-body text-xs uppercase tracking-widest text-black/55 mb-1">
+              Location:
+            </div>
+            <div className="font-display font-medium" style={{ fontSize: '1.5rem', lineHeight: '1.3' }}>
+              {profile!.locations!.map((loc) => (
+                <div key={loc}>{loc}</div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!isVerified && (
+          <Link
+            href="/partners/apply"
+            className="font-body inline-block text-sm text-black/70 underline underline-offset-4 hover:text-black"
+          >
+            Become A Verified Partner
+          </Link>
+        )}
+      </div>
+
+      {/* Right column: membership tier card */}
+      <aside className="rounded-2xl p-6 sm:p-8" style={{ background: 'var(--color-cream-input)' }}>
+        <h2 className="font-display font-medium mb-3" style={{ fontSize: '1.5rem', lineHeight: '1.2' }}>
+          {tier.name} Plan
+        </h2>
+        <p className="font-body text-sm text-black/70 mb-4">
+          Your plan includes exclusive access to:
+        </p>
+        <ul className="font-body text-sm text-black/80 space-y-1 mb-6">
+          {tier.features.map((f) => (
+            <li key={f}>{f}</li>
+          ))}
+        </ul>
+        <LinkButton href={tier.cta.href} size="md" fullWidth>
+          {tier.cta.label}
+        </LinkButton>
+      </aside>
+    </section>
+  )
+}
+
+function SavedShortcutCard({
+  href,
+  title,
+  imageSrc,
+  imageAlt,
+}: {
+  href: string
+  title: string
+  imageSrc: string
+  imageAlt: string
+}) {
+  return (
+    <Link
+      href={href}
+      className="group block rounded-3xl overflow-hidden bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] transition-transform hover:-translate-y-0.5"
+    >
+      <div className="relative aspect-[16/9] bg-black/10">
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-transform group-hover:scale-[1.02]"
+        />
+      </div>
+      <div
+        className="px-6 sm:px-8 py-8 sm:py-10 text-center"
+        style={{ background: 'var(--color-yellow)' }}
+      >
+        <h3 className="font-display font-medium" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', lineHeight: '1.15' }}>
+          {title}
+        </h3>
+      </div>
+    </Link>
+  )
+}
+
+function categoryLabel(category: string): string {
+  return category
+    .split(/[_\s]+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+}
+
+function PlaybookCard({ post }: { post: PlaybookPost }) {
+  return (
+    <Link
+      href={`/playbook/${post.slug}`}
+      className="snap-start flex-shrink-0 w-[300px] sm:w-[360px] rounded-3xl overflow-hidden bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] transition-transform hover:-translate-y-0.5"
+    >
+      {post.cover_image_url ? (
+        <div className="relative aspect-[16/10] bg-black/10">
+          <Image
+            src={post.cover_image_url}
+            alt={post.title}
+            fill
+            sizes="360px"
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        <div className="aspect-[16/10] bg-[var(--color-cream-input)]" />
+      )}
+      <div className="p-5 sm:p-6">
+        <span
+          className="font-body inline-flex items-center px-3 py-1 rounded-full text-xs font-medium mb-3"
+          style={{ background: 'var(--color-yellow)', color: 'rgba(0,0,0,0.85)' }}
+        >
+          {categoryLabel(post.category)}
+        </span>
+        <h3
+          className="font-display font-medium mb-2"
+          style={{ fontSize: '1.125rem', lineHeight: '1.3' }}
+        >
+          {post.title}
+        </h3>
+        {post.excerpt && (
+          <p className="font-body text-sm text-black/65 mb-3" style={{
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          }}>
+            {post.excerpt}
+          </p>
+        )}
+        <span className="font-body text-sm font-medium underline" style={{ color: 'var(--color-brand)' }}>
+          Read Guide →
+        </span>
+      </div>
+    </Link>
+  )
+}
+
 type SearchParams = Promise<Record<string, string | string[] | undefined>>
 
 export default async function AccountPage({ searchParams }: { searchParams: SearchParams }) {
   const user = await requireUser('/account')
-  const [inquiries, listings, params] = await Promise.all([
+  const [inquiries, listings, profile, posts, params] = await Promise.all([
     getMyInquiries(),
     getMyListings(),
+    getProfile(user.id),
+    getPosts({ perPage: 8 }),
     searchParams,
   ])
   const createdSlug = typeof params.created === 'string' ? params.created : null
@@ -216,30 +443,13 @@ export default async function AccountPage({ searchParams }: { searchParams: Sear
 
   return (
     <main style={{ background: 'var(--color-cream)', minHeight: '100vh' }}>
-      <SiteHeader />
+      <SiteHeader logoVariant="cream" />
 
-      <section className="px-4 py-12 md:py-16">
-        <div className="mx-auto w-full max-w-3xl space-y-8">
-          {/* Greeting */}
-          <div className="font-body bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] px-6 sm:px-8 py-8">
-            <h1
-              className="font-display font-medium tracking-[-0.01em] mb-2"
-              style={{ fontSize: 'clamp(1.875rem, 4vw, 2.5rem)', lineHeight: '1.1' }}
-            >
-              Welcome back
-            </h1>
-            <p className="text-black/55 text-sm mb-6">
-              Signed in as <span className="text-black font-medium">{user.email}</span>.
-            </p>
-            <div className="flex flex-wrap gap-3 items-center">
-              <SignOutButton />
-              <Link href="/" className="text-sm text-black/55 hover:text-black underline">
-                Back to home
-              </Link>
-            </div>
-          </div>
+      <section className="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="mx-auto w-full max-w-6xl space-y-16 md:space-y-20">
+          <WelcomeHeader profile={profile} email={user.email ?? null} />
 
-          {createdSlug && (
+          {(createdSlug || updatedSlug) && (
             <div
               className="font-body rounded-2xl px-5 py-4 border"
               style={{
@@ -248,22 +458,46 @@ export default async function AccountPage({ searchParams }: { searchParams: Sear
                 color: 'rgba(0,0,0,0.78)',
               }}
             >
-              Draft saved. Our team reviews drafts before they go live —
-              you&apos;ll see the status update here.
+              {createdSlug
+                ? "Draft saved. Our team reviews drafts before they go live — you'll see the status update here."
+                : 'Changes saved. Your listing is up to date.'}
             </div>
           )}
 
-          {updatedSlug && !createdSlug && (
-            <div
-              className="font-body rounded-2xl px-5 py-4 border"
-              style={{
-                background: 'var(--color-cream-input)',
-                borderColor: 'var(--color-brand)',
-                color: 'rgba(0,0,0,0.78)',
-              }}
-            >
-              Changes saved. Your listing is up to date.
-            </div>
+          {/* Saved shortcuts */}
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <SavedShortcutCard
+              href="/account/contacts"
+              title="Saved Contacts"
+              imageSrc="/images/brand/dessert.JPG"
+              imageAlt="Saved contacts"
+            />
+            <SavedShortcutCard
+              href="/account/saved"
+              title="Saved Listings"
+              imageSrc="/images/brand/dumplings.JPG"
+              imageAlt="Saved listings"
+            />
+          </section>
+
+          {/* Recommended Reads */}
+          {posts.rows.length > 0 && (
+            <section>
+              <h2
+                className="font-display font-medium text-center mb-8"
+                style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)', lineHeight: '1.15' }}
+              >
+                Recommended Reads
+              </h2>
+              <div
+                className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 sm:mx-0 sm:px-0"
+                style={{ scrollbarWidth: 'thin' }}
+              >
+                {posts.rows.map((post) => (
+                  <PlaybookCard key={post.id} post={post} />
+                ))}
+              </div>
+            </section>
           )}
 
           {/* My listings */}
@@ -337,6 +571,17 @@ export default async function AccountPage({ searchParams }: { searchParams: Sear
               </div>
             )}
           </section>
+
+          {/* Sign out footer */}
+          <div className="font-body flex flex-wrap items-center gap-4 pt-6 border-t border-black/10">
+            <SignOutButton />
+            <span className="text-sm text-black/55">
+              Signed in as <span className="text-black font-medium">{user.email}</span>
+            </span>
+            <Link href="/" className="text-sm text-black/55 hover:text-black underline ml-auto">
+              Back to home
+            </Link>
+          </div>
         </div>
       </section>
 
