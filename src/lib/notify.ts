@@ -88,6 +88,75 @@ export async function sendInquiryNotification(p: InquiryNotificationPayload): Pr
   })
 }
 
+// Email sent to the seller (listing owner). replyTo points at the buyer
+// so the seller hits Reply and goes straight to them — Pass The Plate
+// stays out of the conversation past the handoff. Falls back to a no-op
+// if we couldn't resolve a seller email upstream.
+export type InquiryToSellerPayload = {
+  sellerEmail: string
+  listingTitle: string
+  listingSlug: string
+  buyerName: string
+  buyerEmail: string
+  message: string
+}
+
+export async function sendInquiryToSeller(p: InquiryToSellerPayload): Promise<void> {
+  const link = `${siteUrl()}/buy/${p.listingSlug}`
+  await sendBrandEmail({
+    to: p.sellerEmail,
+    replyTo: p.buyerEmail,
+    subject: `New inquiry on your listing: ${p.listingTitle}`,
+    text: [
+      'A buyer is interested in your Pass The Plate listing.',
+      '',
+      `Listing: ${p.listingTitle}`,
+      `Link: ${link}`,
+      '',
+      `From: ${p.buyerName} <${p.buyerEmail}>`,
+      '',
+      'Message:',
+      p.message,
+      '',
+      'Reply directly to this email to respond to the buyer.',
+      '— Pass The Plate',
+    ].join('\n'),
+  })
+}
+
+// Confirmation email sent to the buyer right after they submit. Closes
+// the loop visually ("we got it, we passed it on") and gives them a
+// thread to reply into if they have follow-ups.
+export type InquiryConfirmationPayload = {
+  buyerEmail: string
+  buyerName: string
+  listingTitle: string
+  listingSlug: string
+  message: string
+}
+
+export async function sendInquiryConfirmation(p: InquiryConfirmationPayload): Promise<void> {
+  const link = `${siteUrl()}/buy/${p.listingSlug}`
+  await sendBrandEmail({
+    to: p.buyerEmail,
+    subject: `We've received your inquiry on ${p.listingTitle}`,
+    text: [
+      `Hi ${p.buyerName},`,
+      '',
+      `Thanks for reaching out about ${p.listingTitle} on Pass The Plate. We've forwarded your message to the seller — they typically respond within 1–2 business days.`,
+      '',
+      `Listing: ${p.listingTitle}`,
+      `Link: ${link}`,
+      '',
+      'Your message:',
+      p.message,
+      '',
+      'If you have follow-up questions, just reply to this email.',
+      '— Pass The Plate',
+    ].join('\n'),
+  })
+}
+
 // ── Contact form ─────────────────────────────────────────────────────
 
 export type ContactNotificationPayload = {

@@ -2,7 +2,12 @@
 
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
-import { sendInquiryNotification } from '@/lib/notify'
+import { getAdminClient } from '@/lib/supabase/admin'
+import {
+  sendInquiryNotification,
+  sendInquiryToSeller,
+  sendInquiryConfirmation,
+} from '@/lib/notify'
 
 export type InquiryState = { ok: boolean; error?: string } | null
 
@@ -47,19 +52,57 @@ export async function submitInquiry(
 
   const { data: listing } = await supabase
     .from('listings')
-    .select('title, slug')
+    .select('title, slug, seller_id')
     .eq('id', input.listingId)
     .maybeSingle()
 
-  void sendInquiryNotification({
-    listingId: input.listingId,
-    listingTitle: listing ? listing.title : null,
-    listingSlug: listing ? listing.slug : null,
-    buyerName: input.name,
-    buyerEmail: input.email,
-    message: input.message,
-    buyerId,
-  })
+  // Resolve the seller's email via the admin client. Wrapped in try because
+  // legacy seed listings have null seller_id, and a missing service-role
+  // env var should degrade to "skip the seller email" — never 500 the form.
+  let sellerEmail: string | null = null
+  if (listing?.seller_id) {
+    try {
+      const admin = getAdminClient()
+      const { data, error } = await admin.auth.admin.getUserById(listing.seller_id)
+      if (!error && data?.user?.email) sellerEmail = data.user.email
+    } catch (err) {
+      console.warn('Inquiry seller email lookup failed:', err)
+    }
+  }
+
+  // All three notifies run in parallel and are awaited so Vercel doesn't
+  // terminate the function before the Resend HTTP call resolves. Each
+  // sender swallows its own errors internally, so Promise.all won't reject.
+  await Promise.all([
+    sendInquiryNotification({
+      listingId: input.listingId,
+      listingTitle: listing ? listing.title : null,
+      listingSlug: listing ? listing.slug : null,
+      buyerName: input.name,
+      buyerEmail: input.email,
+      message: input.message,
+      buyerId,
+    }),
+    sellerEmail && listing?.title && listing?.slug
+      ? sendInquiryToSeller({
+          sellerEmail,
+          listingTitle: listing.title,
+          listingSlug: listing.slug,
+          buyerName: input.name,
+          buyerEmail: input.email,
+          message: input.message,
+        })
+      : Promise.resolve(),
+    listing?.title && listing?.slug
+      ? sendInquiryConfirmation({
+          buyerEmail: input.email,
+          buyerName: input.name,
+          listingTitle: listing.title,
+          listingSlug: listing.slug,
+          message: input.message,
+        })
+      : Promise.resolve(),
+  ])
 
   return { ok: true }
 }
