@@ -1,5 +1,5 @@
 {
-  "hero": { "headline": "Your Seat at The Table Starts Here", "italicWord": "Seat", "subhead": "First Marketplace for The $240B+ Asian F&B Transition" },
+  "hero": { "headline": "Your Seat at The Table Starts Here", "italicWord": "Table", "subhead": "First Marketplace for The $240B+ Asian F&B Transition" },
   "platesAreFull": [
     { "title": "Bilingual Listing", "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English only competitors.", "cta": "Get Started →", "href": "/sell" },
     { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something!", "cta": "Read Our Guides →", "href": "/playbook" },
