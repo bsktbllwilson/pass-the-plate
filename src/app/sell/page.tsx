@@ -23,11 +23,13 @@ export const metadata: Metadata = {
 // picking up new listings as they get approved.
 export const revalidate = 300
 
-const SELL_STATS: { value: string; label: string }[] = [
+const SELL_STATS: { value: string; label: string; from?: number }[] = [
   { value: '$240B+', label: 'Annual revenue of the U.S. Asian F&B sector.' },
   { value: '70%', label: 'Of EB-5 investors and 1st/2nd-gen buyers come from Asian communities. They understand your business.' },
   { value: '30% Lower', label: 'What sellers leave on the table when they sell informally vs. through a structured marketplace.' },
-  { value: '$0 Upfront', label: '3–5% success fee only when you close — vs. 10–12% at traditional brokers.' },
+  // Counts down from $2,500 → $0 to dramatize "no upfront fees" vs. typical
+  // broker retainers / listing-package costs.
+  { value: '$0 Upfront', from: 2500, label: '3–5% success fee only when you close — vs. 10–12% at traditional brokers.' },
 ]
 
 export default async function SellPage() {
@@ -101,7 +103,7 @@ export default async function SellPage() {
           {SELL_STATS.map((s) => (
             <div key={s.value} className="text-center px-4">
               <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-                <AnimatedStat value={s.value} />
+                <AnimatedStat value={s.value} from={s.from} />
               </div>
               <div className="mt-4" style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.125rem)', lineHeight: '1.5' }}>{s.label}</div>
             </div>
