@@ -140,6 +140,32 @@ export async function getListingBySlug(slug: string): Promise<Listing | null> {
   return data
 }
 
+/**
+ * Returns the listing identified by `slug` if (and only if) the calling
+ * user is signed in and owns it. Used by /sell/edit/{slug} to load any
+ * status (draft / active / archived / sold) — RLS scopes the read to
+ * caller's own rows so a hand-typed slug can't expose someone else's.
+ *
+ * Falls through to null if signed-out, or if the slug doesn't match
+ * something the caller owns. Callers should treat that as a 404.
+ */
+export async function getMyListingBySlug(slug: string): Promise<Listing | null> {
+  const supabase = await createClient()
+  const { data: userResult } = await supabase.auth.getUser()
+  if (!userResult.user) return null
+  const { data, error } = await supabase
+    .from('listings')
+    .select('*')
+    .eq('slug', slug)
+    .eq('seller_id', userResult.user.id)
+    .maybeSingle()
+  if (error) {
+    console.error('getMyListingBySlug error:', error)
+    return null
+  }
+  return data
+}
+
 export type ListingsSort = 'trending' | 'newest' | 'price_asc' | 'revenue_desc'
 
 type GetListingsOpts = {

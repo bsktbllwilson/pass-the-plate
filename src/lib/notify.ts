@@ -239,6 +239,40 @@ export async function sendDraftListingNotification(
   })
 }
 
+// ── Seller listing updates (edit) ────────────────────────────────────
+
+export type ListingUpdateNotificationPayload = {
+  title: string
+  slug: string
+  status: string
+  sellerId: string
+  sellerEmail: string | null
+  askingPriceCents: number
+}
+
+export async function sendListingUpdateNotification(
+  p: ListingUpdateNotificationPayload,
+): Promise<void> {
+  const askingDollars = `$${Math.round(p.askingPriceCents / 100).toLocaleString('en-US')}`
+  await sendBrandEmail({
+    subject: `Listing updated: ${p.title} (${p.slug})`,
+    replyTo: p.sellerEmail ?? undefined,
+    text: [
+      'A seller edited their Pass The Plate listing.',
+      '',
+      `Title: ${p.title}`,
+      `Slug: ${p.slug}`,
+      `Status: ${p.status}`,
+      `Asking: ${askingDollars}`,
+      '',
+      `Seller ID: ${p.sellerId}`,
+      `Seller email: ${p.sellerEmail ?? '(unavailable)'}`,
+      '',
+      `Public link: ${siteUrl()}/buy/${p.slug}`,
+    ].join('\n'),
+  })
+}
+
 // ── Partner applications ─────────────────────────────────────────────
 
 export type PartnerApplicationNotificationPayload = {

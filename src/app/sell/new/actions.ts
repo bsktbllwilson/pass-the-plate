@@ -5,12 +5,14 @@ import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { getAdminClient } from '@/lib/supabase/admin'
 import { generateUniqueSlug } from '@/lib/slug'
-import { sendDraftListingNotification } from '@/lib/notify'
+import { sendDraftListingNotification, sendListingUpdateNotification } from '@/lib/notify'
 
 export type CreateListingState =
   | { ok: true; slug: string }
   | { ok: false; message: string }
   | null
+
+export type UpdateListingState = CreateListingState
 
 const INDUSTRIES = [
   'restaurant',
@@ -185,5 +187,113 @@ export async function createListing(
   })
 
   revalidatePath('/account')
+  return { ok: true, slug }
+}
+
+/**
+ * Update an existing listing the caller owns. Slug is read from a hidden
+ * input on the form (`listingSlug`) so we can wire the same useActionState
+ * signature as createListing.
+ *
+ * Routes the UPDATE through the service-role admin client because
+ * migration 008's listings_update_owner RLS pins updates to status in
+ * ('draft', 'archived') — i.e. live listings can't be edited under RLS.
+ * Product decision is "live edits stay live", so we bypass RLS here and
+ * enforce ownership in code (seller_id === auth.uid()) before writing.
+ *
+ * Status, slug, seller_id, id, created_at, view_count all stay put.
+ * updated_at is set explicitly (the column has no auto-update trigger).
+ */
+export async function updateListing(
+  _prev: UpdateListingState,
+  formData: FormData,
+): Promise<UpdateListingState> {
+  const slug = String(formData.get('listingSlug') ?? '').trim()
+  if (!slug) return { ok: false, message: 'Missing listing reference.' }
+
+  const parsed = Schema.safeParse({
+    title: formData.get('title'),
+    industry: formData.get('industry'),
+    cuisine: formData.get('cuisine'),
+    location: formData.get('location'),
+    description: formData.get('description'),
+    askingPriceCents: dollarsToCents(formData.get('askingPrice')),
+    annualRevenueCents: dollarsToCents(formData.get('annualRevenue')),
+    annualProfitCents: dollarsToCents(formData.get('annualProfit')),
+    yearEstablished: maybeInt(formData.get('yearEstablished')),
+    staffCount: maybeInt(formData.get('staffCount')),
+    squareFootage: maybeInt(formData.get('squareFootage')),
+    assets: stringList(formData.getAll('assets')),
+    coverImageUrl: formData.get('coverImageUrl') || null,
+    galleryUrls: stringList(formData.getAll('galleryUrls')),
+  })
+
+  if (!parsed.success) {
+    const first = parsed.error.issues[0]?.message ?? 'Please check your inputs.'
+    return { ok: false, message: first }
+  }
+
+  const supabase = await createClient()
+  const { data: userResult } = await supabase.auth.getUser()
+  if (!userResult.user) {
+    return { ok: false, message: 'You must be signed in to edit a listing.' }
+  }
+  const userId = userResult.user.id
+
+  // Look the row up via the SSR client first — RLS lets the seller see
+  // their own at any status, so this also doubles as the ownership check.
+  const { data: existing, error: fetchError } = await supabase
+    .from('listings')
+    .select('id, seller_id, status, title')
+    .eq('slug', slug)
+    .maybeSingle()
+  if (fetchError) {
+    console.error('updateListing fetch error:', fetchError)
+    return { ok: false, message: "Sorry, we couldn't load that listing." }
+  }
+  if (!existing || existing.seller_id !== userId) {
+    // Don't reveal existence — same pattern as the page-level 404.
+    return { ok: false, message: 'Listing not found.' }
+  }
+
+  const update = {
+    title: parsed.data.title,
+    description: parsed.data.description,
+    industry: parsed.data.industry,
+    cuisine: parsed.data.cuisine,
+    location: parsed.data.location,
+    asking_price_cents: parsed.data.askingPriceCents,
+    annual_revenue_cents: parsed.data.annualRevenueCents,
+    annual_profit_cents: parsed.data.annualProfitCents ?? null,
+    year_established: parsed.data.yearEstablished ?? null,
+    staff_count: parsed.data.staffCount ?? null,
+    square_footage: parsed.data.squareFootage ?? null,
+    cover_image_url: parsed.data.coverImageUrl ?? null,
+    gallery_urls: parsed.data.galleryUrls,
+    assets: parsed.data.assets,
+    updated_at: new Date().toISOString(),
+  }
+
+  const admin = getAdminClient()
+  const { error: updateError } = await admin
+    .from('listings')
+    .update(update)
+    .eq('id', existing.id)
+  if (updateError) {
+    console.error('updateListing update error:', updateError)
+    return { ok: false, message: "Sorry, we couldn't save those changes." }
+  }
+
+  await sendListingUpdateNotification({
+    title: parsed.data.title,
+    slug,
+    status: existing.status,
+    sellerId: userId,
+    sellerEmail: userResult.user.email ?? null,
+    askingPriceCents: parsed.data.askingPriceCents,
+  })
+
+  revalidatePath('/account')
+  revalidatePath(`/buy/${slug}`)
   return { ok: true, slug }
 }
