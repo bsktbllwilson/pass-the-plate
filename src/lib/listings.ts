@@ -56,7 +56,17 @@ export async function getMarketCounts(limit = 6): Promise<MarketCount[]> {
   // Use the cookieless anon client so this read doesn't force the calling
   // page into dynamic rendering. The data is publicly visible (status='active'
   // matches the anon RLS), so cookies aren't needed.
-  const supabase = getAnonClient()
+  //
+  // Wrapped in try so a missing-env-vars build (e.g. a Vercel project that
+  // hasn't been configured yet) renders the empty state instead of crashing
+  // the prerender. /sell is prerendered with ISR so this runs at build time.
+  let supabase: ReturnType<typeof getAnonClient>
+  try {
+    supabase = getAnonClient()
+  } catch (err) {
+    console.warn('getMarketCounts skipped: anon client unavailable', err)
+    return []
+  }
   const { data, error } = await supabase
     .from('listings')
     .select('location')
