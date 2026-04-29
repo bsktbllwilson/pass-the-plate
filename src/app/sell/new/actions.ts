@@ -168,21 +168,26 @@ export async function createListing(
     }
   }
 
-  // Await the notifier instead of void-firing it. On Vercel, server actions
-  // that return immediately can have the function instance terminated before
-  // a backgrounded Promise reaches the network. The other notifiers (inquiry,
-  // contact, partner application) tend to win that race, but the draft path
-  // returns fast enough to lose it. Costs ~200-500ms on the form submit.
-  await sendDraftListingNotification({
-    title: parsed.data.title,
-    slug,
-    sellerId,
-    sellerEmail: userResult.user.email ?? null,
-    industry: parsed.data.industry,
-    cuisine: parsed.data.cuisine,
-    location: parsed.data.location,
-    askingPriceCents: parsed.data.askingPriceCents,
-  })
+  // Await the notifier instead of void-firing it (see PR #24): on Vercel,
+  // server actions that return immediately can have the function instance
+  // terminated before a backgrounded Promise reaches the network. Wrapping
+  // in try/catch keeps the email best-effort — if Resend is misconfigured,
+  // throws on a malformed key, or the network blips, we log and continue
+  // so the seller still sees their draft saved instead of a 500 error.
+  try {
+    await sendDraftListingNotification({
+      title: parsed.data.title,
+      slug,
+      sellerId,
+      sellerEmail: userResult.user.email ?? null,
+      industry: parsed.data.industry,
+      cuisine: parsed.data.cuisine,
+      location: parsed.data.location,
+      askingPriceCents: parsed.data.askingPriceCents,
+    })
+  } catch (err) {
+    console.error('Draft listing notifier threw (non-fatal):', err)
+  }
 
   revalidatePath('/account')
   return { ok: true, slug }
