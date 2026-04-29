@@ -10,6 +10,21 @@ function formatLocation(location: string): string {
   return location.replace(/,\s*NY\s*$/i, '')
 }
 
+// Compact "$1.2M / $850k / $999" form so the price doesn't wrap the
+// tile or compete with the title for width. Mirrors the formatter the
+// /sell ListingsMap popup uses.
+function formatPrice(cents: number): string {
+  if (cents <= 0) return ''
+  const dollars = cents / 100
+  if (dollars >= 1_000_000) {
+    return `$${(dollars / 1_000_000).toFixed(2).replace(/\.?0+$/, '')}M`
+  }
+  if (dollars >= 1_000) {
+    return `$${Math.round(dollars / 1_000)}k`
+  }
+  return `$${Math.round(dollars).toLocaleString('en-US')}`
+}
+
 export default function TrendingHotspots({ listings }: { listings: Listing[] }) {
   return (
     <section className="px-4 pb-20">
@@ -27,8 +42,11 @@ export default function TrendingHotspots({ listings }: { listings: Listing[] }) 
                   style={listing.slug === 'grandmas-noods' ? { objectPosition: '30% 40%', filter: 'grayscale(100%) brightness(1.15)' } : {}} />
               )}
               <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.8) 100%)' }} />
-              <div className="font-display absolute left-0 right-0 bottom-14 text-center text-white font-medium leading-none tracking-[-0.01em] px-4" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.375rem)' }}>{listing.title}</div>
-              <div className="font-body absolute left-0 right-0 bottom-5 text-center text-white text-sm tracking-[0.02em]">{formatLocation(listing.location)} &nbsp;|&nbsp; {formatCuisine(listing.cuisine)}</div>
+              <div className="absolute left-0 right-0 bottom-5 px-4 text-center text-white flex flex-col items-center gap-1.5">
+                <div className="font-display font-medium leading-none tracking-[-0.01em]" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.375rem)' }}>{listing.title}</div>
+                <div className="font-display font-medium leading-none tracking-[-0.01em]" style={{ fontSize: 'clamp(1.125rem, 1.8vw, 1.5rem)' }}>{formatPrice(listing.asking_price_cents)}</div>
+                <div className="font-body text-sm tracking-[0.02em] opacity-90">{formatLocation(listing.location)} &nbsp;|&nbsp; {formatCuisine(listing.cuisine)}</div>
+              </div>
             </div>
           ))}
         </div>
