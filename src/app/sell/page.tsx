@@ -23,10 +23,10 @@ export const metadata: Metadata = {
 export const revalidate = 300
 
 const SELL_STATS: { value: string; label: string }[] = [
-  { value: '$0 Upfront', label: 'We charge zero to list. 3–5% success fee only when you close.' },
-  { value: '10 Minutes', label: 'List from your phone in Chinese, Korean, Japanese, or Vietnamese.' },
-  { value: '120+ Partners', label: 'SBA lenders, bilingual brokers, and immigration attorneys.' },
-  { value: 'Verified Buyers', label: 'Every buyer must show proof of funds before seeing your contact.' },
+  { value: '$240B+', label: 'Annual revenue of the U.S. Asian F&B sector.' },
+  { value: '70%', label: 'Of EB-5 investors and 1st/2nd-gen buyers come from Asian communities. They understand your business.' },
+  { value: '30% Lower', label: 'What sellers leave on the table when they sell informally vs. through a structured marketplace.' },
+  { value: '$0 Upfront', label: '3–5% success fee only when you close — vs. 10–12% at traditional brokers.' },
 ]
 
 export default async function SellPage() {
