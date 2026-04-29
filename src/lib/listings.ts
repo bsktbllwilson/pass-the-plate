@@ -140,6 +140,8 @@ export async function getListingBySlug(slug: string): Promise<Listing | null> {
   return data
 }
 
+export type ListingsSort = 'trending' | 'newest' | 'price_asc' | 'revenue_desc'
+
 type GetListingsOpts = {
   q?: string
   industry?: string | string[]
@@ -152,6 +154,7 @@ type GetListingsOpts = {
   maxRevenue?: number
   page?: number
   perPage?: number
+  sort?: ListingsSort
 }
 
 function toArray(v: string | string[] | undefined): string[] {
@@ -169,7 +172,7 @@ function listingAssetsAsStrings(assets: Listing['assets']): string[] {
 }
 
 export async function getListings(opts: GetListingsOpts = {}): Promise<{ rows: Listing[]; totalCount: number; totalPages: number }> {
-  const { q, industry, cuisine, location, assets, minPrice, maxPrice, minRevenue, maxRevenue, page = 1, perPage = 12 } = opts
+  const { q, industry, cuisine, location, assets, minPrice, maxPrice, minRevenue, maxRevenue, page = 1, perPage = 12, sort = 'trending' } = opts
   const supabase = await createClient()
 
   const industries = toArray(industry)
@@ -208,7 +211,14 @@ export async function getListings(opts: GetListingsOpts = {}): Promise<{ rows: L
   if (typeof maxPrice === 'number') query = query.lte('asking_price_cents', maxPrice)
   if (typeof minRevenue === 'number') query = query.gte('annual_revenue_cents', minRevenue)
   if (typeof maxRevenue === 'number') query = query.lte('annual_revenue_cents', maxRevenue)
-  query = query.order('view_count', { ascending: false })
+  // Sort: defaults to "trending" (most-viewed first) to preserve existing
+  // behavior; the /buy page surfaces the others as a Sort dropdown. We
+  // tack on a stable id tiebreaker so equal values produce a deterministic
+  // order across pages (otherwise pagination can show duplicates).
+  if (sort === 'newest') query = query.order('created_at', { ascending: false }).order('id', { ascending: false })
+  else if (sort === 'price_asc') query = query.order('asking_price_cents', { ascending: true }).order('id', { ascending: true })
+  else if (sort === 'revenue_desc') query = query.order('annual_revenue_cents', { ascending: false }).order('id', { ascending: false })
+  else query = query.order('view_count', { ascending: false }).order('id', { ascending: false })
   if (!hasAssetFilter) query = query.range(from, to)
 
   const { data, count, error } = await query

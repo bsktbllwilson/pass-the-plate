@@ -45,6 +45,15 @@ const ASSET_OPTIONS: Option[] = [
   { value: 'walk-in freezer', label: 'Walk-in freezer' },
 ]
 
+// Default sort = '' (Trending) so the URL stays clean for the most-common
+// case. Server-side, an absent `sort` param maps to 'trending'.
+const SORT_OPTIONS: Option[] = [
+  { value: '', label: 'Trending' },
+  { value: 'newest', label: 'Newest' },
+  { value: 'price_asc', label: 'Price: Low to High' },
+  { value: 'revenue_desc', label: 'Revenue: High to Low' },
+]
+
 export default function FilterBar() {
   const router = useRouter()
   const params = useSearchParams()
@@ -79,6 +88,8 @@ export default function FilterBar() {
   const assets = multi('assets')
   const price = params.get('price') ?? ''
   const revenue = params.get('revenue') ?? ''
+  const sort = params.get('sort') ?? ''
+  const sortLabel = SORT_OPTIONS.find(o => o.value === sort)?.label ?? 'Trending'
 
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
@@ -96,6 +107,13 @@ export default function FilterBar() {
       </Popover>
       <Popover label="Assets & Equipments" count={assets.length}>
         <CheckboxList options={ASSET_OPTIONS} selected={assets} onToggle={v => toggleMulti('assets', v)} />
+      </Popover>
+      <Popover label={`Sort: ${sortLabel}`} count={0}>
+        <RadioList
+          options={SORT_OPTIONS}
+          selected={sort}
+          onSelect={v => setSingle('sort', v === sort ? null : v || null)}
+        />
       </Popover>
     </div>
   )
