@@ -5,6 +5,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 type Props = {
   /** Full value string, e.g. "$240B+", "70%", "30% Lower", "$0 Upfront". */
   value: string
+  /** Number to animate from. Defaults to 0 (count up). Set higher than the
+   *  parsed target to count down (e.g. from=2500 with value="$0 Upfront"). */
+  from?: number
   /** Animation duration in ms; default 1500. */
   duration?: number
 }
@@ -19,17 +22,19 @@ type Props = {
 const NUMBER_RE = /^([^\d]*)(\d+(?:\.\d+)?)(.*)$/
 
 /**
- * Animates the numeric portion of a stat from 0 to its target value when
- * the element first scrolls into view. Prefix/suffix text stays static.
+ * Animates the numeric portion of a stat from `from` (default 0) to its
+ * target value when the element first scrolls into view. Counts up by
+ * default; pass `from > target` to count down. Prefix/suffix text stays
+ * static.
  *
  * - SSR renders the final value (no hydration mismatch / flicker for users
  *   with JS disabled).
- * - On mount, useEffect resets to 0 once and starts an IntersectionObserver.
+ * - On mount, useEffect resets to `from` once and starts an IntersectionObserver.
  *   Animation triggers exactly once, when the element enters the viewport.
  * - Honors prefers-reduced-motion: skips animation, just renders the target.
  * - Strings without digits ("Verified Buyers" etc.) render unchanged.
  */
-export default function AnimatedStat({ value, duration = 1500 }: Props) {
+export default function AnimatedStat({ value, from = 0, duration = 1500 }: Props) {
   const ref = useRef<HTMLSpanElement>(null)
 
   const match = useMemo(() => value.match(NUMBER_RE), [value])
@@ -58,15 +63,15 @@ export default function AnimatedStat({ value, duration = 1500 }: Props) {
         triggered = true
         observer.disconnect()
 
-        // Snap to 0 the moment we start, then ease to target.
-        setCurrent(0)
+        // Snap to `from` the moment we start, then ease to target.
+        setCurrent(from)
         const start = performance.now()
         const tick = (now: number) => {
           const elapsed = now - start
           const progress = Math.min(elapsed / duration, 1)
           // ease-out cubic — fast at first, slows toward the target
           const eased = 1 - Math.pow(1 - progress, 3)
-          setCurrent(target * eased)
+          setCurrent(from + (target - from) * eased)
           if (progress < 1) {
             raf = requestAnimationFrame(tick)
           } else {
@@ -83,7 +88,7 @@ export default function AnimatedStat({ value, duration = 1500 }: Props) {
       observer.disconnect()
       if (raf !== null) cancelAnimationFrame(raf)
     }
-  }, [match, target, duration])
+  }, [match, target, from, duration])
 
   if (!match) return <>{value}</>
 
