@@ -11,7 +11,16 @@ const navLinks = [
   { label: 'Who We Are', href: '/about' },
 ]
 
-export default function SiteHeader() {
+export type SiteHeaderLogoVariant = 'yellow' | 'cream'
+
+// Logo asset is a black PNG; we tint it with a CSS filter to match the
+// brand wordmark colors. Cream is the off-white variant used on /account.
+const LOGO_FILTER: Record<SiteHeaderLogoVariant, string> = {
+  yellow: 'brightness(0) saturate(100%) invert(97%) sepia(6%) saturate(1350%) hue-rotate(2deg) brightness(99%) contrast(90%)',
+  cream: 'brightness(0) saturate(100%) invert(100%) sepia(13%) saturate(363%) hue-rotate(326deg) brightness(102%) contrast(96%)',
+}
+
+export default function SiteHeader({ logoVariant = 'yellow' }: { logoVariant?: SiteHeaderLogoVariant }) {
   const [open, setOpen] = useState(false)
   return (
     <header className="sticky top-0 z-50 px-4 pt-3 pb-0">
@@ -24,7 +33,7 @@ export default function SiteHeader() {
         </nav>
         <a href="/" className="flex items-center mx-auto md:mx-0">
           <Image src="/logo-passtheplate.png" alt="Pass The Plate" width={220} height={40} className="h-9 w-auto"
-            style={{ filter: 'brightness(0) saturate(100%) invert(97%) sepia(6%) saturate(1350%) hue-rotate(2deg) brightness(99%) contrast(90%)' }} priority />
+            style={{ filter: LOGO_FILTER[logoVariant] }} priority />
         </a>
         <div className="flex items-center gap-4 md:gap-8">
           <nav className="hidden md:flex items-center gap-8">
