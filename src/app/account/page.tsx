@@ -179,7 +179,8 @@ function MyListingCard({ listing, justCreated }: { listing: Listing; justCreated
           <div className="font-body mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             <Link
               href={`/sell/edit/${listing.slug}`}
-              className="text-black underline font-medium"
+              className="underline font-medium"
+              style={{ color: 'var(--color-brand)' }}
             >
               Edit →
             </Link>
