@@ -17,6 +17,15 @@ const supabaseHost = (() => {
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
+      // Hard-pinned production project hostname. Belt-and-suspenders next to
+      // the env-derived block below: guarantees /_next/image accepts uploaded
+      // cover/gallery images even if NEXT_PUBLIC_SUPABASE_URL isn't visible
+      // at the build step or the wildcard match below misses.
+      {
+        protocol: 'https' as const,
+        hostname: 'kqsbsvwlvkiptswtlmli.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
       ...(supabaseHost
         ? [
             {
@@ -26,9 +35,12 @@ const nextConfig: NextConfig = {
             },
           ]
         : []),
+      // Next.js 16 documents '**.example.com' (double-star) as the canonical
+      // subdomain wildcard form. Use it here so any other supabase project
+      // (preview branches, future migrations) still gets picked up.
       {
         protocol: 'https' as const,
-        hostname: '*.supabase.co',
+        hostname: '**.supabase.co',
         pathname: '/storage/v1/object/public/**',
       },
     ],
