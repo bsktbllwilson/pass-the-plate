@@ -42,7 +42,12 @@ export default async function SellPage() {
     <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
-      <section className="relative w-full overflow-hidden" style={{ minHeight: '600px', height: '70vh' }}>
+      {/* Hero photo runs flush to the top of the page; the sticky SiteHeader
+          above sits in normal flow, so we pull this section up by ~80px
+          (matching the header's pt-3 + pill py-4 + logo height) so the
+          orange pill overlays on top of the photo instead of leaving a
+          cream stripe above it. -mt scope is local to /sell. */}
+      <section className="relative w-full overflow-hidden -mt-20" style={{ minHeight: '600px', height: '70vh' }}>
         <Image
           src="/images/brand/chef.JPG"
           alt="Chef at work"
