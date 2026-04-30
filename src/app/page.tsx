@@ -5,6 +5,7 @@ import Hero from '@/components/sections/Hero'
 import TrendingHotspots from '@/components/sections/TrendingHotspots'
 import ValueProps from '@/components/marketing/ValueProps'
 import BuySellSplit from '@/components/sections/BuySellSplit'
+import PricingReframe from '@/components/sections/PricingReframe'
 import StatsBand from '@/components/sections/StatsBand'
 import Subscribe from '@/components/sections/Subscribe'
 import SiteFooter from '@/components/sections/SiteFooter'
@@ -18,6 +19,7 @@ export default async function Home() {
       <TrendingHotspots listings={trending} />
       <ValueProps heading="Why Pass The Plate" plates={content.platesAreFull} />
       <BuySellSplit />
+      <PricingReframe />
       <StatsBand stats={content.stats} />
       <Subscribe />
       <SiteFooter columns={content.footer.columns} />
