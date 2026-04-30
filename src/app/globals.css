@@ -35,6 +35,27 @@ img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
 
+/* ── CTA arrow-on-hover animation ────────────────────────────────────
+   Default state: invisible spacer of width ~1ch on the LEFT of the
+   text, no arrow visible. Because the button uses justify-content:
+   center, the text reads centered (the spacer balances the
+   right-side empty space).
+   Hover: spacer disappears, real arrow appears on the right of the
+   text. Both label and arrow are now centered as a pair. The
+   resulting micro-shift is the founder-spec'd "text shifts slightly"
+   transition. */
+.cta-btn::before {
+  content: '→';
+  visibility: hidden;
+  width: 1ch;
+  display: inline-block;
+}
+.cta-btn .cta-arrow { display: none; }
+.cta-btn:hover::before,
+.cta-btn:focus-visible::before { display: none; }
+.cta-btn:hover .cta-arrow,
+.cta-btn:focus-visible .cta-arrow { display: inline-flex; }
+
 /* ── /sell ListingsMap (Mapbox) ──────────────────────────────────────
    Brand pin + popup overrides scoped to the listings map. Mapbox
    defaults bring a pointed tip and a white tooltip frame; we want a

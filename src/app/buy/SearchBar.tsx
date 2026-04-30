@@ -29,7 +29,7 @@ export default function SearchBar() {
         className="flex-1 px-7 py-4 font-medium outline-none bg-transparent placeholder-black/40"
         style={{ fontSize: '1.125rem' }}
       />
-      <Button type="submit" size="lg" shape="rounded" className="rounded-l-none">
+      <Button type="submit" variant="search" size="lg" shape="rounded" className="rounded-l-none">
         Search →
       </Button>
     </form>

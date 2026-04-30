@@ -30,7 +30,7 @@ export default function TrendingHotspots({ listings }: { listings: Listing[] }) 
     <section className="px-4 pb-20">
       <div className="mx-auto" style={{ maxWidth: '1540px' }}>
         <div className="flex items-baseline justify-between mb-8">
-          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '2.1875rem' }}>Trending Hotspots</h2>
+          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '3.875rem', lineHeight: '1.15' }}>Trending Hotspots</h2>
           <a href="/buy" className="font-body font-medium text-black/55 hover:text-black transition-colors text-lg hidden md:block">More Listings →</a>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
