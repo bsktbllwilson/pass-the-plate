@@ -8,7 +8,7 @@ export default function SiteFooter({ columns }: { columns: FooterColumn[] }) {
         <div className="flex flex-col md:flex-row gap-12 md:gap-16">
           <div className="flex-shrink-0">
             <a href="/">
-              <Image src="/PTP_Logo_NavBar.png" alt="Pass The Plate" width={1486} height={170} className="h-12 w-auto mb-8" />
+              <Image src="/PTP_Logo_NavBar.png" alt="Pass The Plate" width={1486} height={170} className="h-6 w-auto mb-8" />
             </a>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-medium" style={{ background: 'var(--color-brand)', borderColor: 'var(--color-cream-soft)', color: '#fff' }}>
               English

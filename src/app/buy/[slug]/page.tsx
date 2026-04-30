@@ -84,7 +84,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
       <section className="px-4 pb-20">
         <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-12" style={{ maxWidth: '1280px' }}>
           <div className="lg:col-span-8">
-            <h1 className="font-display font-medium tracking-[-0.01em] mb-4" style={{ fontSize: '2.5rem', lineHeight: '1.05' }}>
+            <h1 className="font-display font-medium tracking-[-0.01em] mb-4" style={{ fontSize: '2.75rem', lineHeight: '1.05' }}>
               {listing.title}
             </h1>
             <div className="font-body inline-block px-4 py-2 rounded-full bg-white border border-black/10 text-sm mb-8">
@@ -97,7 +97,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
             {aboutBody && (
               <section className="mb-12">
-                <h2 className="font-display font-medium mb-4" style={{ fontSize: '1.875rem', lineHeight: '1.2' }}>
+                <h2 className="font-display font-medium mb-4" style={{ fontSize: '2rem', lineHeight: '1.2' }}>
                   About this business
                 </h2>
                 <p className="whitespace-pre-line" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }}>
@@ -108,7 +108,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
 
             {assets.length > 0 && (
               <section className="mb-12">
-                <h2 className="font-display font-medium mb-4" style={{ fontSize: '1.875rem', lineHeight: '1.2' }}>
+                <h2 className="font-display font-medium mb-4" style={{ fontSize: '2rem', lineHeight: '1.2' }}>
                   What&apos;s included
                 </h2>
                 <ul className="space-y-2">
@@ -123,7 +123,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
             )}
 
             <section>
-              <h2 className="font-display font-medium mb-4" style={{ fontSize: '1.875rem', lineHeight: '1.2' }}>
+              <h2 className="font-display font-medium mb-4" style={{ fontSize: '2rem', lineHeight: '1.2' }}>
                 Quick stats
               </h2>
               <div className="grid grid-cols-3 gap-4">

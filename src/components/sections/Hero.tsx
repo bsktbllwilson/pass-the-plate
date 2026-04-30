@@ -1,18 +1,13 @@
 import MarketplaceSearchBar from '@/components/marketing/MarketplaceSearchBar'
 
-export default function Hero({ headline, italicWord, subhead }: { headline: string; italicWord: string; subhead: string }) {
-  const words = headline.split(' ')
-  const italicIdx = words.findIndex(w => w.toLowerCase().includes(italicWord.toLowerCase()))
-
+export default function Hero({ headline, subhead }: { headline: string; subhead: string }) {
   return (
     <section className="pt-16 pb-20 px-4 text-center">
       <div className="mx-auto" style={{ maxWidth: '1100px' }}>
-        <h1 className="font-display font-medium leading-[1.1] tracking-[-0.01em] mb-6" style={{ fontSize: '2.5rem', color: '#000' }}>
-          {words.map((word, i) => (
-            <span key={i}>{i === italicIdx ? <em style={{ fontStyle: 'italic' }}>{word}</em> : word}{i < words.length - 1 ? ' ' : ''}</span>
-          ))}
+        <h1 className="font-display font-medium leading-[1.1] tracking-[-0.01em] mb-6" style={{ fontSize: '2.75rem', color: '#000' }}>
+          {headline}
         </h1>
-        <p className="font-medium mb-12 mx-auto" style={{ fontSize: 'clamp(1.125rem, 2.5vw, 1.875rem)', maxWidth: '900px', color: '#000' }}>
+        <p className="font-body font-medium mb-12 mx-auto" style={{ fontSize: '1.125rem', maxWidth: '900px', color: '#000', lineHeight: '1.5' }}>
           {subhead}
         </p>
         <MarketplaceSearchBar submitLabel="Find A Seat →" />

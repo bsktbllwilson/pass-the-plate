@@ -19,7 +19,7 @@ export default function PartnerApplyForm() {
   if (state?.ok) {
     return (
       <div className="rounded-2xl bg-white border border-black/10 p-8">
-        <h2 className="font-display font-medium mb-3" style={{ fontSize: '1.875rem' }}>
+        <h2 className="font-display font-medium mb-3" style={{ fontSize: '2rem' }}>
           Application received
         </h2>
         <p

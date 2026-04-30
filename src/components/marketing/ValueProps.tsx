@@ -4,7 +4,7 @@ export default function ValueProps({ heading, plates }: { heading: string; plate
   return (
     <section className="px-4 pb-24">
       <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-        <h2 className="font-display font-medium tracking-[-0.01em] mb-10" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>{heading}</h2>
+        <h2 className="font-display font-medium tracking-[-0.01em] mb-10" style={{ fontSize: '2rem' }}>{heading}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 overflow-x-auto snap-x snap-mandatory xl:overflow-visible">
           {plates.map((plate) => (
             <div key={plate.title} className="rounded-[35px] p-7 flex flex-col border-[3px] border-black/75 min-h-[320px] snap-start" style={{ background: 'var(--color-brand)' }}>
