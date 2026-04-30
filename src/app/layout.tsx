@@ -5,7 +5,7 @@ import ChatWidget from '@/components/widget/ChatWidget'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.passtheplate.store'
 const SITE_NAME = 'Pass The Plate'
 const DEFAULT_TITLE = 'Pass The Plate — Marketplace for Asian F&B Businesses'
-const DEFAULT_DESCRIPTION = 'The first marketplace for the $240B+ Asian F&B business transition.'
+const DEFAULT_DESCRIPTION = 'The marketplace where Asian restaurant owners sell to vetted SBA, EB-5, and search-fund buyers — no upfront fees, ever.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

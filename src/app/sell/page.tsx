@@ -23,7 +23,6 @@ export const metadata: Metadata = {
 export const revalidate = 300
 
 const SELL_STATS: { value: string; label: string; from?: number }[] = [
-  { value: '$240B+', label: 'Annual revenue of the U.S. Asian F&B sector.' },
   { value: '70%', label: 'Of EB-5 investors and 1st/2nd-gen buyers come from Asian communities. They understand your business.' },
   { value: '30% Lower', label: 'What sellers leave on the table when they sell informally vs. through a structured marketplace.' },
   // Counts down from $2,500 → $0 to dramatize "no upfront fees" vs. typical
@@ -106,7 +105,7 @@ export default async function SellPage() {
       </section>
 
       <section className="py-16 px-4" style={{ background: 'var(--color-yellow)' }}>
-        <div className="mx-auto grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-4" style={{ maxWidth: '1400px' }}>
+        <div className="mx-auto grid grid-cols-1 sm:grid-cols-3 gap-y-12 gap-x-4" style={{ maxWidth: '1100px' }}>
           {SELL_STATS.map((s) => (
             <div key={s.value} className="text-center px-4">
               <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
