@@ -13,33 +13,6 @@ export const metadata: Metadata = {
     "We're building the marketplace the Asian F&B community deserves — bilingual, transparent, and built around how deals actually get done.",
 }
 
-const TIMELINE: { year: string; title: string; body: string }[] = [
-  {
-    year: '2024',
-    title: 'Founded',
-    body:
-      'Pass The Plate is founded on the conviction that the Asian F&B transition deserves dedicated, bilingual infrastructure. The first version is a paper prototype shopped through Flushing and Sunset Park.',
-  },
-  {
-    year: '2025',
-    title: 'First 100 Listings',
-    body:
-      'We onboard one hundred sellers across New York, Los Angeles, and the Bay Area. Eighty-two close successfully; the median listing-to-LOI window drops from the industry standard 180 days to 71.',
-  },
-  {
-    year: '2026',
-    title: 'Chowbus Partnership',
-    body:
-      'We sign a strategic partnership with Chowbus to surface qualified listings to their twenty-thousand-restaurant operator network. Cross-platform pre-qualification cuts buyer screening time in half.',
-  },
-  {
-    year: '2026',
-    title: 'Expanded to Los Angeles',
-    body:
-      "We open our second metro with a dedicated bilingual team in San Gabriel Valley. The first LA quarter delivers thirty-eight listings and four closings before the team's first review cycle.",
-  },
-]
-
 const TEAM: { name: string; role: string; bio: string }[] = [
   {
     name: 'Mathiew Wilson',
@@ -114,33 +87,6 @@ export default function AboutPage() {
       </section>
 
       <StatsBand stats={content.stats} />
-
-      <section className="px-4 py-24">
-        <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h2 className="font-display font-medium tracking-[-0.01em] mb-12 text-center" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
-            Our Story
-          </h2>
-          <div className="space-y-12">
-            {TIMELINE.map((m, i) => (
-              <div key={`${m.year}-${m.title}`} className={`flex flex-col md:flex-row items-start gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse md:text-right' : ''}`}>
-                <div className="md:w-1/3 flex-shrink-0">
-                  <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--color-brand)' }}>
-                    {m.year}
-                  </div>
-                </div>
-                <div className="md:w-2/3">
-                  <h3 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '1.5rem' }}>
-                    {m.title}
-                  </h3>
-                  <p style={{ fontSize: '1.0625rem', lineHeight: '1.6', color: 'rgba(0,0,0,0.72)' }}>
-                    {m.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section id="trust" className="px-4 py-24">
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
