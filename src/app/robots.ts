@@ -7,15 +7,25 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
+      // Crawl restrictions cover both unprefixed (default-locale) and
+      // /zh-prefixed paths so Google doesn't index account / auth
+      // surfaces in either language.
       disallow: [
         '/account',
+        '/zh/account',
         '/verify',
+        '/zh/verify',
         '/api/',
         '/auth/',
+        '/zh/auth/',
         '/sign-in',
+        '/zh/sign-in',
         '/sign-up',
+        '/zh/sign-up',
         '/forgot-password',
+        '/zh/forgot-password',
         '/reset-password',
+        '/zh/reset-password',
       ],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,

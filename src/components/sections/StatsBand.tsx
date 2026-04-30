@@ -1,11 +1,18 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import type { Stat } from '@/lib/content'
+import { useMessages } from 'next-intl'
 import AnimatedStat from '@/components/marketing/AnimatedStat'
 
-export default function StatsBand({ stats }: { stats: Stat[] }) {
+type Stat = { value: string; label: string }
+
+export default function StatsBand() {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  // Stats array lives in the active-locale messages file; useTranslations
+  // can't return arrays so we read raw messages and pluck home.stats.
+  const messages = useMessages() as { home?: { stats?: Stat[] } }
+  const stats: Stat[] = messages?.home?.stats ?? []
+
   useEffect(() => {
     const el = ref.current
     if (!el) return

@@ -1,9 +1,11 @@
 'use client'
 import { useActionState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui'
 import { subscribeNewsletter, type SubscribeState } from '@/app/actions/newsletter'
 
 export default function Subscribe() {
+  const t = useTranslations('home.subscribe')
   const [state, action, pending] = useActionState<SubscribeState, FormData>(subscribeNewsletter, null)
 
   return (
@@ -17,16 +19,16 @@ export default function Subscribe() {
             className="font-display font-medium tracking-[-0.01em] mb-3"
             style={{ fontSize: '2.1875rem', lineHeight: '1.05', color: '#000' }}
           >
-            The Sunday Plate
+            {t('heading')}
           </h2>
           <p style={{ fontSize: '1.125rem', color: '#000', lineHeight: '1.5' }}>
-            5 new Asian F&amp;B listings, market commentary, and SBA rate updates — every Sunday morning.
+            {t('subhead')}
           </p>
         </div>
         <div className="flex-shrink-0 w-full md:w-[480px]">
           {state?.ok ? (
             <div className="px-8 py-4 rounded-full text-center font-medium" style={{ background: '#000', color: 'var(--color-cream-soft)' }}>
-              You&apos;re on the list — see you Sunday.
+              {t('success')}
             </div>
           ) : (
             <form action={action} className="flex gap-3 flex-col sm:flex-row">
@@ -34,13 +36,13 @@ export default function Subscribe() {
               <input
                 type="email"
                 name="email"
-                placeholder="Email address"
+                placeholder={t('placeholder')}
                 required
                 className="flex-1 rounded-full px-7 py-4 font-medium outline-none border border-gray-200"
                 style={{ color: '#000', fontSize: '15px' }}
               />
               <Button type="submit" variant="dark" size="lg" shape="rounded" disabled={pending}>
-                {pending ? 'Subscribing…' : 'Subscribe'}
+                {pending ? t('submitting') : t('submit')}
               </Button>
             </form>
           )}
@@ -50,7 +52,7 @@ export default function Subscribe() {
             </p>
           )}
           <p className="mt-3 text-xs" style={{ color: 'rgba(0,0,0,0.7)' }}>
-            No spam. Unsubscribe anytime.
+            {t('disclaimer')}
           </p>
         </div>
       </div>

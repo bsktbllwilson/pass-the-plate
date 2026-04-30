@@ -1,4 +1,3 @@
-import { content } from '@/lib/content'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 
@@ -13,7 +12,7 @@ export default function AuthShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </section>
-      <SiteFooter columns={content.footer.columns} />
+      <SiteFooter />
     </main>
   )
 }

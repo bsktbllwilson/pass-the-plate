@@ -1,6 +1,6 @@
 'use client'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useRouter } from '@/i18n/navigation'
 import { Button } from '@/components/ui'
 
 type Props = {

@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Link } from '@/i18n/navigation'
 
 export type ButtonVariant = 'primary' | 'inverse' | 'dark' | 'search'
 export type ButtonSize = 'sm' | 'md' | 'lg'
