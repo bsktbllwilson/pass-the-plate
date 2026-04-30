@@ -31,6 +31,25 @@ html, body {
   color: #000;
 }
 
+/* ── Chinese font stack ──────────────────────────────────────────────
+   On /zh routes, the [locale] layout sets <html lang="zh-CN">. We
+   redefine --font-display and --font-body under that lang attr so
+   every Tailwind `font-display` / `font-body` utility (and the body
+   default that points at var(--font-body)) automatically uses Source
+   Han Sans Traditional from the existing Typekit kit (cub1hgl).
+   System fallbacks (PingFang SC on macOS / iOS, Microsoft YaHei on
+   Windows, Hiragino Sans GB on older macOS) keep Chinese text
+   rendering correctly while Typekit's CSS finishes loading.
+   Note: PP Display VF is Latin-only, so Chinese headings would
+   otherwise fall through to a system serif. Aliasing both display +
+   body to Source Han Sans gives consistent CJK rendering across
+   nav, headings, and prose on the Chinese side. */
+html[lang^="zh"] {
+  --font-display: "source-han-sans-traditional", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  --font-body: "source-han-sans-traditional", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  --font-prose: "source-han-sans-traditional", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+}
+
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
