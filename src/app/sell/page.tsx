@@ -4,7 +4,7 @@ import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
 import ValueProps from '@/components/marketing/ValueProps'
-import HeroSearch from '@/components/marketing/HeroSearch'
+import MarketplaceSearchBar from '@/components/marketing/MarketplaceSearchBar'
 import ListingsMap from '@/components/marketplace/ListingsMap'
 import AnimatedStat from '@/components/marketing/AnimatedStat'
 import { LinkButton } from '@/components/ui'
@@ -97,7 +97,7 @@ export default async function SellPage() {
           <p className="font-body mb-10" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '720px' }}>
             Where buyers are searching today. Click a pin to see the listing.
           </p>
-          <HeroSearch />
+          <MarketplaceSearchBar />
 
           <div className="mt-10">
             <ListingsMap listings={mapListings} />

@@ -1,4 +1,4 @@
-import HeroSearch from '@/components/marketing/HeroSearch'
+import MarketplaceSearchBar from '@/components/marketing/MarketplaceSearchBar'
 
 export default function Hero({ headline, italicWord, subhead }: { headline: string; italicWord: string; subhead: string }) {
   const words = headline.split(' ')
@@ -15,7 +15,7 @@ export default function Hero({ headline, italicWord, subhead }: { headline: stri
         <p className="font-medium mb-12 mx-auto" style={{ fontSize: 'clamp(1.125rem, 2.5vw, 1.875rem)', maxWidth: '900px', color: '#000' }}>
           {subhead}
         </p>
-        <HeroSearch submitLabel="Find A Seat →" />
+        <MarketplaceSearchBar submitLabel="Find A Seat →" />
       </div>
     </section>
   )
