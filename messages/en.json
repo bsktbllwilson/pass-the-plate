@@ -30,6 +30,19 @@
     },
     "copyright": "© {year} Pass The Plate. All rights reserved."
   },
+  "common": {
+    "languageToggleLabel": "Language",
+    "english": "English",
+    "chinese": "中文",
+    "previousPage": "Previous Page",
+    "nextPage": "Next Page",
+    "pageOf": "Page {page} of {total}"
+  },
+  "findYourNextBigDeal": {
+    "heading": "Find Your Next Big Deal",
+    "subhead": "Browse vetted Asian F&B businesses for sale across the country. Bilingual support, transparent financials, and an advisor network ready when you are.",
+    "cta": "Browse All Listings"
+  },
   "home": {
     "hero": {
       "headline": "Your Seat at The Table Starts Here",
@@ -43,30 +56,10 @@
     "valueProps": {
       "heading": "Why Pass The Plate",
       "items": [
-        {
-          "title": "Bilingual Listing",
-          "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English-only competitors.",
-          "cta": "Get Started",
-          "href": "/sell"
-        },
-        {
-          "title": "Market Data",
-          "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something.",
-          "cta": "Read Our Guides",
-          "href": "/playbook"
-        },
-        {
-          "title": "Vetted Demand",
-          "body": "Buyers must show proof of funds or SBA pre-qualification before seller contacts are released. Vetted by our advisors. Zero spam.",
-          "cta": "View Sources",
-          "href": "/about"
-        },
-        {
-          "title": "Curated Resources",
-          "body": "Expert guides, bilingual templates, and case studies curated by advisors who have been in your seat.",
-          "cta": "Access Playbooks",
-          "href": "/playbook"
-        }
+        { "title": "Bilingual Listing", "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English-only competitors.", "cta": "Get Started", "href": "/sell" },
+        { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something.", "cta": "Read Our Guides", "href": "/playbook" },
+        { "title": "Vetted Demand", "body": "Buyers must show proof of funds or SBA pre-qualification before seller contacts are released. Vetted by our advisors. Zero spam.", "cta": "View Sources", "href": "/about" },
+        { "title": "Curated Resources", "body": "Expert guides, bilingual templates, and case studies curated by advisors who have been in your seat.", "cta": "Access Playbooks", "href": "/playbook" }
       ]
     },
     "buySellSplit": {
@@ -98,9 +91,198 @@
       "disclaimer": "No spam. Unsubscribe anytime."
     }
   },
-  "common": {
-    "languageToggleLabel": "Language",
-    "english": "English",
-    "chinese": "中文"
+  "buy": {
+    "metaTitle": "Buy A Business",
+    "metaDescription": "Browse vetted Asian F&B businesses for sale. Filter by industry, location, and financials.",
+    "heroH1": "Find Your Next Business",
+    "resultCount": "{count} {count, plural, =1 {listing} other {listings}} matching your search",
+    "noResults": "No listings match those filters.",
+    "noResultsHint": "Try removing a filter or searching with broader keywords.",
+    "card": {
+      "askingPrice": "Asking Price",
+      "annualRevenue": "Annual Revenue",
+      "viewListing": "View Listing"
+    },
+    "search": {
+      "placeholder": "Keywords (e.g. dumplings, Williamsburg, liquor license)",
+      "submit": "Search"
+    },
+    "filter": {
+      "industry": "Industry",
+      "location": "Location",
+      "askingPrice": "Asking Price",
+      "annualRevenue": "Annual Revenue",
+      "assets": "Assets & Equipments",
+      "sortPrefix": "Sort:",
+      "sort": {
+        "trending": "Trending",
+        "newest": "Newest",
+        "priceAsc": "Price: Low to High",
+        "revenueDesc": "Revenue: High to Low"
+      },
+      "industries": {
+        "restaurant": "Restaurant",
+        "bakery": "Bakery",
+        "grocery": "Grocery",
+        "manufacturing": "Manufacturing",
+        "catering": "Catering"
+      },
+      "priceBands": {
+        "under_500k": "Under $500K",
+        "500k_1m": "$500K – $1M",
+        "1m_2m": "$1M – $2M",
+        "2m_plus": "$2M+"
+      },
+      "revenueBands": {
+        "under_500k": "Under $500K",
+        "500k_1m": "$500K – $1M",
+        "1m_2m": "$1M – $2M",
+        "2m_plus": "$2M+"
+      },
+      "assetOptions": {
+        "walkInCooler": "Walk-in cooler",
+        "liquorLicense": "Liquor license",
+        "patio": "Outdoor patio",
+        "pos": "POS system",
+        "hood": "Hood system",
+        "walkInFreezer": "Walk-in freezer"
+      }
+    }
+  },
+  "sell": {
+    "metaTitle": "Sell A Business",
+    "metaDescription": "List your Asian F&B business on Pass The Plate. Bilingual support, vetted buyers, and zero upfront fees.",
+    "hero": {
+      "headlineLine1": "Pass the Plate to",
+      "headlineLine2": "The Right Hands",
+      "subhead": "List your Asian F&B Business in 10 minutes. We charge $0 upfront, we only win when you win.",
+      "primaryCta": "List My Business",
+      "secondaryCta": "Get Free Valuation"
+    },
+    "valueProps": {
+      "heading": "How It Works",
+      "items": [
+        { "title": "Bilingual Listing", "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English-only competitors.", "cta": "Get Started", "href": "/sell/new" },
+        { "title": "Market Data", "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something.", "cta": "Read Our Guides", "href": "/playbook" },
+        { "title": "Vetted Demand", "body": "Buyers must show proof of funds or SBA pre-qualification before seller contacts are released. Vetted by our advisors. Zero spam.", "cta": "View Sources", "href": "/about" },
+        { "title": "Curated Resources", "body": "Expert guides, bilingual templates, and case studies curated by advisors who have been in your seat.", "cta": "Access Playbooks", "href": "/playbook" }
+      ]
+    },
+    "hotspots": {
+      "heading": "Listing Hotspots",
+      "subhead": "Where buyers are searching today. Click a pin to see the listing."
+    },
+    "stats": [
+      { "value": "70%", "label": "Of EB-5 investors and 1st/2nd-gen buyers come from Asian communities. They understand your business." },
+      { "value": "30% Lower", "label": "What sellers leave on the table when they sell informally vs. through a structured marketplace." },
+      { "value": "$0 Upfront", "label": "3–5% success fee only when you close — vs. 10–12% at traditional brokers." }
+    ],
+    "testimonials": {
+      "heading": "Trusted by 100+ Sellers"
+    }
+  },
+  "partners": {
+    "metaTitle": "Trusted Partners",
+    "metaDescription": "Vetted SBA lenders, immigration attorneys, bilingual brokers, accountants, and insurance specialists who work with Asian F&B operators in NYC.",
+    "heroH1": "Trusted Partners",
+    "heroSubhead": "Vetted SBA lenders, immigration attorneys, bilingual brokers, accountants, and insurance specialists who work with Asian F&B operators in NYC.",
+    "heroCta": "Become a Partner",
+    "noResults": "No partners listed yet.",
+    "noResultsHint": "Check back soon — we're adding vetted partners every week.",
+    "count": "{count} {count, plural, =1 {partner} other {partners}}",
+    "card": {
+      "featured": "Featured",
+      "email": "Email",
+      "website": "Website"
+    },
+    "specialty": {
+      "sba_lender": "SBA Lender",
+      "immigration_attorney": "Immigration Attorney",
+      "bilingual_broker": "Bilingual Broker",
+      "accountant": "Accountant",
+      "insurance": "Insurance"
+    }
+  },
+  "about": {
+    "metaTitle": "Who We Are",
+    "metaDescription": "We're building the marketplace the Asian F&B community deserves — bilingual, transparent, and built around how deals actually get done.",
+    "heroH1": "Who We Are",
+    "heroSubhead": "We're building the marketplace the Asian F&B community deserves — bilingual, transparent, and built around how deals actually get done in our communities.",
+    "mission": {
+      "heading": "Our Mission",
+      "p1": "A generation of Asian F&B operators is retiring, and the volume of value changing hands is enormous — but the existing tools were built for a different industry. BizBuySell and the generic marketplace listings don't speak the languages our owners do, don't read the books they keep, and don't connect them to the buyers who already trust their networks.",
+      "p2": "Most Asian F&B businesses still change hands through WeChat groups, KakaoTalk threads, temple bulletin boards, and word-of-mouth between bilingual brokers. The networks are real, deep, and effective — they're just fragmented and largely invisible to the next generation of buyers, the lenders who would underwrite them, and the immigration counsel who would route capital to them.",
+      "p3": "Pass The Plate is the first marketplace built around how the community actually operates. Bilingual listings from any device, success-fee-only pricing, vetted buyers who clear proof of funds before they see a contact, and a curated network of SBA lenders, immigration attorneys, and bilingual brokers — all in one place. We charge nothing upfront. We win when sellers win."
+    },
+    "team": {
+      "heading": "The Team",
+      "members": [
+        {
+          "name": "Mathiew Wilson",
+          "role": "Founder",
+          "bio": "Former operator turned marketplace builder. Mathiew grew up watching his family navigate restaurant ownership without the tools or networks they needed — Pass The Plate is the platform he wishes had existed twenty years ago."
+        },
+        {
+          "name": "Jenny Liu",
+          "role": "Head of Marketplace",
+          "bio": "Twelve years at SBA and First Citizens Bank originating $400M+ in F&B acquisitions. Jenny leads listing intake, advisor partnerships, and the success-fee economics that keep Pass The Plate aligned with sellers."
+        },
+        {
+          "name": "Dr. Helen Park",
+          "role": "Senior Advisor, Immigration & Capital",
+          "bio": "Former immigration partner at Curtis Mallet-Prevost in New York and Seoul. Helen advises on visa pathway design, capital structuring, and cross-border closings across the EB-5, E-2, and L-1A programs."
+        }
+      ]
+    },
+    "press": {
+      "heading": "As featured in"
+    }
+  },
+  "playbook": {
+    "metaTitle": "The Playbook",
+    "metaDescription": "Bilingual guides for buyers, sellers, and operators in Asian F&B.",
+    "heroH1": "The Playbook",
+    "noResults": "No guides in this category yet.",
+    "noResultsHint": "Try another category or read all.",
+    "readGuide": "Read Guide",
+    "categories": {
+      "all": "All",
+      "buying": "Buying",
+      "selling": "Selling",
+      "legal": "Legal",
+      "visa_immigration": "Visa & Immigration",
+      "market_entry": "Market Entry",
+      "operations": "Operations",
+      "finance": "Finance"
+    },
+    "subscribeCard": {
+      "heading": "Get the Sunday Plate",
+      "subhead": "5 new Asian F&B listings, market commentary, and SBA rate updates every Sunday.",
+      "placeholder": "Email address",
+      "submit": "Subscribe",
+      "submitting": "Subscribing…",
+      "success": "You're on the list — see you Sunday."
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Get in touch with Pass The Plate. We respond within one business day.",
+    "heroH1": "Questions We Get A Lot",
+    "heroSubhead": "Reach out and we'll get back within one business day.",
+    "otherWays": {
+      "heading": "Other ways to reach us",
+      "email": "Email",
+      "phone": "Phone",
+      "officeHours": "Office hours",
+      "officeHoursValue": "Mon–Fri, 9am–6pm ET"
+    },
+    "altLinks": {
+      "playbook": "Playbook",
+      "partners": "Find a Partner",
+      "buy": "Browse Listings"
+    },
+    "faq": {
+      "heading": "Common Questions"
+    }
   }
 }

@@ -1,25 +1,20 @@
 import type { Metadata } from 'next'
-import { content } from '@/lib/content'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { useTranslations } from 'next-intl'
 import { getPartners, type Partner } from '@/lib/partners'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import { LinkButton } from '@/components/ui'
 
-export const metadata: Metadata = {
-  title: 'Trusted Partners — Pass The Plate',
-  description: 'Vetted SBA lenders, immigration attorneys, bilingual brokers, accountants, and insurance specialists who work with Asian F&B operators in NYC.',
-}
+type Params = Promise<{ locale: string }>
 
-const SPECIALTY_LABEL: Record<string, string> = {
-  sba_lender: 'SBA Lender',
-  immigration_attorney: 'Immigration Attorney',
-  bilingual_broker: 'Bilingual Broker',
-  accountant: 'Accountant',
-  insurance: 'Insurance',
-}
-
-function formatSpecialty(specialty: string): string {
-  return SPECIALTY_LABEL[specialty] ?? specialty
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'partners' })
+  return {
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+  }
 }
 
 function formatLanguages(languages: string[]): string {
@@ -27,6 +22,16 @@ function formatLanguages(languages: string[]): string {
 }
 
 function PartnerCard({ partner }: { partner: Partner }) {
+  const t = useTranslations('partners')
+  const specialtyKey = partner.specialty as keyof typeof partnerSpecialtyKeys
+  // Cast the specialty string to a known key. If a partner row has an
+  // unmapped specialty, we fall back to the raw value so the card still
+  // renders (no key lookup throws).
+  const specialtyLabel =
+    partner.specialty in partnerSpecialtyKeys
+      ? t(`specialty.${partner.specialty}`)
+      : partner.specialty
+  void specialtyKey
   return (
     <article className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] p-6 flex flex-col h-full">
       <div className="flex items-start justify-between gap-3 mb-4">
@@ -34,14 +39,14 @@ function PartnerCard({ partner }: { partner: Partner }) {
           className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wide"
           style={{ background: 'rgba(230,78,33,0.08)', color: 'var(--color-brand)' }}
         >
-          {formatSpecialty(partner.specialty)}
+          {specialtyLabel}
         </span>
         {partner.featured && (
           <span
             className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wide"
             style={{ background: 'rgba(0,0,0,0.06)', color: 'rgba(0,0,0,0.7)' }}
           >
-            Featured
+            {t('card.featured')}
           </span>
         )}
       </div>
@@ -72,7 +77,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
 
       <div className="font-body pt-4 border-t border-black/10 flex flex-wrap gap-x-4 gap-y-2 text-sm">
         <a href={`mailto:${partner.email}`} className="text-black/70 hover:text-black transition-colors">
-          Email
+          {t('card.email')}
         </a>
         {partner.phone && (
           <a href={`tel:${partner.phone.replace(/[^\d+]/g, '')}`} className="text-black/70 hover:text-black transition-colors">
@@ -81,7 +86,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
         )}
         {partner.website && (
           <a href={partner.website} target="_blank" rel="noopener noreferrer" className="text-black/70 hover:text-black transition-colors ml-auto">
-            Website →
+            {t('card.website')} →
           </a>
         )}
       </div>
@@ -89,7 +94,18 @@ function PartnerCard({ partner }: { partner: Partner }) {
   )
 }
 
-export default async function PartnersPage() {
+const partnerSpecialtyKeys = {
+  sba_lender: true,
+  immigration_attorney: true,
+  bilingual_broker: true,
+  accountant: true,
+  insurance: true,
+} as const
+
+export default async function PartnersPage({ params }: { params: Params }) {
+  const { locale } = await params
+  setRequestLocale(locale)
+  const t = await getTranslations({ locale, namespace: 'partners' })
   const { rows, totalCount } = await getPartners({ perPage: 100 })
 
   return (
@@ -99,14 +115,14 @@ export default async function PartnersPage() {
       <section className="px-4 pt-20 md:pt-28 pb-20 md:pb-28">
         <div className="mx-auto text-center" style={{ maxWidth: '1540px' }}>
           <h1 className="font-display font-medium tracking-[-0.01em] mb-6" style={{ fontSize: '3.875rem', lineHeight: '1.15' }}>
-            Trusted Partners
+            {t('heroH1')}
           </h1>
           <p className="mb-12 mx-auto" style={{ fontSize: '1.25rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px', fontWeight: 500 }}>
-            Vetted SBA lenders, immigration attorneys, bilingual brokers, accountants, and insurance specialists who work with Asian F&amp;B operators in NYC.
+            {t('heroSubhead')}
           </p>
           <div>
             <LinkButton href="/partners/apply" size="md">
-              Become a Partner
+              {t('heroCta')}
             </LinkButton>
           </div>
         </div>
@@ -116,13 +132,13 @@ export default async function PartnersPage() {
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
           {rows.length === 0 ? (
             <div className="font-body rounded-2xl bg-white border border-black/10 p-12 text-center">
-              <p className="text-xl mb-2">No partners listed yet.</p>
-              <p className="text-black/60">Check back soon — we&apos;re adding vetted partners every week.</p>
+              <p className="text-xl mb-2">{t('noResults')}</p>
+              <p className="text-black/60">{t('noResultsHint')}</p>
             </div>
           ) : (
             <>
               <div className="font-body text-sm text-black/55 mb-6">
-                {totalCount} {totalCount === 1 ? 'partner' : 'partners'}
+                {t('count', { count: totalCount })}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {rows.map(partner => (

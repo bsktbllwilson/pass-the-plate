@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { useTranslations, useMessages } from 'next-intl'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
@@ -8,13 +10,18 @@ import MarketplaceSearchBar from '@/components/marketing/MarketplaceSearchBar'
 import ListingsMap from '@/components/marketplace/ListingsMap'
 import AnimatedStat from '@/components/marketing/AnimatedStat'
 import { LinkButton } from '@/components/ui'
-import { content } from '@/lib/content'
 import { getListingsForMap } from '@/lib/listings'
 import { TESTIMONIALS } from '@/data/testimonials'
 
-export const metadata: Metadata = {
-  title: 'Sell A Business — Pass The Plate',
-  description: 'List your Asian F&B business on Pass The Plate. Bilingual support, vetted buyers, and zero upfront fees.',
+type Params = Promise<{ locale: string }>
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'sell' })
+  return {
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+  }
 }
 
 // ISR: re-render at most every 5 minutes. The map's listing pins only
@@ -22,15 +29,97 @@ export const metadata: Metadata = {
 // picking up new listings as they get approved.
 export const revalidate = 300
 
-const SELL_STATS: { value: string; label: string; from?: number }[] = [
-  { value: '70%', label: 'Of EB-5 investors and 1st/2nd-gen buyers come from Asian communities. They understand your business.' },
-  { value: '30% Lower', label: 'What sellers leave on the table when they sell informally vs. through a structured marketplace.' },
-  // Counts down from $2,500 → $0 to dramatize "no upfront fees" vs. typical
-  // broker retainers / listing-package costs.
-  { value: '$0 Upfront', from: 2500, label: '3–5% success fee only when you close — vs. 10–12% at traditional brokers.' },
-]
+type Stat = { value: string; label: string }
 
-export default async function SellPage() {
+function SellStats() {
+  // Stats array is locale-aware. AnimatedStat counts the $0 Upfront stat
+  // down from $2,500 — we hard-wire the `from` value here since it's
+  // animation behavior, not content.
+  const messages = useMessages() as { sell?: { stats?: Stat[] } }
+  const stats: Stat[] = messages?.sell?.stats ?? []
+  const fromValues: Record<string, number | undefined> = { '$0 Upfront': 2500 }
+  return (
+    <section className="py-16 px-4" style={{ background: 'var(--color-yellow)' }}>
+      <div className="mx-auto grid grid-cols-1 sm:grid-cols-3 gap-y-12 gap-x-4" style={{ maxWidth: '1100px' }}>
+        {stats.map((s) => (
+          <div key={s.value} className="text-center px-4">
+            <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
+              <AnimatedStat value={s.value} from={fromValues[s.value]} />
+            </div>
+            <div className="mt-4" style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.125rem)', lineHeight: '1.5' }}>{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function SellHero() {
+  const t = useTranslations('sell.hero')
+  return (
+    <section className="relative w-full overflow-hidden -mt-[104px]" style={{ minHeight: '600px', height: '70vh' }}>
+      <Image
+        src="/images/brand/chef.JPG"
+        alt="Chef at work"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0) 50%)' }} />
+      <div className="absolute inset-0 flex items-center">
+        <div className="max-w-2xl pl-12 lg:pl-24 pr-6">
+          <h1 className="font-display text-white font-medium tracking-[-0.01em] mb-6" style={{ fontSize: '3.875rem', lineHeight: '0.95' }}>
+            {t('headlineLine1')}<br />{t('headlineLine2')}
+          </h1>
+          <p className="text-white/90 mb-10" style={{ fontSize: '1.125rem', lineHeight: '1.55', maxWidth: '500px' }}>
+            {t('subhead')}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <LinkButton href="/sell/new" size="lg">
+              {t('primaryCta')}
+            </LinkButton>
+            <LinkButton
+              href="/contact?intent=valuation"
+              size="lg"
+              className="border-2 border-white hover:bg-white hover:text-black transition-colors hover:opacity-100"
+              style={{ background: 'transparent', color: '#fff' }}
+            >
+              {t('secondaryCta')}
+            </LinkButton>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function SellHotspotsHeader() {
+  const t = useTranslations('sell.hotspots')
+  return (
+    <>
+      <h2 className="font-display font-medium tracking-[-0.01em] mb-4" style={{ fontSize: '2.1875rem' }}>
+        {t('heading')}
+      </h2>
+      <p className="font-body mb-10" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '720px' }}>
+        {t('subhead')}
+      </p>
+    </>
+  )
+}
+
+function TestimonialsHeader() {
+  const t = useTranslations('sell.testimonials')
+  return (
+    <h2 className="font-display font-medium tracking-[-0.01em] text-center mb-12" style={{ fontSize: '2.1875rem' }}>
+      {t('heading')}
+    </h2>
+  )
+}
+
+export default async function SellPage({ params }: { params: Params }) {
+  const { locale } = await params
+  setRequestLocale(locale)
   // Deterministic pick — Math.random() in a server component bakes a single
   // pair into the static cache, so the "rotation" never actually rotated.
   // Reorder TESTIMONIALS to change which two surface on this page.
@@ -40,88 +129,27 @@ export default async function SellPage() {
   return (
     <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
-
-      {/* Hero photo runs flush to the top of the page; the sticky SiteHeader
-          above sits in normal flow, so we pull this section up so the orange
-          pill overlays on top of the photo instead of leaving a stripe above
-          it. The exact header height drifts with viewport / UserMenu state /
-          font loading, so we overshoot by ~24px (-mt-[104px] vs measured
-          ~80px) to guarantee no residual gap on any viewport. The hero is
-          70vh tall with min-height 600px so the headline still has plenty
-          of breathing room after the pull-up. -mt scope is local to /sell. */}
-      <section className="relative w-full overflow-hidden -mt-[104px]" style={{ minHeight: '600px', height: '70vh' }}>
-        <Image
-          src="/images/brand/chef.JPG"
-          alt="Chef at work"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0) 50%)' }} />
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-2xl pl-12 lg:pl-24 pr-6">
-            <h1 className="font-display text-white font-medium tracking-[-0.01em] mb-6" style={{ fontSize: '3.875rem', lineHeight: '0.95' }}>
-              Pass the Plate to<br />The Right Hands
-            </h1>
-            <p className="text-white/90 mb-10" style={{ fontSize: '1.125rem', lineHeight: '1.55', maxWidth: '500px' }}>
-              List your Asian F&amp;B Business in 10 Minutes. We charge $0 upfront, we only win when you win.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <LinkButton href="/sell/new" size="lg">
-                List My Business →
-              </LinkButton>
-              <LinkButton
-                href="/contact?intent=valuation"
-                size="lg"
-                className="border-2 border-white hover:bg-white hover:text-black transition-colors hover:opacity-100"
-                style={{ background: 'transparent', color: '#fff' }}
-              >
-                Get Free Valuation →
-              </LinkButton>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SellHero />
 
       <section className="pt-24">
-        <ValueProps heading="How It Works" plates={content.platesAreFull} />
+        <ValueProps headingKey="sell.valueProps" />
       </section>
 
       <section className="px-4 py-24" style={{ background: 'var(--color-yellow)' }}>
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h2 className="font-display font-medium tracking-[-0.01em] mb-4" style={{ fontSize: '2.1875rem' }}>
-            Listing Hotspots
-          </h2>
-          <p className="font-body mb-10" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '720px' }}>
-            Where buyers are searching today. Click a pin to see the listing.
-          </p>
+          <SellHotspotsHeader />
           <MarketplaceSearchBar />
-
           <div className="mt-10">
             <ListingsMap listings={mapListings} />
           </div>
         </div>
       </section>
 
-      <section className="py-16 px-4" style={{ background: 'var(--color-yellow)' }}>
-        <div className="mx-auto grid grid-cols-1 sm:grid-cols-3 gap-y-12 gap-x-4" style={{ maxWidth: '1100px' }}>
-          {SELL_STATS.map((s) => (
-            <div key={s.value} className="text-center px-4">
-              <div className="font-display font-medium leading-none tracking-[-0.02em]" style={{ fontSize: 'clamp(2.25rem, 5vw, 3.75rem)' }}>
-                <AnimatedStat value={s.value} from={s.from} />
-              </div>
-              <div className="mt-4" style={{ fontSize: 'clamp(0.95rem, 1.4vw, 1.125rem)', lineHeight: '1.5' }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <SellStats />
 
       <section className="px-4 py-24">
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
-          <h2 className="font-display font-medium tracking-[-0.01em] text-center mb-12" style={{ fontSize: '2.1875rem' }}>
-            Trusted by 100+ Sellers
-          </h2>
+          <TestimonialsHeader />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featured.map((t) => (
               <article key={t.id} className="rounded-2xl bg-white border border-black/10 p-8 flex flex-col">

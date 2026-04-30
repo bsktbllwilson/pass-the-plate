@@ -30,6 +30,19 @@
     },
     "copyright": "© {year} Pass The Plate. 版权所有。"
   },
+  "common": {
+    "languageToggleLabel": "语言",
+    "english": "English",
+    "chinese": "中文",
+    "previousPage": "上一页",
+    "nextPage": "下一页",
+    "pageOf": "第 {page} / {total} 页"
+  },
+  "findYourNextBigDeal": {
+    "heading": "找到你的下一笔好交易",
+    "subhead": "浏览全美经审核的亚洲餐饮商铺。双语支持、透明财务，并配备随时待命的顾问网络。",
+    "cta": "浏览全部商铺"
+  },
   "home": {
     "hero": {
       "headline": "寻找你的下一张餐桌",
@@ -43,30 +56,10 @@
     "valueProps": {
       "heading": "为什么选择 Pass The Plate",
       "items": [
-        {
-          "title": "双语挂牌",
-          "body": "用任何设备 10 分钟即可挂牌。原生支持普通话、韩语与越南语。让仅服务英文用户的同行望尘莫及。",
-          "cta": "立即开始",
-          "href": "/sell"
-        },
-        {
-          "title": "市场数据",
-          "body": "估值依据来自 50+ 个 SBA 与美国人口普查局数据源 — 因为每一个数字都有意义。",
-          "cta": "阅读指南",
-          "href": "/playbook"
-        },
-        {
-          "title": "经审核的买家",
-          "body": "买家必须提供资金证明或 SBA 预审资格，才能获取卖家联系方式。由我们的顾问严格把关，零垃圾信息。",
-          "cta": "查看来源",
-          "href": "/about"
-        },
-        {
-          "title": "精选资源",
-          "body": "由曾经身处其位的顾问精选的专家指南、双语模板与案例研究。",
-          "cta": "查看手册",
-          "href": "/playbook"
-        }
+        { "title": "双语挂牌", "body": "用任何设备 10 分钟即可挂牌。原生支持普通话、韩语与越南语。让仅服务英文用户的同行望尘莫及。", "cta": "立即开始", "href": "/sell" },
+        { "title": "市场数据", "body": "估值依据来自 50+ 个 SBA 与美国人口普查局数据源 — 因为每一个数字都有意义。", "cta": "阅读指南", "href": "/playbook" },
+        { "title": "经审核的买家", "body": "买家必须提供资金证明或 SBA 预审资格，才能获取卖家联系方式。由我们的顾问严格把关，零垃圾信息。", "cta": "查看来源", "href": "/about" },
+        { "title": "精选资源", "body": "由曾经身处其位的顾问精选的专家指南、双语模板与案例研究。", "cta": "查看手册", "href": "/playbook" }
       ]
     },
     "buySellSplit": {
@@ -98,9 +91,198 @@
       "disclaimer": "我们不发垃圾邮件。可随时退订。"
     }
   },
-  "common": {
-    "languageToggleLabel": "语言",
-    "english": "English",
-    "chinese": "中文"
+  "buy": {
+    "metaTitle": "购买商铺",
+    "metaDescription": "浏览经审核的亚洲餐饮商铺。可按行业、地点与财务数据筛选。",
+    "heroH1": "寻找下一家商铺",
+    "resultCount": "找到 {count} 条符合条件的商铺",
+    "noResults": "没有符合筛选条件的商铺。",
+    "noResultsHint": "请尝试移除部分筛选条件，或使用更宽泛的关键词搜索。",
+    "card": {
+      "askingPrice": "售价",
+      "annualRevenue": "年收入",
+      "viewListing": "查看详情"
+    },
+    "search": {
+      "placeholder": "输入关键词（如：饺子、法拉盛、酒牌）",
+      "submit": "搜索"
+    },
+    "filter": {
+      "industry": "行业",
+      "location": "地点",
+      "askingPrice": "售价",
+      "annualRevenue": "年收入",
+      "assets": "资产与设备",
+      "sortPrefix": "排序：",
+      "sort": {
+        "trending": "热门",
+        "newest": "最新",
+        "priceAsc": "售价：从低到高",
+        "revenueDesc": "年收入：从高到低"
+      },
+      "industries": {
+        "restaurant": "餐厅",
+        "bakery": "烘焙店",
+        "grocery": "杂货店",
+        "manufacturing": "食品制造",
+        "catering": "餐饮服务"
+      },
+      "priceBands": {
+        "under_500k": "50 万美元以下",
+        "500k_1m": "50 万 – 100 万美元",
+        "1m_2m": "100 万 – 200 万美元",
+        "2m_plus": "200 万美元以上"
+      },
+      "revenueBands": {
+        "under_500k": "50 万美元以下",
+        "500k_1m": "50 万 – 100 万美元",
+        "1m_2m": "100 万 – 200 万美元",
+        "2m_plus": "200 万美元以上"
+      },
+      "assetOptions": {
+        "walkInCooler": "步入式冷藏库",
+        "liquorLicense": "酒牌",
+        "patio": "户外座位区",
+        "pos": "POS 收银系统",
+        "hood": "排烟系统",
+        "walkInFreezer": "步入式冷冻库"
+      }
+    }
+  },
+  "sell": {
+    "metaTitle": "出售商铺",
+    "metaDescription": "在 Pass The Plate 上挂牌出售你的亚洲餐饮商铺。提供双语支持、合格买家与零前期费用。",
+    "hero": {
+      "headlineLine1": "把这一桌生意",
+      "headlineLine2": "交到对的人手中",
+      "subhead": "10 分钟即可挂牌出售你的亚洲餐饮商铺。零前期费用，我们与你共赢。",
+      "primaryCta": "立即挂牌",
+      "secondaryCta": "免费估值"
+    },
+    "valueProps": {
+      "heading": "流程介绍",
+      "items": [
+        { "title": "双语挂牌", "body": "用任何设备 10 分钟即可挂牌。原生支持普通话、韩语与越南语。让仅服务英文用户的同行望尘莫及。", "cta": "立即开始", "href": "/sell/new" },
+        { "title": "市场数据", "body": "估值依据来自 50+ 个 SBA 与美国人口普查局数据源 — 因为每一个数字都有意义。", "cta": "阅读指南", "href": "/playbook" },
+        { "title": "经审核的买家", "body": "买家必须提供资金证明或 SBA 预审资格，才能获取卖家联系方式。由我们的顾问严格把关，零垃圾信息。", "cta": "查看来源", "href": "/about" },
+        { "title": "精选资源", "body": "由曾经身处其位的顾问精选的专家指南、双语模板与案例研究。", "cta": "查看手册", "href": "/playbook" }
+      ]
+    },
+    "hotspots": {
+      "heading": "商铺热点",
+      "subhead": "当前买家正在关注的区域。点击地图标记查看商铺。"
+    },
+    "stats": [
+      { "value": "70%", "label": "EB-5 投资者与第 1、2 代买家中来自亚洲社区的比例。他们了解你的生意。" },
+      { "value": "30% Lower", "label": "通过非正规渠道出售相比通过结构化交易平台，卖家平均损失的金额比例。" },
+      { "value": "$0 Upfront", "label": "仅在成交时收取 3–5% 成交佣金 — 远低于传统经纪人 10–12% 的收费。" }
+    ],
+    "testimonials": {
+      "heading": "100+ 卖家信赖之选"
+    }
+  },
+  "partners": {
+    "metaTitle": "合作伙伴目录",
+    "metaDescription": "经审核的 SBA 贷款机构、移民律师、双语经纪人、会计师与保险专家 — 专为纽约亚洲餐饮业主服务。",
+    "heroH1": "合作伙伴目录",
+    "heroSubhead": "经审核的 SBA 贷款机构、移民律师、双语经纪人、会计师与保险专家 — 专为纽约亚洲餐饮业主服务。",
+    "heroCta": "申请成为合作伙伴",
+    "noResults": "暂无合作伙伴。",
+    "noResultsHint": "我们每周都在新增经审核的合作伙伴，请稍后再来。",
+    "count": "共 {count} 位合作伙伴",
+    "card": {
+      "featured": "重点推荐",
+      "email": "邮箱联系",
+      "website": "访问网站"
+    },
+    "specialty": {
+      "sba_lender": "SBA 贷款机构",
+      "immigration_attorney": "移民律师",
+      "bilingual_broker": "双语经纪人",
+      "accountant": "会计师",
+      "insurance": "保险代理"
+    }
+  },
+  "about": {
+    "metaTitle": "关于我们",
+    "metaDescription": "我们正在打造亚洲餐饮社区应得的交易平台 — 双语、透明，并贴合社区真实的交易方式。",
+    "heroH1": "关于我们",
+    "heroSubhead": "我们正在打造亚洲餐饮社区应得的交易平台 — 双语、透明，并贴合社区真实的交易方式。",
+    "mission": {
+      "heading": "我们的使命",
+      "p1": "一代亚洲餐饮业主即将退休，正在转手的资产规模空前 — 但现有工具是为另一个行业打造的。BizBuySell 等通用交易平台不会说我们业主的语言，不会读他们记的账本，也无法把他们和已经信任他们的买家连接起来。",
+      "p2": "大多数亚洲餐饮生意至今仍通过微信群、KakaoTalk 群组、寺庙公告栏，以及双语经纪人之间的口碑相传完成转手。这些网络真实、深厚且行之有效 — 但它们彼此分散，对下一代买家、潜在贷款方与移民律师而言基本是看不见的。",
+      "p3": "Pass The Plate 是首个围绕社区真实运作方式打造的交易平台。任何设备 10 分钟双语挂牌、纯成交佣金的收费方式、必须先通过资金证明审核才能查看卖家信息的合格买家，以及精选的 SBA 贷款机构、移民律师与双语经纪人网络 — 一站式解决。我们零前期费用。卖家赢，我们才赢。"
+    },
+    "team": {
+      "heading": "团队成员",
+      "members": [
+        {
+          "name": "Mathiew Wilson",
+          "role": "创始人",
+          "bio": "从一线运营者转型为平台缔造者。Mathiew 从小目睹家人在缺乏工具与人脉的环境下经营餐厅 — Pass The Plate 正是他二十年前希望存在的平台。"
+        },
+        {
+          "name": "Jenny Liu",
+          "role": "平台运营负责人",
+          "bio": "在 SBA 与 First Citizens Bank 累计十二年从业经验，主导超过 4 亿美元的餐饮并购交易。Jenny 负责挂牌审核、顾问合作以及让 Pass The Plate 与卖家利益保持一致的成交佣金机制。"
+        },
+        {
+          "name": "Dr. Helen Park",
+          "role": "高级顾问，移民与资本事务",
+          "bio": "曾任 Curtis Mallet-Prevost 律师事务所纽约和首尔办公室移民业务合伙人。Helen 专注于签证路径设计、资本结构以及 EB-5、E-2 与 L-1A 项目的跨境交割。"
+        }
+      ]
+    },
+    "press": {
+      "heading": "媒体报道"
+    }
+  },
+  "playbook": {
+    "metaTitle": "行业指南",
+    "metaDescription": "为亚洲餐饮买家、卖家与运营者打造的双语指南。",
+    "heroH1": "行业指南",
+    "noResults": "此分类下暂无指南。",
+    "noResultsHint": "请尝试其他分类，或浏览全部内容。",
+    "readGuide": "阅读指南",
+    "categories": {
+      "all": "全部",
+      "buying": "购买商铺",
+      "selling": "出售商铺",
+      "legal": "法律事务",
+      "visa_immigration": "签证与移民",
+      "market_entry": "市场进入",
+      "operations": "运营管理",
+      "finance": "金融融资"
+    },
+    "subscribeCard": {
+      "heading": "订阅周日餐桌",
+      "subhead": "每周日送达 5 条最新亚洲餐饮商铺信息、市场评论与 SBA 利率更新。",
+      "placeholder": "邮箱地址",
+      "submit": "订阅",
+      "submitting": "订阅中…",
+      "success": "已订阅 — 周日见。"
+    }
+  },
+  "contact": {
+    "metaTitle": "联系我们",
+    "metaDescription": "与 Pass The Plate 取得联系。我们将于一个工作日内回复。",
+    "heroH1": "常见问答",
+    "heroSubhead": "联系我们，我们将于一个工作日内回复。",
+    "otherWays": {
+      "heading": "其他联系方式",
+      "email": "邮箱",
+      "phone": "电话",
+      "officeHours": "办公时间",
+      "officeHoursValue": "周一至周五，美东时间上午 9 点至下午 6 点"
+    },
+    "altLinks": {
+      "playbook": "行业指南",
+      "partners": "寻找合作伙伴",
+      "buy": "浏览商铺"
+    },
+    "faq": {
+      "heading": "常见问题"
+    }
   }
 }

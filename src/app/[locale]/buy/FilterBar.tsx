@@ -1,62 +1,43 @@
 'use client'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
 
 type Option = { value: string; label: string }
 
-const INDUSTRY_OPTIONS: Option[] = [
-  { value: 'restaurant', label: 'Restaurant' },
-  { value: 'bakery', label: 'Bakery' },
-  { value: 'grocery', label: 'Grocery' },
-  { value: 'manufacturing', label: 'Manufacturing' },
-  { value: 'catering', label: 'Catering' },
-]
-
-const LOCATION_OPTIONS: Option[] = [
-  { value: 'Manhattan', label: 'Manhattan' },
-  { value: 'Brooklyn', label: 'Brooklyn' },
-  { value: 'Queens', label: 'Queens' },
-  { value: 'Flushing', label: 'Flushing' },
-  { value: 'Sunset Park', label: 'Sunset Park' },
-  { value: 'Williamsburg', label: 'Williamsburg' },
-  { value: 'Chinatown', label: 'Chinatown' },
-]
-
-const PRICE_BANDS: Option[] = [
-  { value: 'under_500k', label: 'Under $500K' },
-  { value: '500k_1m', label: '$500K – $1M' },
-  { value: '1m_2m', label: '$1M – $2M' },
-  { value: '2m_plus', label: '$2M+' },
-]
-
-const REVENUE_BANDS: Option[] = [
-  { value: 'under_500k', label: 'Under $500K' },
-  { value: '500k_1m', label: '$500K – $1M' },
-  { value: '1m_2m', label: '$1M – $2M' },
-  { value: '2m_plus', label: '$2M+' },
-]
-
-const ASSET_OPTIONS: Option[] = [
-  { value: 'walk-in cooler', label: 'Walk-in cooler' },
-  { value: 'liquor license', label: 'Liquor license' },
-  { value: 'patio', label: 'Outdoor patio' },
-  { value: 'POS', label: 'POS system' },
-  { value: 'hood', label: 'Hood system' },
-  { value: 'walk-in freezer', label: 'Walk-in freezer' },
-]
-
-// Default sort = '' (Trending) so the URL stays clean for the most-common
-// case. Server-side, an absent `sort` param maps to 'trending'.
-const SORT_OPTIONS: Option[] = [
-  { value: '', label: 'Trending' },
-  { value: 'newest', label: 'Newest' },
-  { value: 'price_asc', label: 'Price: Low to High' },
-  { value: 'revenue_desc', label: 'Revenue: High to Low' },
-]
+// Internal value (URL param) ↔ translation key for the option label.
+// Industries / locations / asset filters live by stable internal
+// codes; the labels render via t() so they translate per locale.
+const INDUSTRY_KEYS = ['restaurant', 'bakery', 'grocery', 'manufacturing', 'catering'] as const
+const LOCATION_VALUES = ['Manhattan', 'Brooklyn', 'Queens', 'Flushing', 'Sunset Park', 'Williamsburg', 'Chinatown'] as const
+const PRICE_KEYS = ['under_500k', '500k_1m', '1m_2m', '2m_plus'] as const
+const ASSET_KEYS = [
+  { value: 'walk-in cooler', tKey: 'walkInCooler' },
+  { value: 'liquor license', tKey: 'liquorLicense' },
+  { value: 'patio', tKey: 'patio' },
+  { value: 'POS', tKey: 'pos' },
+  { value: 'hood', tKey: 'hood' },
+  { value: 'walk-in freezer', tKey: 'walkInFreezer' },
+] as const
+const SORT_KEYS = [
+  { value: '', tKey: 'trending' },
+  { value: 'newest', tKey: 'newest' },
+  { value: 'price_asc', tKey: 'priceAsc' },
+  { value: 'revenue_desc', tKey: 'revenueDesc' },
+] as const
 
 export default function FilterBar() {
+  const t = useTranslations('buy.filter')
   const router = useRouter()
   const params = useSearchParams()
+
+  const INDUSTRY_OPTIONS: Option[] = INDUSTRY_KEYS.map((k) => ({ value: k, label: t(`industries.${k}`) }))
+  const LOCATION_OPTIONS: Option[] = LOCATION_VALUES.map((v) => ({ value: v, label: v }))
+  const PRICE_BANDS: Option[] = PRICE_KEYS.map((k) => ({ value: k, label: t(`priceBands.${k}`) }))
+  const REVENUE_BANDS: Option[] = PRICE_KEYS.map((k) => ({ value: k, label: t(`revenueBands.${k}`) }))
+  const ASSET_OPTIONS: Option[] = ASSET_KEYS.map((a) => ({ value: a.value, label: t(`assetOptions.${a.tKey}`) }))
+  const SORT_OPTIONS: Option[] = SORT_KEYS.map((s) => ({ value: s.value, label: t(`sort.${s.tKey}`) }))
 
   function multi(key: string): string[] {
     const v = params.get(key)
@@ -89,26 +70,26 @@ export default function FilterBar() {
   const price = params.get('price') ?? ''
   const revenue = params.get('revenue') ?? ''
   const sort = params.get('sort') ?? ''
-  const sortLabel = SORT_OPTIONS.find(o => o.value === sort)?.label ?? 'Trending'
+  const sortLabel = SORT_OPTIONS.find(o => o.value === sort)?.label ?? t('sort.trending')
 
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
-      <Popover label="Industry" count={industry.length}>
+      <Popover label={t('industry')} count={industry.length}>
         <CheckboxList options={INDUSTRY_OPTIONS} selected={industry} onToggle={v => toggleMulti('industry', v)} />
       </Popover>
-      <Popover label="Location" count={location.length}>
+      <Popover label={t('location')} count={location.length}>
         <CheckboxList options={LOCATION_OPTIONS} selected={location} onToggle={v => toggleMulti('location', v)} />
       </Popover>
-      <Popover label="Asking Price" count={price ? 1 : 0}>
+      <Popover label={t('askingPrice')} count={price ? 1 : 0}>
         <RadioList options={PRICE_BANDS} selected={price} onSelect={v => setSingle('price', v === price ? null : v)} />
       </Popover>
-      <Popover label="Annual Revenue" count={revenue ? 1 : 0}>
+      <Popover label={t('annualRevenue')} count={revenue ? 1 : 0}>
         <RadioList options={REVENUE_BANDS} selected={revenue} onSelect={v => setSingle('revenue', v === revenue ? null : v)} />
       </Popover>
-      <Popover label="Assets & Equipments" count={assets.length}>
+      <Popover label={t('assets')} count={assets.length}>
         <CheckboxList options={ASSET_OPTIONS} selected={assets} onToggle={v => toggleMulti('assets', v)} />
       </Popover>
-      <Popover label={`Sort: ${sortLabel}`} count={0}>
+      <Popover label={`${t('sortPrefix')} ${sortLabel}`} count={0}>
         <RadioList
           options={SORT_OPTIONS}
           selected={sort}

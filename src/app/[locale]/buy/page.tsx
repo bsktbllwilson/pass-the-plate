@@ -1,7 +1,8 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import type { Metadata } from 'next'
-import { content } from '@/lib/content'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import { getListings, type ListingsSort } from '@/lib/listings'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
@@ -10,9 +11,15 @@ import FindYourNextBigDeal from '@/components/sections/FindYourNextBigDeal'
 import SearchBar from './SearchBar'
 import FilterBar from './FilterBar'
 
-export const metadata: Metadata = {
-  title: 'Buy A Business — Pass The Plate',
-  description: 'Browse vetted Asian F&B businesses for sale. Filter by industry, location, and financials.',
+type Params = Promise<{ locale: string }>
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'buy' })
+  return {
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+  }
 }
 
 function formatCuisine(cuisine: string): string {
@@ -53,8 +60,73 @@ function first(v: string | string[] | undefined): string | undefined {
 
 type SP = { [key: string]: string | string[] | undefined }
 
-export default async function BuyPage({ searchParams }: { searchParams: Promise<SP> }) {
+function Pagination({ page, totalPages, pageHref }: { page: number; totalPages: number; pageHref: (n: number) => string }) {
+  const t = useTranslations('common')
+  return (
+    <nav className="font-body mt-12 flex items-center justify-between">
+      {page > 1 ? (
+        <Link href={pageHref(page - 1)} className="font-medium hover:opacity-70">← {t('previousPage')}</Link>
+      ) : <span className="text-black/30">← {t('previousPage')}</span>}
+      <span className="text-black/55">{t('pageOf', { page, total: totalPages })}</span>
+      {page < totalPages ? (
+        <Link href={pageHref(page + 1)} className="font-medium hover:opacity-70">{t('nextPage')} →</Link>
+      ) : <span className="text-black/30">{t('nextPage')} →</span>}
+    </nav>
+  )
+}
+
+function ListingCard({ listing }: { listing: import('@/lib/listings').Listing }) {
+  const t = useTranslations('buy.card')
+  return (
+    <article className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
+      <Link href={`/buy/${listing.slug}`} className="block relative aspect-[16/10] bg-black/5">
+        {listing.cover_image_url && (
+          <Image
+            src={listing.cover_image_url}
+            alt={listing.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+          />
+        )}
+      </Link>
+      <div className="p-6 flex flex-col flex-1">
+        <h2 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '2.1875rem', lineHeight: '1.15' }}>
+          <Link href={`/buy/${listing.slug}`} className="hover:opacity-80 transition-opacity">{listing.title}</Link>
+        </h2>
+        <div className="font-body text-sm text-black/55 mb-4">
+          {formatLocation(listing.location)} &nbsp;|&nbsp; {formatCuisine(listing.cuisine)}
+        </div>
+        <div className="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-black/10">
+          <div>
+            <div className="font-body text-xs uppercase tracking-wide text-black/50 mb-1">{t('askingPrice')}</div>
+            <div className="font-display font-medium" style={{ fontSize: '1.25rem' }}>{fmtUSD(listing.asking_price_cents)}</div>
+          </div>
+          <div>
+            <div className="font-body text-xs uppercase tracking-wide text-black/50 mb-1">{t('annualRevenue')}</div>
+            <div className="font-display font-medium" style={{ fontSize: '1.25rem' }}>{fmtUSD(listing.annual_revenue_cents)}</div>
+          </div>
+        </div>
+        <p className="text-black/70 mb-6 flex-1" style={{ fontSize: '0.95rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {listing.description.replace(/\n+/g, ' ')}
+        </p>
+        <Link
+          href={`/buy/${listing.slug}`}
+          className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
+          style={{ background: 'var(--color-brand)', fontSize: '1rem' }}
+        >
+          {t('viewListing')} →
+        </Link>
+      </div>
+    </article>
+  )
+}
+
+export default async function BuyPage({ params, searchParams }: { params: Params; searchParams: Promise<SP> }) {
+  const { locale } = await params
+  setRequestLocale(locale)
   const sp = await searchParams
+  const t = await getTranslations({ locale, namespace: 'buy' })
 
   const q = first(sp.q)
   const industry = csv(sp.industry)
@@ -106,10 +178,10 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
       <section className="px-4 pt-20 md:pt-28 pb-16 md:pb-20">
         <div className="mx-auto text-center" style={{ maxWidth: '1540px' }}>
           <h1 className="font-display font-medium tracking-[-0.01em] mb-6" style={{ fontSize: '3.875rem', lineHeight: '1.15' }}>
-            Find Your Next Business
+            {t('heroH1')}
           </h1>
           <p className="mb-12 mx-auto" style={{ fontSize: '1.25rem', color: 'rgba(0,0,0,0.65)', maxWidth: '600px', fontWeight: 500 }}>
-            {totalCount} {totalCount === 1 ? 'listing' : 'listings'} matching your search
+            {t('resultCount', { count: totalCount })}
           </p>
           <SearchBar />
           <div className="mt-10">
@@ -122,68 +194,18 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
           {rows.length === 0 ? (
             <div className="font-body rounded-2xl bg-white border border-black/10 p-12 text-center">
-              <p className="text-xl mb-2">No listings match those filters.</p>
-              <p className="text-black/60">Try removing a filter or searching with broader keywords.</p>
+              <p className="text-xl mb-2">{t('noResults')}</p>
+              <p className="text-black/60">{t('noResultsHint')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {rows.map(listing => (
-                <article key={listing.id} className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
-                  <Link href={`/buy/${listing.slug}`} className="block relative aspect-[16/10] bg-black/5">
-                    {listing.cover_image_url && (
-                      <Image
-                        src={listing.cover_image_url}
-                        alt={listing.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover"
-                      />
-                    )}
-                  </Link>
-                  <div className="p-6 flex flex-col flex-1">
-                    <h2 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '2.1875rem', lineHeight: '1.15' }}>
-                      <Link href={`/buy/${listing.slug}`} className="hover:opacity-80 transition-opacity">{listing.title}</Link>
-                    </h2>
-                    <div className="font-body text-sm text-black/55 mb-4">
-                      {formatLocation(listing.location)} &nbsp;|&nbsp; {formatCuisine(listing.cuisine)}
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-black/10">
-                      <div>
-                        <div className="font-body text-xs uppercase tracking-wide text-black/50 mb-1">Asking Price</div>
-                        <div className="font-display font-medium" style={{ fontSize: '1.25rem' }}>{fmtUSD(listing.asking_price_cents)}</div>
-                      </div>
-                      <div>
-                        <div className="font-body text-xs uppercase tracking-wide text-black/50 mb-1">Annual Revenue</div>
-                        <div className="font-display font-medium" style={{ fontSize: '1.25rem' }}>{fmtUSD(listing.annual_revenue_cents)}</div>
-                      </div>
-                    </div>
-                    <p className="text-black/70 mb-6 flex-1" style={{ fontSize: '0.95rem', lineHeight: '1.55', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                      {listing.description.replace(/\n+/g, ' ')}
-                    </p>
-                    <Link
-                      href={`/buy/${listing.slug}`}
-                      className="block text-center w-full py-3 rounded-full text-white font-medium hover:opacity-90 transition-opacity"
-                      style={{ background: 'var(--color-brand)', fontSize: '1rem' }}
-                    >
-                      View Listing →
-                    </Link>
-                  </div>
-                </article>
+                <ListingCard key={listing.id} listing={listing} />
               ))}
             </div>
           )}
 
-          {totalPages > 1 && (
-            <nav className="font-body mt-12 flex items-center justify-between">
-              {page > 1 ? (
-                <Link href={pageHref(page - 1)} className="font-medium hover:opacity-70">← Previous Page</Link>
-              ) : <span className="text-black/30">← Previous Page</span>}
-              <span className="text-black/55">Page {page} of {totalPages}</span>
-              {page < totalPages ? (
-                <Link href={pageHref(page + 1)} className="font-medium hover:opacity-70">Next Page →</Link>
-              ) : <span className="text-black/30">Next Page →</span>}
-            </nav>
-          )}
+          {totalPages > 1 && <Pagination page={page} totalPages={totalPages} pageHref={pageHref} />}
         </div>
       </section>
 
