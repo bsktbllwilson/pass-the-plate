@@ -46,7 +46,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
         )}
       </div>
 
-      <h2 className="font-display font-medium tracking-[-0.01em] mb-1" style={{ fontSize: '2rem', lineHeight: '1.15' }}>
+      <h2 className="font-display font-medium tracking-[-0.01em] mb-1" style={{ fontSize: '2.1875rem', lineHeight: '1.15' }}>
         {partner.full_name}
       </h2>
       {partner.job_title && partner.company && (
@@ -96,23 +96,23 @@ export default async function PartnersPage() {
     <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
-      <section className="px-4 pt-12 pb-6">
-        <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: '2.75rem', lineHeight: '1.05' }}>
+      <section className="px-4 pt-20 md:pt-28 pb-20 md:pb-28">
+        <div className="mx-auto text-center" style={{ maxWidth: '1540px' }}>
+          <h1 className="font-display font-medium tracking-[-0.01em] mb-6" style={{ fontSize: '3.4375rem', lineHeight: '1.15' }}>
             Trusted Partners
           </h1>
-          <p className="text-center mb-8 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
+          <p className="mb-12 mx-auto" style={{ fontSize: '1.25rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px', fontWeight: 500 }}>
             Vetted SBA lenders, immigration attorneys, bilingual brokers, accountants, and insurance specialists who work with Asian F&amp;B operators in NYC.
           </p>
-          <div className="text-center">
+          <div>
             <LinkButton href="/partners/apply" size="md">
-              Become a Partner →
+              Become a Partner
             </LinkButton>
           </div>
         </div>
       </section>
 
-      <section className="px-4 pb-20">
+      <section className="px-4 pb-24">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
           {rows.length === 0 ? (
             <div className="font-body rounded-2xl bg-white border border-black/10 p-12 text-center">

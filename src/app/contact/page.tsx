@@ -27,7 +27,7 @@ export default function ContactPage() {
 
       <section className="px-4 py-24 text-center">
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h1 className="font-display font-medium tracking-[-0.02em] mb-6" style={{ fontSize: '2.75rem', lineHeight: '1' }}>
+          <h1 className="font-display font-medium tracking-[-0.02em] mb-6" style={{ fontSize: '3.4375rem', lineHeight: '1' }}>
             Questions We Get A Lot
           </h1>
           <p className="mx-auto" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: '1.55', color: 'rgba(0,0,0,0.65)', maxWidth: '560px' }}>
@@ -43,7 +43,7 @@ export default function ContactPage() {
           </div>
           <aside className="lg:col-span-5 mt-8 lg:mt-0">
             <div className="rounded-2xl bg-white border border-black/10 p-8">
-              <h2 className="font-display font-medium mb-6" style={{ fontSize: '2rem' }}>
+              <h2 className="font-display font-medium mb-6" style={{ fontSize: '2.1875rem' }}>
                 Other ways to reach us
               </h2>
               <dl className="font-body space-y-5 mb-8">
@@ -84,7 +84,7 @@ export default function ContactPage() {
 
       <section className="px-4 py-24">
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h2 className="font-display font-medium tracking-[-0.01em] mb-10 text-center" style={{ fontSize: '2rem' }}>
+          <h2 className="font-display font-medium tracking-[-0.01em] mb-10 text-center" style={{ fontSize: '2.1875rem' }}>
             Common Questions
           </h2>
           <FaqAccordion faqs={FAQS} />

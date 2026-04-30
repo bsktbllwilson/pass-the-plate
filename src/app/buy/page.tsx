@@ -103,22 +103,22 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
     <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
-      <section className="px-4 pt-12 pb-6">
-        <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: '2.75rem', lineHeight: '1.05' }}>
+      <section className="px-4 pt-20 md:pt-28 pb-16 md:pb-20">
+        <div className="mx-auto text-center" style={{ maxWidth: '1540px' }}>
+          <h1 className="font-display font-medium tracking-[-0.01em] mb-6" style={{ fontSize: '3.4375rem', lineHeight: '1.15' }}>
             Find Your Next Business
           </h1>
-          <p className="text-center mb-10 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '600px' }}>
+          <p className="mb-12 mx-auto" style={{ fontSize: '1.25rem', color: 'rgba(0,0,0,0.65)', maxWidth: '600px', fontWeight: 500 }}>
             {totalCount} {totalCount === 1 ? 'listing' : 'listings'} matching your search
           </p>
           <SearchBar />
-          <div className="mt-6">
+          <div className="mt-10">
             <FilterBar />
           </div>
         </div>
       </section>
 
-      <section className="px-4 pb-16">
+      <section className="px-4 pb-20">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
           {rows.length === 0 ? (
             <div className="font-body rounded-2xl bg-white border border-black/10 p-12 text-center">
@@ -141,7 +141,7 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
                     )}
                   </Link>
                   <div className="p-6 flex flex-col flex-1">
-                    <h2 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '2rem', lineHeight: '1.15' }}>
+                    <h2 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '2.1875rem', lineHeight: '1.15' }}>
                       <Link href={`/buy/${listing.slug}`} className="hover:opacity-80 transition-opacity">{listing.title}</Link>
                     </h2>
                     <div className="font-body text-sm text-black/55 mb-4">
