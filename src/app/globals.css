@@ -21,7 +21,7 @@ html, body {
   background: var(--color-cream);
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   color: #000;

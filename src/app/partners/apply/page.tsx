@@ -47,7 +47,7 @@ export default function PartnersApplyPage() {
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
           <h1
             className="font-display font-medium tracking-[-0.02em] mb-6"
-            style={{ fontSize: '2.75rem', lineHeight: '1' }}
+            style={{ fontSize: '3.4375rem', lineHeight: '1' }}
           >
             Become a Partner
           </h1>
@@ -78,7 +78,7 @@ export default function PartnersApplyPage() {
 
           <aside className="lg:col-span-5 mt-8 lg:mt-0">
             <div className="rounded-2xl bg-white border border-black/10 p-8">
-              <h2 className="font-display font-medium mb-6" style={{ fontSize: '2rem' }}>
+              <h2 className="font-display font-medium mb-6" style={{ fontSize: '2.1875rem' }}>
                 Why apply
               </h2>
               <dl className="font-body space-y-5">

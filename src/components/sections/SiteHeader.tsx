@@ -16,25 +16,32 @@ const rightLinks = [
 
 const allLinks = [...leftLinks, ...rightLinks]
 
-const NAV_ITEM_CLASS = 'font-body text-[var(--color-cream-soft)] font-medium text-sm whitespace-nowrap hover:opacity-80 transition-opacity'
+const NAV_ITEM_CLASS =
+  'font-body text-[var(--color-cream-soft)] font-normal whitespace-nowrap hover:opacity-80 transition-opacity'
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false)
   return (
     <header className="sticky top-0 z-50 px-4 pt-3 pb-0">
       <div
-        className="mx-auto rounded-[50px] px-8 py-4"
+        className="mx-auto rounded-[50px] px-6 sm:px-8 py-4"
         style={{ background: 'var(--color-brand)', maxWidth: '1589px' }}
       >
-        {/* Desktop: 3-column grid keeps the logo dead-centered regardless of
-            how many items live in the left vs right nav. */}
-        <div className="hidden md:grid items-center" style={{ gridTemplateColumns: '1fr auto 1fr' }}>
-          <nav className="flex items-center justify-end gap-8">
+        {/* Desktop: full-width flex with three flex-1 flanks. Each flank
+            internally uses justify-between so items spread to its outer
+            edge, with a max-width cap so wide viewports don't yawn out. */}
+        <div className="hidden md:flex items-center justify-between gap-8">
+          <nav
+            className="flex items-center justify-between"
+            style={{ flex: '1 1 0', maxWidth: '440px' }}
+          >
             {leftLinks.map((l) => (
-              <a key={l.label} href={l.href} className={NAV_ITEM_CLASS}>{l.label}</a>
+              <a key={l.label} href={l.href} className={NAV_ITEM_CLASS} style={{ fontSize: '15px' }}>
+                {l.label}
+              </a>
             ))}
           </nav>
-          <a href="/" className="flex items-center justify-center px-8">
+          <a href="/" className="flex-shrink-0 flex items-center justify-center px-6 lg:px-12">
             <Image
               src="/PTP_Logo_NavBar.png"
               alt="Pass The Plate"
@@ -44,12 +51,15 @@ export default function SiteHeader() {
               priority
             />
           </a>
-          <div className="flex items-center justify-start gap-8">
-            <nav className="flex items-center gap-8">
-              {rightLinks.map((l) => (
-                <a key={l.label} href={l.href} className={NAV_ITEM_CLASS}>{l.label}</a>
-              ))}
-            </nav>
+          <div
+            className="flex items-center justify-between"
+            style={{ flex: '1 1 0', maxWidth: '440px' }}
+          >
+            {rightLinks.map((l) => (
+              <a key={l.label} href={l.href} className={NAV_ITEM_CLASS} style={{ fontSize: '15px' }}>
+                {l.label}
+              </a>
+            ))}
             <UserMenu />
           </div>
         </div>

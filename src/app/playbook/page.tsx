@@ -64,7 +64,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)' }} />
         <div className="absolute inset-0 flex items-end">
-          <h1 className="font-display pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'var(--color-cream-soft)', fontSize: '2.75rem', lineHeight: '1' }}>
+          <h1 className="font-display pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'var(--color-cream-soft)', fontSize: '3.4375rem', lineHeight: '1' }}>
             The Playbook
           </h1>
         </div>
@@ -109,7 +109,7 @@ export default async function PlaybookIndexPage({ searchParams }: { searchParams
                       </span>
                     </div>
                     <div className="p-8">
-                      <h2 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '2rem', lineHeight: '1.15' }}>
+                      <h2 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '2.1875rem', lineHeight: '1.15' }}>
                         {post.title}
                       </h2>
                       {post.excerpt && (

@@ -21,7 +21,7 @@ export default function SiteFooter({ columns }: { columns: FooterColumn[] }) {
                 <h3 className="font-body text-sm uppercase tracking-widest opacity-50 mb-4 font-semibold">{col.heading}</h3>
                 <ul className="space-y-2">
                   {col.links.map((link) => (
-                    <li key={link.label}><a href={link.href} className="font-body text-lg font-medium opacity-90 hover:opacity-60 transition-opacity leading-10">{link.label}</a></li>
+                    <li key={link.label}><a href={link.href} className="font-body font-normal opacity-90 hover:opacity-60 transition-opacity leading-9" style={{ fontSize: '15px' }}>{link.label}</a></li>
                   ))}
                 </ul>
               </div>

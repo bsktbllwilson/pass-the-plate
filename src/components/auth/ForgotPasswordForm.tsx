@@ -36,7 +36,7 @@ export default function ForgotPasswordForm() {
   if (sent) {
     return (
       <div className="font-body text-center">
-        <h1 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '2.75rem', lineHeight: '1.15' }}>Check your email</h1>
+        <h1 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '3.4375rem', lineHeight: '1.15' }}>Check your email</h1>
         <p className="text-black/70 mb-6">We sent a password reset link to <span className="font-medium text-black">{email}</span>.</p>
         <Link href="/sign-in" className="text-sm underline text-black/55 hover:text-black">Back to sign in</Link>
       </div>
@@ -45,7 +45,7 @@ export default function ForgotPasswordForm() {
 
   return (
     <div className="font-body">
-      <h1 className="font-display font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontSize: '2.75rem', lineHeight: '1.1' }}>Reset your password</h1>
+      <h1 className="font-display font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontSize: '3.4375rem', lineHeight: '1.15' }}>Reset your password</h1>
       <p className="text-center text-black/55 mb-8 text-sm">Enter the email tied to your account and we&apos;ll send a reset link.</p>
 
       <form onSubmit={onSubmit} className="space-y-4">

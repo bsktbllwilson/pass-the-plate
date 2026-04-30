@@ -10,7 +10,7 @@ export default function Subscribe() {
     <section className="px-4 py-12">
       <div className="mx-auto rounded-[80px] px-8 md:px-16 py-16 flex flex-col md:flex-row items-center md:items-start gap-10" style={{ background: 'var(--color-brand)', maxWidth: '1540px' }}>
         <div className="flex-1">
-          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '2rem', lineHeight: '1', color: '#000' }}>Find Your Next Big Deal</h2>
+          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '2.1875rem', lineHeight: '1', color: '#000' }}>Find Your Next Big Deal</h2>
         </div>
         <div className="flex-shrink-0 w-full md:w-[480px]">
           <p className="mb-4 leading-7" style={{ fontSize: '1.125rem', color: '#000' }}>Get in touch with our advisor for a complimentary consultation on your next venture.</p>

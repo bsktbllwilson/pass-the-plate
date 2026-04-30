@@ -78,7 +78,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
             </span>
           </div>
 
-          <h1 className="font-display font-medium tracking-[-0.02em] mt-6" style={{ fontSize: '2.75rem', lineHeight: '1.05' }}>
+          <h1 className="font-display font-medium tracking-[-0.02em] mt-6" style={{ fontSize: '3.4375rem', lineHeight: '1.05' }}>
             {post.title}
           </h1>
 
@@ -94,7 +94,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
             <>
               <hr className="my-16 border-black/10" />
               <section>
-                <h2 className="font-display font-medium tracking-[-0.01em] mb-8" style={{ fontSize: '2rem', lineHeight: '1.15' }}>
+                <h2 className="font-display font-medium tracking-[-0.01em] mb-8" style={{ fontSize: '2.1875rem', lineHeight: '1.15' }}>
                   Related Reads
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

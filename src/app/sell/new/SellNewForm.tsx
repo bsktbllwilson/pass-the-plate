@@ -63,7 +63,7 @@ function centsToDollarString(cents: number | null | undefined): string {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="rounded-2xl bg-white border border-black/10 p-6 sm:p-8 space-y-4">
-      <h2 className="font-display font-medium" style={{ fontSize: '2rem' }}>
+      <h2 className="font-display font-medium" style={{ fontSize: '2.1875rem' }}>
         {title}
       </h2>
       {children}

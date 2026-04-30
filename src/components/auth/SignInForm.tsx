@@ -58,7 +58,7 @@ export default function SignInForm() {
   if (magicSent) {
     return (
       <div className="font-body text-center">
-        <h1 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '2.75rem', lineHeight: '1.15' }}>Check your email</h1>
+        <h1 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '3.4375rem', lineHeight: '1.15' }}>Check your email</h1>
         <p className="text-black/70 mb-6">We sent a sign-in link to <span className="font-medium text-black">{email}</span>. Click it to finish signing in.</p>
         <button
           type="button"
@@ -73,7 +73,7 @@ export default function SignInForm() {
 
   return (
     <div className="font-body">
-      <h1 className="font-display font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontSize: '2.75rem', lineHeight: '1.1' }}>Welcome back</h1>
+      <h1 className="font-display font-medium tracking-[-0.01em] mb-2 text-center" style={{ fontSize: '3.4375rem', lineHeight: '1.15' }}>Welcome back</h1>
       <p className="text-center text-black/55 mb-8 text-sm">Sign in to manage listings, save searches, and contact partners.</p>
 
       <form onSubmit={onSubmit} className="space-y-4">

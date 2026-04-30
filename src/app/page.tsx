@@ -12,7 +12,7 @@ import SiteFooter from '@/components/sections/SiteFooter'
 export default async function Home() {
   const trending = await getTrendingListings(4)
   return (
-    <main className="space-y-16 md:space-y-24">
+    <main className="space-y-24 md:space-y-32">
       <SiteHeader />
       <Hero headline={content.hero.headline} subhead={content.hero.subhead} />
       <TrendingHotspots listings={trending} />
