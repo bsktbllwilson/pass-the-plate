@@ -7,7 +7,7 @@ export default function Hero({ headline, italicWord, subhead }: { headline: stri
   return (
     <section className="pt-16 pb-20 px-4 text-center">
       <div className="mx-auto" style={{ maxWidth: '1100px' }}>
-        <h1 className="font-display font-medium leading-[1.1] tracking-[-0.01em] mb-6" style={{ fontSize: 'clamp(2.75rem, 7vw, 6.25rem)', color: '#000' }}>
+        <h1 className="font-display font-medium leading-[1.1] tracking-[-0.01em] mb-6" style={{ fontSize: '2.5rem', color: '#000' }}>
           {words.map((word, i) => (
             <span key={i}>{i === italicIdx ? <em style={{ fontStyle: 'italic' }}>{word}</em> : word}{i < words.length - 1 ? ' ' : ''}</span>
           ))}

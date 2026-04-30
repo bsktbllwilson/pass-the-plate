@@ -62,7 +62,7 @@ export default async function SellPage() {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0) 50%)' }} />
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-2xl pl-12 lg:pl-24 pr-6">
-            <h1 className="font-display text-white font-medium tracking-[-0.01em] mb-6" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', lineHeight: '0.95' }}>
+            <h1 className="font-display text-white font-medium tracking-[-0.01em] mb-6" style={{ fontSize: '2.5rem', lineHeight: '0.95' }}>
               Pass the Plate to<br />The Right Hands
             </h1>
             <p className="text-white/90 mb-10" style={{ fontSize: '1.125rem', lineHeight: '1.55', maxWidth: '500px' }}>

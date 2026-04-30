@@ -47,7 +47,7 @@ export default function PartnersApplyPage() {
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
           <h1
             className="font-display font-medium tracking-[-0.02em] mb-6"
-            style={{ fontSize: 'clamp(2.5rem, 7vw, 5rem)', lineHeight: '1' }}
+            style={{ fontSize: '2.5rem', lineHeight: '1' }}
           >
             Become a Partner
           </h1>

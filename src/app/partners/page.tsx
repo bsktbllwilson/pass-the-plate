@@ -98,7 +98,7 @@ export default async function PartnersPage() {
 
       <section className="px-4 pt-12 pb-6">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.05' }}>
+          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: '2.5rem', lineHeight: '1.05' }}>
             Trusted <em style={{ fontStyle: 'italic' }}>Partners</em>
           </h1>
           <p className="text-center mb-8 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
