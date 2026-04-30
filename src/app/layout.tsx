@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     template: '%s — Pass The Plate',
   },
   description: DEFAULT_DESCRIPTION,
+  verification: {
+    google: 'ZVQbgYvhlJkcahWyGPYB077MpeFVYMrNQE-VrYZYkc4',
+  },
   applicationName: SITE_NAME,
   alternates: { canonical: '/' },
   openGraph: {
