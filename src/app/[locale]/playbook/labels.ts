@@ -1,3 +1,7 @@
+// Backward-compat sync exports for /playbook and /playbook/[slug]
+// pages. The English label table stays here so the [slug] chrome
+// (untranslated until PR2b) keeps rendering. The index page uses
+// translations directly via useTranslations.
 export const CATEGORY_LABEL: Record<string, string> = {
   buying: 'Buying',
   selling: 'Selling',

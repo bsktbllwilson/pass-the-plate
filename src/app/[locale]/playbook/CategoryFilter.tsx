@@ -1,18 +1,12 @@
 'use client'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
 
-const CATEGORIES: { value: string; label: string }[] = [
-  { value: '', label: 'Read All' },
-  { value: 'buying', label: 'Buying' },
-  { value: 'selling', label: 'Selling' },
-  { value: 'legal', label: 'Legal' },
-  { value: 'visa_immigration', label: 'Visa & Immigration' },
-  { value: 'market_entry', label: 'Market Entry' },
-  { value: 'operations', label: 'Operations' },
-  { value: 'finance', label: 'Finance' },
-]
+const CATEGORY_VALUES = ['buying', 'selling', 'legal', 'visa_immigration', 'market_entry', 'operations', 'finance'] as const
 
 export default function CategoryFilter() {
+  const t = useTranslations('playbook.categories')
   const router = useRouter()
   const params = useSearchParams()
   const active = params.get('category') ?? ''
@@ -25,9 +19,14 @@ export default function CategoryFilter() {
     router.replace(`/playbook${next.toString() ? '?' + next.toString() : ''}`)
   }
 
+  const options = [
+    { value: '', label: t('all') },
+    ...CATEGORY_VALUES.map((v) => ({ value: v, label: t(v) })),
+  ]
+
   return (
     <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
-      {CATEGORIES.map(c => {
+      {options.map(c => {
         const isActive = c.value === active
         return (
           <button
@@ -38,7 +37,7 @@ export default function CategoryFilter() {
             style={{
               background: isActive ? 'var(--color-yellow)' : '#fff',
               color: '#000',
-                            fontSize: '0.95rem',
+              fontSize: '0.95rem',
             }}
           >
             {c.label}

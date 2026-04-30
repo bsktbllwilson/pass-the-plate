@@ -1,9 +1,12 @@
 'use client'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/navigation'
 import { Button } from '@/components/ui'
 
 export default function SearchBar() {
+  const t = useTranslations('buy.search')
   const router = useRouter()
   const params = useSearchParams()
   const [value, setValue] = useState(params.get('q') ?? '')
@@ -25,12 +28,12 @@ export default function SearchBar() {
         type="text"
         value={value}
         onChange={e => setValue(e.target.value)}
-        placeholder="Keywords (e.g. dumplings, Williamsburg, liquor license)"
+        placeholder={t('placeholder')}
         className="flex-1 px-7 py-4 font-medium outline-none bg-transparent placeholder-black/40"
         style={{ fontSize: '1.125rem' }}
       />
       <Button type="submit" variant="search" size="lg" shape="rounded" className="rounded-l-none">
-        Search →
+        {t('submit')}
       </Button>
     </form>
   )
