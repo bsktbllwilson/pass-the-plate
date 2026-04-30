@@ -32,6 +32,17 @@ export const metadata: Metadata = {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
   },
+  // WeChat in-app browser reads OG tags for shared cards but also honors
+  // the legacy wxcard:* and itemprop="*" namespaces. Adding both belt-
+  // and-suspenders so links pasted into WeChat render with the correct
+  // title and summary instead of falling back to the URL path.
+  // Naver Whale and KakaoTalk use standard OG tags — covered above.
+  other: {
+    'wxcard:title': DEFAULT_TITLE,
+    'wxcard:summary': DEFAULT_DESCRIPTION,
+    'itemprop:name': DEFAULT_TITLE,
+    'itemprop:description': DEFAULT_DESCRIPTION,
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
