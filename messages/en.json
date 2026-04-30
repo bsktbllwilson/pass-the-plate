@@ -1,0 +1,106 @@
+{
+  "header": {
+    "nav": {
+      "buy": "Buy Business",
+      "sell": "Sell Business",
+      "partners": "Partners",
+      "playbook": "Playbooks",
+      "about": "Who We Are"
+    },
+    "signIn": "Sign In",
+    "subtitle": "传桌",
+    "menuToggle": "Toggle menu",
+    "languageToggle": "Language"
+  },
+  "footer": {
+    "columns": {
+      "marketplace": "Marketplace",
+      "resources": "Resources",
+      "company": "Company"
+    },
+    "links": {
+      "buyBusiness": "Buy A Business",
+      "sellBusiness": "Sell A Business",
+      "guides": "Guides & Playbooks",
+      "addressBook": "Address Book",
+      "about": "Who We Are",
+      "member": "Become A Member",
+      "partner": "Become A Partner",
+      "contact": "Contact"
+    },
+    "copyright": "© {year} Pass The Plate. All rights reserved."
+  },
+  "home": {
+    "hero": {
+      "headline": "Your Seat at The Table Starts Here",
+      "subhead": "The marketplace where Asian restaurant owners sell to vetted SBA, EB-5, and search-fund buyers — no upfront fees, ever.",
+      "searchPlaceholder": "Keywords (e.g. dumplings, Williamsburg, liquor license)",
+      "searchSubmit": "Find A Seat"
+    },
+    "trending": {
+      "heading": "Trending Hotspots"
+    },
+    "valueProps": {
+      "heading": "Why Pass The Plate",
+      "items": [
+        {
+          "title": "Bilingual Listing",
+          "body": "List in 10 minutes from any device. Native support for Mandarin, Korean, and Vietnamese. Invisible to English-only competitors.",
+          "cta": "Get Started",
+          "href": "/sell"
+        },
+        {
+          "title": "Market Data",
+          "body": "Valuations backed by 50+ SBA and US Census Bureau data sources — because every number means something.",
+          "cta": "Read Our Guides",
+          "href": "/playbook"
+        },
+        {
+          "title": "Vetted Demand",
+          "body": "Buyers must show proof of funds or SBA pre-qualification before seller contacts are released. Vetted by our advisors. Zero spam.",
+          "cta": "View Sources",
+          "href": "/about"
+        },
+        {
+          "title": "Curated Resources",
+          "body": "Expert guides, bilingual templates, and case studies curated by advisors who have been in your seat.",
+          "cta": "Access Playbooks",
+          "href": "/playbook"
+        }
+      ]
+    },
+    "buySellSplit": {
+      "buyHeading": "Find A Business You're Hungry For",
+      "sellHeading": "Pass The Plate To The Right Hands",
+      "buyCta": "Buy A Business",
+      "sellCta": "Sell A Business"
+    },
+    "stats": [
+      { "value": "$57B", "label": "The booming Asian F&B sector changing hands right now." },
+      { "value": "685K", "label": "Asian-owned employer firms generating $1.2 trillion in annual receipts." },
+      { "value": "$10T", "label": "In private business assets transferring as Baby Boomers retire by 2030." },
+      { "value": "120+", "label": "Vetted partners. SBA lenders, bilingual brokers, and immigration attorneys." }
+    ],
+    "pricing": {
+      "lineOne": "We don't charge you to list.",
+      "lineTwo": "We don't charge you to wait.",
+      "lineThree": "We charge when we deliver a closed deal —",
+      "lineFour": "because if we don't, why should you pay?",
+      "cta": "List Your Business"
+    },
+    "subscribe": {
+      "heading": "The Sunday Plate",
+      "subhead": "5 new Asian F&B listings, market commentary, and SBA rate updates — every Sunday morning.",
+      "placeholder": "Email address",
+      "submit": "Subscribe",
+      "submitting": "Subscribing…",
+      "success": "You're on the list — see you Sunday.",
+      "disclaimer": "No spam. Unsubscribe anytime."
+    }
+  },
+  "common": {
+    "languageToggleLabel": "Language",
+    "english": "English",
+    "chinese": "中文"
+  }
+}

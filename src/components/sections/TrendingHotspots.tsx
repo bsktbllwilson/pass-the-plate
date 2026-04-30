@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import type { Listing } from '@/lib/listings'
 
 function formatCuisine(cuisine: string): string {
@@ -26,12 +28,12 @@ function formatPrice(cents: number): string {
 }
 
 export default function TrendingHotspots({ listings }: { listings: Listing[] }) {
+  const t = useTranslations('home.trending')
   return (
     <section className="px-4 pb-20">
       <div className="mx-auto" style={{ maxWidth: '1540px' }}>
         <div className="flex items-baseline justify-between mb-8">
-          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '3.875rem', lineHeight: '1.15' }}>Trending Hotspots</h2>
-          <a href="/buy" className="font-body font-medium text-black/55 hover:text-black transition-colors text-lg hidden md:block">More Listings →</a>
+          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '3.875rem', lineHeight: '1.15' }}>{t('heading')}</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {listings.map((listing) => (

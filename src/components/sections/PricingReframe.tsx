@@ -1,6 +1,8 @@
+import { useTranslations } from 'next-intl'
 import { LinkButton } from '@/components/ui'
 
 export default function PricingReframe() {
+  const t = useTranslations('home.pricing')
   return (
     <section className="px-4">
       <div
@@ -16,19 +18,17 @@ export default function PricingReframe() {
             maxWidth: '1100px',
           }}
         >
-          We don&apos;t charge you to list.
+          {t('lineOne')}
           <br />
-          We don&apos;t charge you to wait.
+          {t('lineTwo')}
           <br />
-          We charge when we deliver a closed deal —
+          {t('lineThree')}
           <br />
-          <span style={{ fontStyle: 'italic' }}>
-            because if we don&apos;t, why should you pay?
-          </span>
+          <span style={{ fontStyle: 'italic' }}>{t('lineFour')}</span>
         </p>
         <div className="mt-12">
           <LinkButton href="/sell" variant="dark" size="lg">
-            List Your Business
+            {t('cta')}
           </LinkButton>
         </div>
       </div>

@@ -1,0 +1,106 @@
+{
+  "header": {
+    "nav": {
+      "buy": "购买商铺",
+      "sell": "出售商铺",
+      "partners": "合作伙伴",
+      "playbook": "行业指南",
+      "about": "关于我们"
+    },
+    "signIn": "登录",
+    "subtitle": "传桌",
+    "menuToggle": "切换菜单",
+    "languageToggle": "语言"
+  },
+  "footer": {
+    "columns": {
+      "marketplace": "交易平台",
+      "resources": "资源中心",
+      "company": "公司"
+    },
+    "links": {
+      "buyBusiness": "购买商铺",
+      "sellBusiness": "出售商铺",
+      "guides": "行业指南与手册",
+      "addressBook": "合作伙伴目录",
+      "about": "关于我们",
+      "member": "成为会员",
+      "partner": "申请成为合作伙伴",
+      "contact": "联系我们"
+    },
+    "copyright": "© {year} Pass The Plate. 版权所有。"
+  },
+  "home": {
+    "hero": {
+      "headline": "寻找你的下一张餐桌",
+      "subhead": "让亚洲餐厅业主直接对接经审核的 SBA、EB-5 与搜索基金买家 — 始终零前期费用。",
+      "searchPlaceholder": "输入关键词（如：饺子、法拉盛、酒牌）",
+      "searchSubmit": "立即查看"
+    },
+    "trending": {
+      "heading": "热门商铺"
+    },
+    "valueProps": {
+      "heading": "为什么选择 Pass The Plate",
+      "items": [
+        {
+          "title": "双语挂牌",
+          "body": "用任何设备 10 分钟即可挂牌。原生支持普通话、韩语与越南语。让仅服务英文用户的同行望尘莫及。",
+          "cta": "立即开始",
+          "href": "/sell"
+        },
+        {
+          "title": "市场数据",
+          "body": "估值依据来自 50+ 个 SBA 与美国人口普查局数据源 — 因为每一个数字都有意义。",
+          "cta": "阅读指南",
+          "href": "/playbook"
+        },
+        {
+          "title": "经审核的买家",
+          "body": "买家必须提供资金证明或 SBA 预审资格，才能获取卖家联系方式。由我们的顾问严格把关，零垃圾信息。",
+          "cta": "查看来源",
+          "href": "/about"
+        },
+        {
+          "title": "精选资源",
+          "body": "由曾经身处其位的顾问精选的专家指南、双语模板与案例研究。",
+          "cta": "查看手册",
+          "href": "/playbook"
+        }
+      ]
+    },
+    "buySellSplit": {
+      "buyHeading": "找到你心仪的商铺",
+      "sellHeading": "把生意交到对的人手中",
+      "buyCta": "浏览商铺",
+      "sellCta": "出售商铺"
+    },
+    "stats": [
+      { "value": "$57B", "label": "当前正在易主的亚洲餐饮行业市场规模。" },
+      { "value": "685K", "label": "亚裔企业主雇主公司，年收入合计 1.2 万亿美元。" },
+      { "value": "$10T", "label": "到 2030 年婴儿潮一代退休时，将转让的私营企业资产总额。" },
+      { "value": "120+", "label": "经审核的合作伙伴 — SBA 贷款机构、双语经纪人与移民律师。" }
+    ],
+    "pricing": {
+      "lineOne": "挂牌，我们分文不取。",
+      "lineTwo": "等待买家，我们分文不取。",
+      "lineThree": "只有成交，我们才收费 —",
+      "lineFour": "没成交，凭什么收你的钱？",
+      "cta": "立即挂牌"
+    },
+    "subscribe": {
+      "heading": "周日餐桌",
+      "subhead": "每周日早晨送达：5 条最新亚洲餐饮商铺信息、市场评论与 SBA 利率更新。",
+      "placeholder": "邮箱地址",
+      "submit": "订阅",
+      "submitting": "订阅中…",
+      "success": "已订阅 — 周日见。",
+      "disclaimer": "我们不发垃圾邮件。可随时退订。"
+    }
+  },
+  "common": {
+    "languageToggleLabel": "语言",
+    "english": "English",
+    "chinese": "中文"
+  }
+}
