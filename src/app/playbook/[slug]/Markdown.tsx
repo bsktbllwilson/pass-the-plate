@@ -3,14 +3,14 @@ import remarkGfm from 'remark-gfm'
 
 export default function Markdown({ children }: { children: string }) {
   return (
-    <div className="font-body">
+    <div style={{ fontFamily: 'var(--font-prose)' }}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
           h1: (props) => <h1 className="font-display font-medium tracking-[-0.01em] mt-12 mb-5" style={{ fontSize: '3.4375rem', lineHeight: '1.15' }} {...props} />,
           h2: (props) => <h2 className="font-display font-medium tracking-[-0.01em] mt-12 mb-5" style={{ fontSize: '2.1875rem', lineHeight: '1.2' }} {...props} />,
           h3: (props) => <h3 className="font-display font-medium tracking-[-0.01em] mt-8 mb-3" style={{ fontSize: '1.5rem', lineHeight: '1.25' }} {...props} />,
-          p: (props) => <p className="mb-5" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }} {...props} />,
+          p: (props) => <p className="mb-5" style={{ fontSize: '1.0625rem', lineHeight: '1.75', color: 'rgba(0,0,0,0.78)' }} {...props} />,
           ul: (props) => <ul className="mb-5 ml-6 list-disc space-y-2" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }} {...props} />,
           ol: (props) => <ol className="mb-5 ml-6 list-decimal space-y-2" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }} {...props} />,
           li: (props) => <li className="pl-1" {...props} />,

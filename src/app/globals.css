@@ -3,6 +3,10 @@
 @theme {
   --font-display: 'please-display-vf', 'Please Display VF', Georgia, serif;
   --font-body: 'proxima-nova', 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Serif face for prose-heavy contexts (playbook article body) so the
+     type system has more depth than just the display + sans pairing.
+     System Georgia/Cambria/serif until a custom face is licensed. */
+  --font-prose: 'iowan-old-style', Georgia, Cambria, 'Times New Roman', Times, serif;
 
   /* Brand colors — canonical paint values. Use these everywhere instead of
      inline rgb()/hex literals; multiple drifted shades existed pre-token. */
