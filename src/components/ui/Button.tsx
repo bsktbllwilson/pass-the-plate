@@ -15,8 +15,8 @@ type StyleArgs = {
 
 const SIZE: Record<ButtonSize, string> = {
   sm: 'px-5 py-2.5 text-sm',
-  md: 'px-7 py-3 text-base',
-  lg: 'px-8 py-4 text-lg',
+  md: 'px-7 py-3 text-sm',
+  lg: 'px-8 py-4 text-sm',
 }
 
 const SHAPE: Record<ButtonShape, string> = {

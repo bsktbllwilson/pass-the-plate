@@ -12,9 +12,9 @@ import SiteFooter from '@/components/sections/SiteFooter'
 export default async function Home() {
   const trending = await getTrendingListings(4)
   return (
-    <main>
+    <main className="space-y-16 md:space-y-24">
       <SiteHeader />
-      <Hero headline={content.hero.headline} italicWord={content.hero.italicWord} subhead={content.hero.subhead} />
+      <Hero headline={content.hero.headline} subhead={content.hero.subhead} />
       <TrendingHotspots listings={trending} />
       <ValueProps heading="Why Pass The Plate" plates={content.platesAreFull} />
       <BuySellSplit />

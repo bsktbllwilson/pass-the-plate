@@ -18,7 +18,7 @@ export default function ContactForm() {
   if (state?.ok) {
     return (
       <div className="rounded-2xl bg-white border border-black/10 p-8">
-        <h2 className="font-display font-medium mb-3" style={{ fontSize: '1.875rem' }}>
+        <h2 className="font-display font-medium mb-3" style={{ fontSize: '2rem' }}>
           Message sent
         </h2>
         <p style={{ fontSize: '1.0625rem', lineHeight: '1.6', color: 'rgba(0,0,0,0.7)' }}>

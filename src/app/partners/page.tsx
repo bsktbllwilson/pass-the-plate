@@ -46,7 +46,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
         )}
       </div>
 
-      <h2 className="font-display font-medium tracking-[-0.01em] mb-1" style={{ fontSize: '1.5rem', lineHeight: '1.15' }}>
+      <h2 className="font-display font-medium tracking-[-0.01em] mb-1" style={{ fontSize: '2rem', lineHeight: '1.15' }}>
         {partner.full_name}
       </h2>
       {partner.job_title && partner.company && (
@@ -98,8 +98,8 @@ export default async function PartnersPage() {
 
       <section className="px-4 pt-12 pb-6">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: '2.5rem', lineHeight: '1.05' }}>
-            Trusted <em style={{ fontStyle: 'italic' }}>Partners</em>
+          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: '2.75rem', lineHeight: '1.05' }}>
+            Trusted Partners
           </h1>
           <p className="text-center mb-8 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
             Vetted SBA lenders, immigration attorneys, bilingual brokers, accountants, and insurance specialists who work with Asian F&amp;B operators in NYC.

@@ -43,7 +43,7 @@ export default function AboutPage() {
 
       <section className="px-4 py-24 text-center">
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h1 className="font-display font-medium tracking-[-0.02em] mb-6" style={{ fontSize: '2.5rem', lineHeight: '1' }}>
+          <h1 className="font-display font-medium tracking-[-0.02em] mb-6" style={{ fontSize: '2.75rem', lineHeight: '1' }}>
             Who We Are
           </h1>
           <p className="mx-auto" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: '1.55', color: 'rgba(0,0,0,0.65)', maxWidth: '640px' }}>
@@ -55,7 +55,7 @@ export default function AboutPage() {
       <section className="px-4 py-24">
         <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-16 items-center" style={{ maxWidth: '1280px' }}>
           <div className="lg:col-span-7">
-            <h2 className="font-display font-medium tracking-[-0.01em] mb-8" style={{ fontSize: 'clamp(2rem, 4vw, 2.875rem)', lineHeight: '1.1' }}>
+            <h2 className="font-display font-medium tracking-[-0.01em] mb-8" style={{ fontSize: '2rem', lineHeight: '1.1' }}>
               Our Mission
             </h2>
             <div className="space-y-6" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }}>
@@ -90,7 +90,7 @@ export default function AboutPage() {
 
       <section id="trust" className="px-4 py-24">
         <div className="mx-auto" style={{ maxWidth: '1280px' }}>
-          <h2 className="font-display font-medium tracking-[-0.01em] mb-12 text-center" style={{ fontSize: 'clamp(2rem, 4vw, 3.375rem)' }}>
+          <h2 className="font-display font-medium tracking-[-0.01em] mb-12 text-center" style={{ fontSize: '2rem' }}>
             The Team
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -271,7 +271,7 @@ function WelcomeHeader({ profile, email }: { profile: Profile | null; email: str
       <div>
         <h1
           className="font-display font-medium tracking-[-0.01em] mb-8 flex items-center gap-3 flex-wrap"
-          style={{ fontSize: '2.5rem', lineHeight: '1.1' }}
+          style={{ fontSize: '2.75rem', lineHeight: '1.1' }}
         >
           <span>Welcome, {displayName}</span>
           <VerifiedBadge isVerified={isVerified} size={26} />
@@ -314,7 +314,7 @@ function WelcomeHeader({ profile, email }: { profile: Profile | null; email: str
 
       {/* Right column: membership tier card */}
       <aside className="rounded-2xl p-6 sm:p-8" style={{ background: 'var(--color-cream-input)' }}>
-        <h2 className="font-display font-medium mb-3" style={{ fontSize: '1.5rem', lineHeight: '1.2' }}>
+        <h2 className="font-display font-medium mb-3" style={{ fontSize: '2rem', lineHeight: '1.2' }}>
           {tier.name} Plan
         </h2>
         <p className="font-body text-sm text-black/70 mb-4">

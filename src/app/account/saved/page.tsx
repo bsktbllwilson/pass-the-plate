@@ -20,7 +20,7 @@ export default async function SavedListingsPage() {
         <div className="mx-auto w-full max-w-2xl text-center">
           <h1
             className="font-display font-medium tracking-[-0.01em] mb-4"
-            style={{ fontSize: '2.5rem', lineHeight: '1.1' }}
+            style={{ fontSize: '2.75rem', lineHeight: '1.1' }}
           >
             Saved Listings
           </h1>

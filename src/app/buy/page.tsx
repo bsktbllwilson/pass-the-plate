@@ -105,8 +105,8 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
 
       <section className="px-4 pt-12 pb-6">
         <div className="mx-auto" style={{ maxWidth: '1540px' }}>
-          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: '2.5rem', lineHeight: '1.05' }}>
-            Find Your Next <em style={{ fontStyle: 'italic' }}>Business</em>
+          <h1 className="font-display font-medium tracking-[-0.01em] text-center mb-2" style={{ fontSize: '2.75rem', lineHeight: '1.05' }}>
+            Find Your Next Business
           </h1>
           <p className="text-center mb-10 mx-auto" style={{ fontSize: '1.125rem', color: 'rgba(0,0,0,0.65)', maxWidth: '600px' }}>
             {totalCount} {totalCount === 1 ? 'listing' : 'listings'} matching your search
@@ -141,7 +141,7 @@ export default async function BuyPage({ searchParams }: { searchParams: Promise<
                     )}
                   </Link>
                   <div className="p-6 flex flex-col flex-1">
-                    <h2 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '1.5rem', lineHeight: '1.15' }}>
+                    <h2 className="font-display font-medium tracking-[-0.01em] mb-2" style={{ fontSize: '2rem', lineHeight: '1.15' }}>
                       <Link href={`/buy/${listing.slug}`} className="hover:opacity-80 transition-opacity">{listing.title}</Link>
                     </h2>
                     <div className="font-body text-sm text-black/55 mb-4">

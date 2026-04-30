@@ -49,7 +49,7 @@ export default async function SellEditPage({ params }: Props) {
           <div className="text-center mb-10">
             <h1
               className="font-display font-medium tracking-[-0.02em] mb-4"
-              style={{ fontSize: '2.5rem', lineHeight: '1.05' }}
+              style={{ fontSize: '2.75rem', lineHeight: '1.05' }}
             >
               Edit listing
             </h1>
@@ -73,7 +73,7 @@ export default async function SellEditPage({ params }: Props) {
 
             <aside className="lg:col-span-4 mt-8 lg:mt-0">
               <div className="rounded-2xl bg-white border border-black/10 p-6 space-y-5 sticky top-6">
-                <h2 className="font-display font-medium" style={{ fontSize: '1.125rem' }}>
+                <h2 className="font-display font-medium" style={{ fontSize: '2rem' }}>
                   Editing your listing
                 </h2>
                 <dl className="font-body space-y-4">
