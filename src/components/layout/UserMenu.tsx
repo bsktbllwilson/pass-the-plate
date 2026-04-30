@@ -57,7 +57,7 @@ export default function UserMenu() {
     return (
       <Link
         href="/sign-in"
-        className="font-body inline-flex items-center px-4 py-2 rounded-full border-2 border-[var(--color-cream-soft)] text-[var(--color-cream-soft)] font-medium hover:bg-[var(--color-cream-soft)] hover:text-[var(--color-brand)] transition-colors text-sm"
+        className="font-body inline-flex items-center px-4 py-2 rounded-full font-medium text-sm transition-colors bg-[#F8F3DE] text-black hover:bg-[#FFEF7C] active:bg-[#FFEF7C]"
       >
         Sign In
       </Link>

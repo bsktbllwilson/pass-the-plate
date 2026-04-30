@@ -27,7 +27,7 @@ export default function ContactPage() {
 
       <section className="px-4 py-24 text-center">
         <div className="mx-auto" style={{ maxWidth: '900px' }}>
-          <h1 className="font-display font-medium tracking-[-0.02em] mb-6" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: '1' }}>
+          <h1 className="font-display font-medium tracking-[-0.02em] mb-6" style={{ fontSize: '2.5rem', lineHeight: '1' }}>
             Questions We Get A Lot
           </h1>
           <p className="mx-auto" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: '1.55', color: 'rgba(0,0,0,0.65)', maxWidth: '560px' }}>

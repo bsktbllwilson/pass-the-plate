@@ -271,7 +271,7 @@ function WelcomeHeader({ profile, email }: { profile: Profile | null; email: str
       <div>
         <h1
           className="font-display font-medium tracking-[-0.01em] mb-8 flex items-center gap-3 flex-wrap"
-          style={{ fontSize: 'clamp(1.875rem, 4vw, 2.5rem)', lineHeight: '1.1' }}
+          style={{ fontSize: '2.5rem', lineHeight: '1.1' }}
         >
           <span>Welcome, {displayName}</span>
           <VerifiedBadge isVerified={isVerified} size={26} />
@@ -443,7 +443,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Sear
 
   return (
     <main style={{ background: 'var(--color-cream)', minHeight: '100vh' }}>
-      <SiteHeader logoVariant="cream" />
+      <SiteHeader />
 
       <section className="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="mx-auto w-full max-w-6xl space-y-16 md:space-y-20">

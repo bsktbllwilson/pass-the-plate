@@ -7,7 +7,7 @@ export default function Markdown({ children }: { children: string }) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          h1: (props) => <h1 className="font-display font-medium tracking-[-0.01em] mt-12 mb-5" style={{ fontSize: '2.25rem', lineHeight: '1.15' }} {...props} />,
+          h1: (props) => <h1 className="font-display font-medium tracking-[-0.01em] mt-12 mb-5" style={{ fontSize: '2.5rem', lineHeight: '1.15' }} {...props} />,
           h2: (props) => <h2 className="font-display font-medium tracking-[-0.01em] mt-12 mb-5" style={{ fontSize: '1.875rem', lineHeight: '1.2' }} {...props} />,
           h3: (props) => <h3 className="font-display font-medium tracking-[-0.01em] mt-8 mb-3" style={{ fontSize: '1.5rem', lineHeight: '1.25' }} {...props} />,
           p: (props) => <p className="mb-5" style={{ fontSize: '1.0625rem', lineHeight: '1.7', color: 'rgba(0,0,0,0.78)' }} {...props} />,

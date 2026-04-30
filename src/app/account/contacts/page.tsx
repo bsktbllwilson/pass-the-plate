@@ -15,12 +15,12 @@ export default async function SavedContactsPage() {
 
   return (
     <main style={{ background: 'var(--color-cream)', minHeight: '100vh' }}>
-      <SiteHeader logoVariant="cream" />
+      <SiteHeader />
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto w-full max-w-2xl text-center">
           <h1
             className="font-display font-medium tracking-[-0.01em] mb-4"
-            style={{ fontSize: 'clamp(1.875rem, 4vw, 2.5rem)', lineHeight: '1.1' }}
+            style={{ fontSize: '2.5rem', lineHeight: '1.1' }}
           >
             Saved Contacts
           </h1>
