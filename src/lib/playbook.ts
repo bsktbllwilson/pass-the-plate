@@ -3,6 +3,22 @@ import type { Database } from '@/types/database'
 
 export type PlaybookPost = Database['public']['Tables']['playbook_posts']['Row']
 
+// Overlay manually-translated zh-CN article fields when locale is
+// 'zh'. PR3c lands reviewed translations into the *_zh columns;
+// until then null falls back to English.
+export function applyPlaybookPostLocale<T extends Pick<PlaybookPost, 'title' | 'excerpt' | 'body_md' | 'title_zh' | 'excerpt_zh' | 'body_md_zh'>>(
+  row: T,
+  locale: string,
+): T {
+  if (locale !== 'zh') return row
+  return {
+    ...row,
+    title: row.title_zh ?? row.title,
+    excerpt: row.excerpt_zh ?? row.excerpt,
+    body_md: row.body_md_zh ?? row.body_md,
+  }
+}
+
 type GetPostsOpts = {
   category?: string
   page?: number

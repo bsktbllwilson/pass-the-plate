@@ -1,5 +1,5 @@
 import { setRequestLocale } from 'next-intl/server'
-import { getTrendingListings } from '@/lib/listings'
+import { applyListingLocale, getTrendingListings } from '@/lib/listings'
 import SiteHeader from '@/components/sections/SiteHeader'
 import Hero from '@/components/sections/Hero'
 import TrendingHotspots from '@/components/sections/TrendingHotspots'
@@ -15,7 +15,8 @@ type Params = Promise<{ locale: string }>
 export default async function Home({ params }: { params: Params }) {
   const { locale } = await params
   setRequestLocale(locale)
-  const trending = await getTrendingListings(4)
+  const rawTrending = await getTrendingListings(4)
+  const trending = rawTrending.map((r) => applyListingLocale(r, locale))
   return (
     <main className="space-y-24 md:space-y-32">
       <SiteHeader />

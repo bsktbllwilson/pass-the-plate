@@ -1,8 +1,60 @@
 import { createClient } from '@/lib/supabase/server'
 import { getAnonClient } from '@/lib/supabase/anon'
+import { getAdminClient } from '@/lib/supabase/admin'
+import { translateText } from '@/lib/translate'
 import type { Database } from '@/types/database'
 
 export type Listing = Database['public']['Tables']['listings']['Row']
+
+// Overlay zh-CN translations onto the canonical English fields when
+// the active locale is 'zh'. Components stay locale-agnostic — they
+// read listing.title and get the right value automatically. A null
+// *_zh field falls back to the English source so /zh pages render
+// without holes for un-translated rows.
+export function applyListingLocale<T extends Pick<Listing, 'title' | 'description' | 'title_zh' | 'description_zh'>>(
+  row: T,
+  locale: string,
+): T {
+  if (locale !== 'zh') return row
+  return {
+    ...row,
+    title: row.title_zh ?? row.title,
+    description: row.description_zh ?? row.description,
+  }
+}
+
+// Translate-on-demand for listings: when a Chinese reader hits a
+// /zh/buy/[slug] page and the row's *_zh columns are null, fire a
+// Claude translation and cache the result back to the DB. Uses the
+// admin client so the write isn't blocked by RLS.
+//
+// Returns the (possibly updated) row. If translation fails, returns
+// the row as-is so the page still renders English fallback rather
+// than 500-ing.
+export async function ensureListingTranslated(row: Listing): Promise<Listing> {
+  if (row.title_zh && row.description_zh) return row
+  if (!process.env.ANTHROPIC_API_KEY || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return row
+  }
+  const titleNeeded = !row.title_zh
+  const descNeeded = !row.description_zh
+  const [titleZh, descZh] = await Promise.all([
+    titleNeeded ? translateText(row.title) : Promise.resolve(row.title_zh),
+    descNeeded ? translateText(row.description) : Promise.resolve(row.description_zh),
+  ])
+  if (!titleZh && !descZh) return row
+  try {
+    const admin = getAdminClient()
+    const patch: Record<string, unknown> = { locale_translation_updated_at: new Date().toISOString() }
+    if (titleNeeded && titleZh) patch.title_zh = titleZh
+    if (descNeeded && descZh) patch.description_zh = descZh
+    await admin.from('listings').update(patch).eq('id', row.id)
+    return { ...row, title_zh: titleZh ?? row.title_zh, description_zh: descZh ?? row.description_zh }
+  } catch (err) {
+    console.error('ensureListingTranslated cache write failed:', err)
+    return { ...row, title_zh: titleZh ?? row.title_zh, description_zh: descZh ?? row.description_zh }
+  }
+}
 
 /**
  * Returns the listings the current authenticated user owns (any status:

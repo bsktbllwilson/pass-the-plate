@@ -97,9 +97,11 @@ export type Database = {
           created_at: string
           cuisine: string
           description: string
+          description_zh: string | null
           gallery_urls: string[]
           id: string
           industry: string
+          locale_translation_updated_at: string | null
           location: string
           seller_id: string | null
           slug: string
@@ -107,6 +109,7 @@ export type Database = {
           staff_count: number | null
           status: string
           title: string
+          title_zh: string | null
           updated_at: string
           view_count: number
           year_established: number | null
@@ -346,14 +349,18 @@ export type Database = {
           address: string | null
           approved: boolean
           bio: string | null
+          bio_zh: string | null
           company: string | null
+          company_zh: string | null
           created_at: string
           email: string
           featured: boolean
           full_name: string
           id: string
           job_title: string | null
+          job_title_zh: string | null
           languages: string[]
+          locale_translation_updated_at: string | null
           phone: string | null
           profile_id: string | null
           referral_source: string | null
@@ -413,15 +420,19 @@ export type Database = {
         Row: {
           author_name: string
           body_md: string
+          body_md_zh: string | null
           category: string
           cover_image_url: string | null
           created_at: string
           excerpt: string | null
+          excerpt_zh: string | null
           id: string
+          locale_translation_updated_at: string | null
           published: boolean
           published_at: string | null
           slug: string
           title: string
+          title_zh: string | null
         }
         Insert: {
           author_name: string
