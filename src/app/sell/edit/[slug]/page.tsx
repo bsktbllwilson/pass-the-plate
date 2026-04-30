@@ -49,7 +49,7 @@ export default async function SellEditPage({ params }: Props) {
           <div className="text-center mb-10">
             <h1
               className="font-display font-medium tracking-[-0.02em] mb-4"
-              style={{ fontSize: '3.4375rem', lineHeight: '1.05' }}
+              style={{ fontSize: '3.875rem', lineHeight: '1.05' }}
             >
               Edit listing
             </h1>

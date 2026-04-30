@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export type ButtonVariant = 'primary' | 'inverse' | 'dark'
+export type ButtonVariant = 'primary' | 'inverse' | 'dark' | 'search'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 export type ButtonShape = 'pill' | 'rounded'
 
@@ -24,10 +24,14 @@ const SHAPE: Record<ButtonShape, string> = {
   rounded: 'rounded-3xl',
 }
 
-// Variant classes encode both default and hover colors so the hover flip
-// works without inline-style (style={{ ... }} can't express :hover).
-// Primary and dark/secondary follow the founder's CTA spec; inverse is
-// kept for special inverse-on-brand contexts (e.g. Subscribe form).
+// Variant classes encode default + hover colors. :hover requires
+// real CSS (inline style can't express it), so each variant ships
+// hover utilities alongside its base color.
+//   primary  — homepage / hero / general CTAs
+//   inverse  — light pill on dark/branded backgrounds
+//   dark     — black pill, used as secondary
+//   search   — search-bar submit: brand → black on hover (founder spec
+//              calls this out separately from primary)
 const VARIANT_CLASS: Record<ButtonVariant, string> = {
   primary:
     'bg-[#E64E21] text-white hover:bg-white hover:text-black',
@@ -35,42 +39,46 @@ const VARIANT_CLASS: Record<ButtonVariant, string> = {
     'bg-[var(--color-cream-soft)] text-[var(--color-brand)] hover:bg-[var(--color-brand)] hover:text-[var(--color-cream-soft)]',
   dark:
     'bg-black text-[#F8F3DE] hover:bg-[#F8F3DE] hover:text-black',
+  search:
+    'bg-[#E64E21] text-white hover:bg-black hover:text-white',
 }
 
 const BASE =
-  'group inline-flex items-center justify-center gap-2 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+  'cta-btn inline-flex items-center justify-center font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
 
 function classes({ variant = 'primary', size = 'md', shape = 'pill', fullWidth }: StyleArgs, extra?: string) {
   return twMerge(BASE, VARIANT_CLASS[variant], SIZE[size], SHAPE[shape], fullWidth && 'w-full', extra)
 }
 
-// Strip a trailing "→" or "->" from string labels so callers don't have
-// to know about the new arrow-on-hover convention. Non-string children
-// pass through untouched.
+// Strip a trailing "→" or "->" from string labels — the arrow is now
+// CSS-driven, so callers don't need to know the convention.
 function stripTrailingArrow(children: ReactNode): ReactNode {
   if (typeof children !== 'string') return children
   return children.replace(/\s*(?:→|->)\s*$/, '')
 }
 
 function HoverArrow() {
+  // Wrapped in a span with class .cta-arrow so the parent .cta-btn CSS
+  // can toggle its display on hover/focus. The svg itself just renders
+  // the founder's spec'd arrow path.
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className="opacity-0 group-hover:opacity-100 transition-opacity ml-1 -mr-1 flex-shrink-0"
-    >
-      <path
-        d="M4 12H20M20 12L14 6M20 12L14 18"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <span className="cta-arrow ml-2 -mr-1 items-center" aria-hidden="true">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M4 12H20M20 12L14 6M20 12L14 18"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
   )
 }
 
