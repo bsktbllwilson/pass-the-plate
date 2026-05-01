@@ -52,7 +52,7 @@ export default function SiteHeader() {
               </Link>
             ))}
           </nav>
-          <Link href="/" className="flex-shrink-0 flex items-center justify-center gap-3 px-4 lg:px-8">
+          <Link href="/" className="flex-shrink-0 flex items-center justify-center px-4 lg:px-8">
             <Image
               src="/PTP_Logo_NavBar.png"
               alt="Pass The Plate"
@@ -61,13 +61,6 @@ export default function SiteHeader() {
               className="h-7 w-auto"
               priority
             />
-            <span
-              aria-hidden="true"
-              className="font-display text-[var(--color-cream-soft)] leading-none tracking-wide hidden sm:inline-block"
-              style={{ fontSize: '20px', fontWeight: 500 }}
-            >
-              {t('subtitle')}
-            </span>
           </Link>
           <div
             className="flex items-center justify-between gap-4"
@@ -90,7 +83,7 @@ export default function SiteHeader() {
         {/* Mobile: logo center, hamburger right */}
         <div className="md:hidden flex items-center justify-between">
           <span className="w-10" aria-hidden />
-          <Link href="/" className="flex items-center gap-2 mx-auto">
+          <Link href="/" className="flex items-center mx-auto">
             <Image
               src="/PTP_Logo_NavBar.png"
               alt="Pass The Plate"
@@ -99,13 +92,6 @@ export default function SiteHeader() {
               className="h-7 w-auto"
               priority
             />
-            <span
-              aria-hidden="true"
-              className="font-display text-[var(--color-cream-soft)] leading-none tracking-wide"
-              style={{ fontSize: '18px', fontWeight: 500 }}
-            >
-              {t('subtitle')}
-            </span>
           </Link>
           <div className="flex items-center gap-2">
             <UserMenu />
