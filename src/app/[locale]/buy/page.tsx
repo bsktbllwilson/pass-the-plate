@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
-import { getListings, type ListingsSort } from '@/lib/listings'
+import { applyListingLocale, getListings, type ListingsSort } from '@/lib/listings'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
@@ -145,7 +145,7 @@ export default async function BuyPage({ params, searchParams }: { params: Params
   const priceRange = priceBand ? PRICE_BAND_RANGES[priceBand] ?? {} : {}
   const revenueRange = revenueBand ? REVENUE_BAND_RANGES[revenueBand] ?? {} : {}
 
-  const { rows, totalCount, totalPages } = await getListings({
+  const { rows: rawRows, totalCount, totalPages } = await getListings({
     q,
     industry: industry.length ? industry : undefined,
     location: location.length ? location : undefined,
@@ -158,6 +158,11 @@ export default async function BuyPage({ params, searchParams }: { params: Params
     perPage: 12,
     sort,
   })
+  // Overlay any cached zh translations for the index. We don't
+  // auto-translate at the index level — too many rows to await
+  // synchronously. Detail-page visits warm the cache; the index
+  // shows English fallback for any listing not yet translated.
+  const rows = rawRows.map((r) => applyListingLocale(r, locale))
 
   const baseQS = new URLSearchParams()
   for (const [k, v] of Object.entries(sp)) {

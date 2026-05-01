@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { content } from '@/lib/content'
-import { getPostBySlug, getRelatedPosts } from '@/lib/playbook'
+import { applyPlaybookPostLocale, getPostBySlug, getRelatedPosts } from '@/lib/playbook'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
@@ -45,12 +45,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function PlaybookPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = await getPostBySlug(slug)
-  if (!post) notFound()
+export default async function PlaybookPostPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
+  const { slug, locale } = await params
+  const rawPost = await getPostBySlug(slug)
+  if (!rawPost) notFound()
+  const post = applyPlaybookPostLocale(rawPost, locale)
 
-  const related = await getRelatedPosts(slug, 3)
+  const rawRelated = await getRelatedPosts(slug, 3)
+  const related = rawRelated.map((r) => applyPlaybookPostLocale(r, locale))
   const published = post.published_at ? dateFmt.format(new Date(post.published_at)) : ''
 
   return (

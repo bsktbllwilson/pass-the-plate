@@ -3,6 +3,24 @@ import type { Database } from '@/types/database'
 
 export type Partner = Database['public']['Tables']['partners']['Row']
 
+// Overlay manually-translated zh-CN bio / job title / company onto
+// the canonical English fields when locale is 'zh'. Partners and
+// playbook content are NOT auto-translated — copy is editorial and
+// needs a native Mandarin reviewer pass. Manual translations land
+// via SQL updates against the *_zh columns.
+export function applyPartnerLocale<T extends Pick<Partner, 'job_title' | 'company' | 'bio' | 'job_title_zh' | 'company_zh' | 'bio_zh'>>(
+  row: T,
+  locale: string,
+): T {
+  if (locale !== 'zh') return row
+  return {
+    ...row,
+    job_title: row.job_title_zh ?? row.job_title,
+    company: row.company_zh ?? row.company,
+    bio: row.bio_zh ?? row.bio,
+  }
+}
+
 type GetPartnersOpts = {
   specialty?: string
   page?: number

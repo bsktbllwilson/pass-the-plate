@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
-import { getPartners, type Partner } from '@/lib/partners'
+import { applyPartnerLocale, getPartners, type Partner } from '@/lib/partners'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import { LinkButton } from '@/components/ui'
@@ -106,7 +106,8 @@ export default async function PartnersPage({ params }: { params: Params }) {
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations({ locale, namespace: 'partners' })
-  const { rows, totalCount } = await getPartners({ perPage: 100 })
+  const { rows: rawRows, totalCount } = await getPartners({ perPage: 100 })
+  const rows = rawRows.map((r) => applyPartnerLocale(r, locale))
 
   return (
     <main style={{ background: 'var(--color-cream)' }}>

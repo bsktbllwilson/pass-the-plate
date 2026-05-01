@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { content } from '@/lib/content'
-import { getListingBySlug, type Listing } from '@/lib/listings'
+import { applyListingLocale, ensureListingTranslated, getListingBySlug, type Listing } from '@/lib/listings'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
@@ -62,10 +62,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const listing = await getListingBySlug(slug)
-  if (!listing) notFound()
+export default async function ListingDetailPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
+  const { slug, locale } = await params
+  const raw = await getListingBySlug(slug)
+  if (!raw) notFound()
+  // On /zh, translate-on-demand: if the row has no cached zh fields,
+  // fire a Claude translation synchronously and write back to DB so
+  // future visits hit the cache. Adds ~1-2s on the first /zh visit
+  // for any given listing; acceptable for a Chinese reader who's
+  // already clicked through.
+  const translated = locale === 'zh' ? await ensureListingTranslated(raw) : raw
+  const listing = applyListingLocale(translated, locale)
 
   const [firstPara, ...restParas] = listing.description.split(/\n\n+/)
   const aboutBody = restParas.join('\n\n')

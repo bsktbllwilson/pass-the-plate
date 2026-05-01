@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
-import { getPosts, type PlaybookPost } from '@/lib/playbook'
+import { applyPlaybookPostLocale, getPosts, type PlaybookPost } from '@/lib/playbook'
 import SiteHeader from '@/components/sections/SiteHeader'
 import SiteFooter from '@/components/sections/SiteFooter'
 import BuySellSplit from '@/components/sections/BuySellSplit'
@@ -98,7 +98,11 @@ export default async function PlaybookIndexPage({ params, searchParams }: { para
   const category = first(sp.category)
   const page = Math.max(1, Number.parseInt(first(sp.page) ?? '1', 10) || 1)
 
-  const { rows, totalPages } = await getPosts({ category, page, perPage: 6 })
+  const { rows: rawRows, totalPages } = await getPosts({ category, page, perPage: 6 })
+  // Overlay any reviewed zh translations. Posts without zh content
+  // show their English title / excerpt — no auto-translate for
+  // editorial content; PR3c populates these manually.
+  const rows = rawRows.map((r) => applyPlaybookPostLocale(r, locale))
 
   const baseQS = new URLSearchParams()
   for (const [k, v] of Object.entries(sp)) {
