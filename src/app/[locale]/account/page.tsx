@@ -271,7 +271,6 @@ function WelcomeHeader({ profile, email }: { profile: Profile | null; email: str
       <div>
         <h1
           className="font-display font-medium tracking-[-0.01em] mb-8 flex items-center gap-3 flex-wrap"
-          style={{ fontSize: '3.875rem', lineHeight: '1.15' }}
         >
           <span>Welcome, {displayName}</span>
           <VerifiedBadge isVerified={isVerified} size={26} />
