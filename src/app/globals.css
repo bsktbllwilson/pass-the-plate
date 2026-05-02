@@ -31,6 +31,75 @@ html, body {
   color: #000;
 }
 
+/* ── Founder-spec'd typography rules ──────────────────────────────────
+   Element-level rules pasted from the founder's typography spec.
+   These set the default font-family / weight / size for each tag, but
+   Tailwind utility classes (font-display, font-body, font-medium, etc.)
+   and inline style props on individual components have higher CSS
+   specificity and may override here. Where the spec doesn't visibly
+   apply on a given page, the inline / Tailwind values win — flag any
+   surface where you want the spec enforced and we can strip the
+   relevant overrides. */
+
+h1 {
+  font-family: please-display-vf, sans-serif;
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-family: please-display-vf, sans-serif;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+p {
+  font-family: proxima-nova, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+button,
+a.cta,
+.cta-button {
+  font-family: proxima-nova, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+nav,
+nav a,
+nav li {
+  font-family: proxima-nova, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+footer,
+footer a,
+footer li,
+footer p {
+  font-family: proxima-nova, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.subheadline,
+h1 + p,
+h1 + .subtitle {
+  font-family: proxima-nova, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+:lang(zh),
+:lang(zh-TW),
+:lang(zh-HK),
+.chinese-text {
+  font-family: source-han-sans-traditional, sans-serif;
+}
+
 /* ── Chinese font stack ──────────────────────────────────────────────
    On /zh routes, the [locale] layout sets <html lang="zh-CN">. We
    redefine --font-display and --font-body under that lang attr so

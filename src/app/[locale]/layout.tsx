@@ -89,7 +89,16 @@ export default async function RootLayout({
   return (
     <html lang={HTML_LANG[locale]}>
       <head>
-        <link rel="stylesheet" href="https://use.typekit.net/cub1hgl.css" />
+        {/* Typekit JS loader (kit cub1hgl). Replaces the simpler
+            <link rel="stylesheet"> approach so we get the wf-loading
+            / wf-active / wf-inactive class hooks for FOUT control,
+            plus a 3s timeout that flips html.wf-inactive if Typekit
+            stalls. The IIFE injects the script tag asynchronously. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(d){var config={kitId:'cub1hgl',scriptTimeout:3000,async:true},h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\\bwf-loading\\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)})(document);`,
+          }}
+        />
         <meta property="og:locale" content={OG_LOCALE[locale]} />
         {locale === 'en' && <meta property="og:locale:alternate" content="zh_CN" />}
         {locale === 'zh' && <meta property="og:locale:alternate" content="en_US" />}
