@@ -80,7 +80,7 @@ export default async function PlaybookPostPage({ params }: { params: Promise<{ s
             </span>
           </div>
 
-          <h1 className="font-display font-medium tracking-[-0.02em] mt-6" style={{ fontSize: '3.875rem', lineHeight: '1.05' }}>
+          <h1 className="font-display font-medium tracking-[-0.02em] mt-6">
             {post.title}
           </h1>
 

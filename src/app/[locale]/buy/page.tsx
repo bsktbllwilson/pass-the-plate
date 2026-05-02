@@ -182,7 +182,7 @@ export default async function BuyPage({ params, searchParams }: { params: Params
 
       <section className="px-4 pt-20 md:pt-28 pb-16 md:pb-20">
         <div className="mx-auto text-center" style={{ maxWidth: '1540px' }}>
-          <h1 className="font-display font-medium tracking-[-0.01em] mb-6" style={{ fontSize: '3.875rem', lineHeight: '1.15' }}>
+          <h1 className="font-display font-medium tracking-[-0.01em] mb-6">
             {t('heroH1')}
           </h1>
           <p className="mb-12 mx-auto" style={{ fontSize: '1.25rem', color: 'rgba(0,0,0,0.65)', maxWidth: '600px', fontWeight: 500 }}>

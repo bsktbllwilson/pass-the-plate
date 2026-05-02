@@ -138,7 +138,7 @@ export default async function PlaybookIndexPage({ params, searchParams }: { para
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)' }} />
         <div className="absolute inset-0 flex items-end">
-          <h1 className="font-display pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'var(--color-cream-soft)', fontSize: '3.875rem', lineHeight: '1' }}>
+          <h1 className="font-display pl-12 lg:pl-24 pb-12 pr-6 font-medium tracking-[-0.02em]" style={{ color: 'var(--color-cream-soft)' }}>
             {t('heroH1')}
           </h1>
         </div>

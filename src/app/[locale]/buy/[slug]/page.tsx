@@ -91,7 +91,7 @@ export default async function ListingDetailPage({ params }: { params: Promise<{ 
       <section className="px-4 pb-20">
         <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-12" style={{ maxWidth: '1280px' }}>
           <div className="lg:col-span-8">
-            <h1 className="font-display font-medium tracking-[-0.01em] mb-4" style={{ fontSize: '3.875rem', lineHeight: '1.05' }}>
+            <h1 className="font-display font-medium tracking-[-0.01em] mb-4">
               {listing.title}
             </h1>
             <div className="font-body inline-block px-4 py-2 rounded-full bg-white border border-black/10 text-sm mb-8">

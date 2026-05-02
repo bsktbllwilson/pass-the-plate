@@ -7,8 +7,8 @@ export default function Hero() {
     <section className="pt-16 pb-20 px-4 text-center">
       <div className="mx-auto" style={{ maxWidth: '1100px' }}>
         <h1
-          className="font-display font-medium leading-[1.15] tracking-[-0.01em] mb-6"
-          style={{ fontSize: '3.875rem', color: '#000' }}
+          className="font-display font-medium tracking-[-0.01em] mb-6"
+          style={{ color: '#000' }}
         >
           {t('headline')}
         </h1>
