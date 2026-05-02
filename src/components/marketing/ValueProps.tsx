@@ -40,7 +40,7 @@ export default function ValueProps(props: Props = {}) {
       <div className="mx-auto" style={{ maxWidth: '1540px' }}>
         <h2
           className="font-display font-medium tracking-[-0.01em] mb-10"
-          style={{ fontSize: '3.875rem', lineHeight: '1.15' }}
+          style={{ fontSize: '60px', lineHeight: '1.1' }}
         >
           {heading}
         </h2>
