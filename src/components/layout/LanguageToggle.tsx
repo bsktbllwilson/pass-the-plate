@@ -23,6 +23,14 @@ export default function LanguageToggle({ className = '' }: { className?: string 
 
   function switchTo(next: Locale) {
     if (next === locale) return
+    // Per founder spec: set document.documentElement.lang immediately
+    // on toggle so the :lang(zh) CSS rule applies before next-intl
+    // finishes navigating. zh-TW (not zh-CN) is the founder-chosen
+    // tag — matches the Source Han Sans Traditional font family
+    // licensed in the Typekit kit.
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = next === 'zh' ? 'zh-TW' : 'en'
+    }
     startTransition(() => {
       // Pass `locale` as the second arg so next-intl reroutes to the
       // same path under the new locale prefix. usePathname() returns
