@@ -36,19 +36,27 @@ export default function ValueProps(props: Props = {}) {
   }
 
   return (
-    <section className="px-4 pb-24">
-      <div className="mx-auto" style={{ maxWidth: '1540px' }}>
+    <section className="pb-24">
+      <div className="mx-auto px-4" style={{ maxWidth: '1540px' }}>
         <h2
           className="font-display font-medium tracking-[-0.01em] mb-10"
           style={{ fontSize: '60px', lineHeight: '1.1' }}
         >
           {heading}
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 overflow-x-auto snap-x snap-mandatory xl:overflow-visible">
+      </div>
+      {/* Single horizontal row, never stacks. Bleeds the scroll
+          container to the page edges via -mx + matching px so the
+          first/last cards align with the heading column above and
+          subsequent cards extend off-screen until the user scrolls. */}
+      <div
+        className="overflow-x-auto snap-x snap-mandatory scroll-pl-4 sm:scroll-pl-6 lg:scroll-pl-[calc((100vw-1540px)/2+1rem)]"
+      >
+        <div className="flex gap-6 px-4 sm:px-6 lg:px-[calc((100vw-1540px)/2+1rem)] pb-2">
           {plates.map((plate) => (
             <div
               key={plate.title}
-              className="rounded-[35px] p-7 flex flex-col border-[3px] border-black/75 min-h-[320px] snap-start"
+              className="rounded-[35px] p-7 flex flex-col border-[3px] border-black/75 min-h-[320px] snap-start flex-shrink-0 w-[80vw] sm:w-[360px]"
               style={{ background: 'var(--color-brand)' }}
             >
               <h3 className="font-display font-medium tracking-[-0.01em] mb-3" style={{ fontSize: '1.75rem', lineHeight: '1.1' }}>
