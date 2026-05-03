@@ -33,7 +33,7 @@ export default function TrendingHotspots({ listings }: { listings: Listing[] }) 
     <section className="px-4 pb-20">
       <div className="mx-auto" style={{ maxWidth: '1540px' }}>
         <div className="flex items-baseline justify-between mb-8">
-          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '3.875rem', lineHeight: '1.15' }}>{t('heading')}</h2>
+          <h2 className="font-display font-medium tracking-[-0.01em]" style={{ fontSize: '60px', lineHeight: '1.1' }}>{t('heading')}</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {listings.map((listing) => (
