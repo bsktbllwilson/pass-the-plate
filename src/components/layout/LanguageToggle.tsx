@@ -1,63 +1,54 @@
 'use client'
 import { useLocale } from 'next-intl'
+import { useTransition } from 'react'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { routing, type Locale } from '@/i18n/routing'
-import { useTransition } from 'react'
 
-// Visible, prominent EN | 中文 toggle for the nav. The Chinese
-// character is the brand's #1 differentiator vs BizBuySell, so this
-// switch is meant to be loud — not a subtle dropdown. The active
-// locale gets cream-on-orange weight; the inactive one is muted.
-//
-// Hidden entirely when only one locale is enabled (i.e. zh disabled
-// in production via NEXT_PUBLIC_ENABLE_ZH=false). Keeps the nav
-// uncluttered until the Chinese version is ready to ship live.
-export default function LanguageToggle({ className = '' }: { className?: string }) {
+// Circular EN | 中 toggle for the nav. Pill container in brand
+// orange with a cream-soft border; each button is a 32px circle.
+// Active locale = filled cream / brand-orange text. Inactive =
+// muted cream-soft text. Hidden when only one locale is enabled
+// (NEXT_PUBLIC_ENABLE_ZH=false in production).
+export default function LanguageToggle() {
   const locale = useLocale() as Locale
   const pathname = usePathname()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
-  // Hide if only one locale is configured.
   if (routing.locales.length < 2) return null
 
   function switchTo(next: Locale) {
     if (next === locale) return
-    // Per founder spec: set document.documentElement.lang immediately
-    // on toggle so the :lang(zh) CSS rule applies before next-intl
-    // finishes navigating. zh-TW (not zh-CN) is the founder-chosen
-    // tag — matches the Source Han Sans Traditional font family
-    // licensed in the Typekit kit.
+    // Set <html lang> immediately so the :lang(zh) CSS rule applies
+    // before next-intl finishes the route change. zh-TW matches the
+    // Source Han Sans Traditional font licensed in the Typekit kit.
     if (typeof document !== 'undefined') {
       document.documentElement.lang = next === 'zh' ? 'zh-TW' : 'en'
     }
     startTransition(() => {
-      // Pass `locale` as the second arg so next-intl reroutes to the
-      // same path under the new locale prefix. usePathname() returns
-      // the path without the locale prefix already.
       router.replace(pathname, { locale: next })
     })
   }
 
-  const buttonBase =
-    'font-display font-medium leading-none px-3 py-1 rounded-full transition-colors disabled:opacity-50'
+  const baseBtn =
+    'flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors disabled:opacity-50'
 
   return (
     <div
       role="group"
       aria-label="Language"
-      className={`inline-flex items-center gap-1 rounded-full border border-[var(--color-cream-soft)]/60 px-1 py-0.5 ${className}`}
-      style={{ fontSize: '15px' }}
+      className="inline-flex items-center rounded-full border border-[#f8f3de]/40 bg-[#e64e21] p-0.5"
     >
       <button
         type="button"
         onClick={() => switchTo('en')}
         disabled={isPending}
         aria-pressed={locale === 'en'}
-        className={`${buttonBase} ${
+        aria-label="English"
+        className={`${baseBtn} ${
           locale === 'en'
-            ? 'bg-[var(--color-cream-soft)] text-[var(--color-brand)]'
-            : 'text-[var(--color-cream-soft)] hover:text-white'
+            ? 'bg-[#f8f3de] text-[#e64e21]'
+            : 'text-[#f8f3de]/80 hover:text-[#f8f3de]'
         }`}
       >
         EN
@@ -67,13 +58,14 @@ export default function LanguageToggle({ className = '' }: { className?: string 
         onClick={() => switchTo('zh')}
         disabled={isPending}
         aria-pressed={locale === 'zh'}
-        className={`${buttonBase} ${
+        aria-label="中文"
+        className={`${baseBtn} ${
           locale === 'zh'
-            ? 'bg-[var(--color-cream-soft)] text-[var(--color-brand)]'
-            : 'text-[var(--color-cream-soft)] hover:text-white'
+            ? 'bg-[#f8f3de] text-[#e64e21]'
+            : 'text-[#f8f3de]/80 hover:text-[#f8f3de]'
         }`}
       >
-        中文
+        中
       </button>
     </div>
   )
