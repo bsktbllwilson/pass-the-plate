@@ -2,7 +2,7 @@
 
 @theme {
   --font-display: 'please-display-vf', 'Please Display VF', Georgia, serif;
-  --font-body: 'please-display-vf', 'Please Display VF', Georgia, serif;
+  --font-body: 'proxima-nova', 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /* Serif face for prose-heavy contexts (playbook article body) so the
      type system has more depth than just the display + sans pairing.
      System Georgia/Cambria/serif until a custom face is licensed. */
@@ -31,43 +31,48 @@ html, body {
   color: #000;
 }
 
-/* ── Founder-spec'd typography rules ──────────────────────────────────
-   Element-level rules pasted from the founder's typography spec.
-   These set the default font-family / weight / size for each tag, but
-   Tailwind utility classes (font-display, font-body, font-medium, etc.)
-   and inline style props on individual components have higher CSS
-   specificity and may override here. Where the spec doesn't visibly
-   apply on a given page, the inline / Tailwind values win — flag any
-   surface where you want the spec enforced and we can strip the
-   relevant overrides. */
-
-h1 {
+/* H1 Titles */
+h1,
+.font-display {
   font-family: please-display-vf, sans-serif;
   font-weight: 500;
+  font-variation-settings: 'wght' 500;
   font-size: 60px;
   line-height: 1.1;
 }
 
+/* H2 Titles */
 h2 {
   font-family: please-display-vf, sans-serif;
   font-weight: 500;
+  font-variation-settings: 'wght' 500;
   font-size: 35px;
 }
 
+/* Body Paragraphs */
 p {
   font-family: proxima-nova, sans-serif;
   font-weight: 400;
   font-size: 15px;
 }
 
+/* CTA Buttons + Search Bar */
 button,
+input[type="submit"],
+input[type="search"],
+input[type="text"],
+.search-bar,
+.search-input,
 a.cta,
-.cta-button {
+.cta-button,
+[class*="btn"],
+[class*="button"] {
   font-family: proxima-nova, sans-serif;
   font-weight: 500;
   font-size: 15px;
 }
 
+/* Nav Bar */
 nav,
 nav a,
 nav li {
@@ -76,6 +81,7 @@ nav li {
   font-size: 15px;
 }
 
+/* Footer */
 footer,
 footer a,
 footer li,
@@ -85,6 +91,7 @@ footer p {
   font-size: 15px;
 }
 
+/* Subheadline under H1 */
 .subheadline,
 h1 + p,
 h1 + .subtitle {
@@ -93,6 +100,7 @@ h1 + .subtitle {
   font-size: 20px;
 }
 
+/* Chinese Language Text */
 :lang(zh),
 :lang(zh-TW),
 :lang(zh-HK),
@@ -100,23 +108,10 @@ h1 + .subtitle {
   font-family: source-han-sans-traditional, sans-serif;
 }
 
-/* ── Chinese font stack ──────────────────────────────────────────────
-   On /zh routes, the [locale] layout sets <html lang="zh-CN">. We
-   redefine --font-display and --font-body under that lang attr so
-   every Tailwind `font-display` / `font-body` utility (and the body
-   default that points at var(--font-body)) automatically uses Source
-   Han Sans Traditional from the existing Typekit kit (cub1hgl).
-   System fallbacks (PingFang SC on macOS / iOS, Microsoft YaHei on
-   Windows, Hiragino Sans GB on older macOS) keep Chinese text
-   rendering correctly while Typekit's CSS finishes loading.
-   Note: PP Display VF is Latin-only, so Chinese headings would
-   otherwise fall through to a system serif. Aliasing both display +
-   body to Source Han Sans gives consistent CJK rendering across
-   nav, headings, and prose on the Chinese side. */
-html[lang^="zh"] {
-  --font-display: "source-han-sans-traditional", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
-  --font-body: "source-han-sans-traditional", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
-  --font-prose: "source-han-sans-traditional", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+/* Body class override */
+.font-body {
+  font-family: proxima-nova, sans-serif;
+  font-weight: 400;
 }
 
 img { display: block; max-width: 100%; }
