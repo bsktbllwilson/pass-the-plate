@@ -49,6 +49,27 @@ h2 {
   font-size: 35px;
 }
 
+/* ── Mobile typography overrides ──────────────────────────────────────
+   60px H1s and 60px-via-inline visually-H1-style H2s break into 4
+   lines on a 390px viewport. Cap them at 36 / 28 below 768px so
+   headlines fit in 1–2 lines on iPhone. The selector
+   [style*="font-size: 60px"] also catches H2 sections that set their
+   size inline (TrendingHotspots, ValueProps, BuySellSplit headings).
+   !important needed because those inline styles otherwise win. */
+@media (max-width: 767px) {
+  h1,
+  .font-display {
+    font-size: 36px !important;
+    line-height: 1.15 !important;
+  }
+  h2,
+  h2[style*="font-size: 60px"],
+  [style*="font-size: 60px"] {
+    font-size: 32px !important;
+    line-height: 1.15 !important;
+  }
+}
+
 /* Body Paragraphs */
 p {
   font-family: proxima-nova, sans-serif;

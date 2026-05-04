@@ -127,7 +127,7 @@ export default async function PlaybookIndexPage({ params, searchParams }: { para
     <main style={{ background: 'var(--color-cream)' }}>
       <SiteHeader />
 
-      <section className="relative w-full overflow-hidden -mt-[104px]" style={{ minHeight: '400px', height: '50vh' }}>
+      <section className="relative w-full overflow-hidden md:-mt-[104px]" style={{ minHeight: '400px', height: '50vh' }}>
         <Image
           src="/images/brand/dinner_table.jpeg"
           alt={t('heroH1')}

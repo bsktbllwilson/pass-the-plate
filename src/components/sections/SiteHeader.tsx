@@ -80,7 +80,9 @@ export default function SiteHeader() {
           </div>
         </div>
 
-        {/* Mobile: logo center, hamburger right */}
+        {/* Mobile: logo center, hamburger right. UserMenu lives INSIDE
+            the hamburger drawer (not next to the logo) so the Sign In
+            pill doesn't overlap the wordmark on narrow viewports. */}
         <div className="md:hidden flex items-center justify-between">
           <span className="w-10" aria-hidden />
           <Link href="/" className="flex items-center mx-auto">
@@ -93,18 +95,15 @@ export default function SiteHeader() {
               priority
             />
           </Link>
-          <div className="flex items-center gap-2">
-            <UserMenu />
-            <button
-              className="text-[var(--color-cream-soft)] p-2"
-              onClick={() => setOpen(!open)}
-              aria-label={t('menuToggle')}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                {open ? (<><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></>) : (<><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></>)}
-              </svg>
-            </button>
-          </div>
+          <button
+            className="text-[var(--color-cream-soft)] p-2 -mr-1"
+            onClick={() => setOpen(!open)}
+            aria-label={t('menuToggle')}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              {open ? (<><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></>) : (<><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></>)}
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -120,7 +119,8 @@ export default function SiteHeader() {
               {l.label}
             </Link>
           ))}
-          <div className="pt-4">
+          <div className="pt-4 flex items-center gap-4 flex-wrap">
+            <UserMenu />
             <LanguageToggle />
           </div>
         </div>
