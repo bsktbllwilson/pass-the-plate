@@ -37,6 +37,13 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Serwist service worker build output. Emitted at build time from
+# src/app/sw.ts; committing would fight the source of truth.
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/swe-worker-*.js
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

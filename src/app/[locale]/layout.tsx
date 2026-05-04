@@ -1,10 +1,22 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import '../globals.css'
 import ChatWidget from '@/components/widget/ChatWidget'
+import InstallPrompt from '@/components/pwa/InstallPrompt'
+import ServiceWorkerRegister from '@/components/pwa/ServiceWorkerRegister'
 import { routing, type Locale } from '@/i18n/routing'
+
+// PWA viewport: themeColor matches the brand orange so iOS / Android
+// status bars tint to brand on standalone install. viewportFit=cover
+// + safe-area CSS in components handles notched devices.
+export const viewport: Viewport = {
+  themeColor: '#E64E21',
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.passtheplate.store'
 const SITE_NAME = 'Pass The Plate'
@@ -102,11 +114,20 @@ export default async function RootLayout({
         <meta property="og:locale" content={OG_LOCALE[locale]} />
         {locale === 'en' && <meta property="og:locale:alternate" content="zh_CN" />}
         {locale === 'zh' && <meta property="og:locale:alternate" content="en_US" />}
+        {/* iOS-specific PWA meta. apple-touch-icon is referenced by
+            iOS Safari for the home-screen icon; manifest.ts already
+            covers the modern web app manifest path. */}
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="PTP" />
       </head>
       <body>
         <NextIntlClientProvider>
           {children}
           <ChatWidget />
+          <ServiceWorkerRegister />
+          <InstallPrompt />
         </NextIntlClientProvider>
       </body>
     </html>
