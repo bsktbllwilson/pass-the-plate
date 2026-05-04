@@ -187,6 +187,11 @@ export default function ChatWidget() {
   const [hydrated, setHydrated] = useState(false)
   const [hintDismissed, setHintDismissed] = useState(true)
   const [avatarMood, setAvatarMood] = useState<AvatarMood>('happy')
+  // Hide the floating mascot while the user is parked at the top of
+  // the page (where the hero CTAs live and where the mascot was
+  // overlapping the homepage "Find A Seat" button + the BuySellSplit
+  // headline). Reveal once they've scrolled past the hero.
+  const [scrolledPastHero, setScrolledPastHero] = useState(false)
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
@@ -225,8 +230,17 @@ export default function ChatWidget() {
     setHintDismissed(dismissed)
     setHydrated(true)
     const t = setTimeout(() => setBouncing(false), 2000)
+    // Track scroll position so the mascot hides while the hero / CTA
+    // section is in view and reveals once the user has scrolled past.
+    // Threshold of 240px clears past most heroes' first CTA on mobile.
+    function onScroll() {
+      setScrolledPastHero(window.scrollY > 240)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => {
       clearTimeout(t)
+      window.removeEventListener('scroll', onScroll)
       if (moodTimerRef.current) clearTimeout(moodTimerRef.current)
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current)
       if (avatarClickTimerRef.current) clearTimeout(avatarClickTimerRef.current)
@@ -438,12 +452,26 @@ export default function ChatWidget() {
   return (
     <>
       {!isOpen && (
-        <div className="fixed bottom-4 right-8 z-50 flex flex-col items-center gap-1">
+        <div
+          className={`fixed right-4 sm:right-8 z-50 flex flex-col items-center gap-1 transition-opacity duration-200 ${
+            // Hide while parked at the top of the page (hero CTAs visible)
+            // or until the client has hydrated to avoid SSR/CSR flash. After
+            // the user scrolls past the hero, fade in.
+            hydrated && scrolledPastHero ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+          style={{
+            // Lift above iOS Safari's bottom URL bar / home indicator.
+            // env(safe-area-inset-bottom) handles notched / dynamic-island
+            // devices; 80px floor keeps the mascot off the URL bar even on
+            // older phones without the env var.
+            bottom: 'calc(env(safe-area-inset-bottom, 0px) + 80px)',
+          }}
+        >
           <button
             ref={buttonRef}
             onClick={handleOpen}
             aria-label="Open chat with Shushu"
-            className={`w-[144px] h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
+            className={`w-16 h-16 sm:w-[144px] sm:h-[144px] flex items-end justify-center transition-transform hover:scale-105 ${
               bouncing ? 'animate-bounce' : ''
             }`}
           >
@@ -456,6 +484,18 @@ export default function ChatWidget() {
               style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18))' }}
               priority
             />
+          </button>
+          {/* Mobile-only "Chat" label so the mascot reads as an
+              affordance, not a stray illustration. Always visible
+              when the mascot is shown (no dismiss state) since the
+              full sm+ hint chip is hidden on this breakpoint. */}
+          <button
+            type="button"
+            onClick={handleOpen}
+            className="sm:hidden mt-1 rounded-full bg-black text-[var(--color-cream-soft)] px-3 py-0.5 text-[11px] font-medium shadow-md"
+            tabIndex={-1}
+          >
+            Chat
           </button>
           {hydrated && !bouncing && !hintDismissed && (
             <div

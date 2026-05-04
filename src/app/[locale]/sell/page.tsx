@@ -57,7 +57,7 @@ function SellStats() {
 function SellHero() {
   const t = useTranslations('sell.hero')
   return (
-    <section className="relative w-full overflow-hidden -mt-[104px]" style={{ minHeight: '600px', height: '70vh' }}>
+    <section className="relative w-full overflow-hidden md:-mt-[104px]" style={{ minHeight: '600px', height: '70vh' }}>
       <Image
         src="/images/brand/chef.JPG"
         alt="Chef at work"
