@@ -91,6 +91,12 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|images/|api/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    // Exclude:
+    // - Next.js internals (_next/static, _next/image)
+    // - public/ assets (favicon, images, icons, logo, sitemap, robots)
+    // - PWA artifacts (sw.js, manifest.webmanifest, workbox-*.js) so
+    //   they pass through with no locale prefixing or auth check
+    // - API routes
+    "/((?!_next/static|_next/image|favicon.ico|images/|icons/|sitemap.xml|robots.txt|sw.js|manifest.webmanifest|workbox-.*\\.js|api/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

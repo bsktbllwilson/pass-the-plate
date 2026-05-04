@@ -37,6 +37,26 @@
     "nextPage": "Next Page",
     "pageOf": "Page {page} of {total}"
   },
+  "offline": {
+    "heading": "You're offline",
+    "subhead": "We can't reach the network right now. Recently viewed listings and pages may still be available — try Browse below.",
+    "browseListings": "Browse Cached Listings",
+    "backHome": "← Back home"
+  },
+  "pwa": {
+    "install": {
+      "ctaShort": "Install",
+      "ctaLong": "Add Pass The Plate to home screen",
+      "iosTitle": "Install on your iPhone",
+      "iosBody": "Tap the Share button, then choose \"Add to Home Screen\" to install Pass The Plate.",
+      "iosClose": "Got it",
+      "wechatHint": "Open in Safari or Chrome to install."
+    },
+    "update": {
+      "message": "A new version is available.",
+      "action": "Tap to refresh"
+    }
+  },
   "findYourNextBigDeal": {
     "heading": "Find Your Next Big Deal",
     "subhead": "Browse vetted Asian F&B businesses for sale across the country. Bilingual support, transparent financials, and an advisor network ready when you are.",

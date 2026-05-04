@@ -1,7 +1,21 @@
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
+import withSerwistInit from '@serwist/next'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
+
+// Service worker pipeline. Reads src/app/sw.ts (TypeScript SW source),
+// emits a bundled service worker at /public/sw.js plus the precache
+// manifest. Skipped in dev to avoid stale-cache headaches while the
+// SW is iterated; full SW + caching only runs in production builds.
+const withSerwist = withSerwistInit({
+  swSrc: 'src/app/sw.ts',
+  swDest: 'public/sw.js',
+  reloadOnOnline: true,
+  // SW disabled in dev (set to true via env if you need to debug it
+  // locally with `pnpm build && pnpm start`).
+  disable: process.env.NODE_ENV === 'development',
+})
 
 // Pull the Supabase project hostname out of the env so next/image can
 // load Storage-served images (cover + gallery on /buy and /account).
@@ -50,4 +64,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withNextIntl(nextConfig)
+export default withSerwist(withNextIntl(nextConfig))
